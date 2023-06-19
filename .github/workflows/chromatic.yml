@@ -1,0 +1,30 @@
+name: 'blegg Chromatic Deployment'
+
+on:
+  push:
+    branches:
+      - fe-dev
+      - 'fe-dev/**'
+  pull_request:
+    branches:
+      - master
+      - 'fe-dev'
+      - 'fe-dev/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+
+      - name: Installation dependencies
+        run: yarn
+        working-directory: frontend
+
+      - name: Pulish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          workingDir: frontend
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
