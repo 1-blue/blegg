@@ -22,6 +22,10 @@ export default {
         "main-800": "#3730a3",
         "main-900": "#312e81",
         "main-950": "#1e1b4b",
+
+        "main-bg": "#080F25",
+        "main-text": "#c7d2fe", // main-200
+        "main-line": "#37446b",
       },
     },
   },

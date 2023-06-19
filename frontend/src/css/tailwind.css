@@ -6,4 +6,8 @@
   html {
     font-family: SBAggro, system-ui, sans-serif;
   }
+
+  body {
+    @apply bg-main-bg text-white
+  }
 }
