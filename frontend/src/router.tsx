@@ -50,7 +50,7 @@ export const routerElements: RouterElement[] = [
     element: <Home />,
     icon: [
       <OHomeIcon className="h-6 w-6" />,
-      <SHomeIcon className="h-6 w-6 fill-main-400" />,
+      <SHomeIcon className="h-6 w-6" />,
     ],
     isAuth: null,
   },
@@ -60,7 +60,7 @@ export const routerElements: RouterElement[] = [
     element: <Champions />,
     icon: [
       <OPresentationChartLineIcon className="h-6 w-6" />,
-      <SPresentationChartLineIcon className="h-6 w-6 fill-main-400" />,
+      <SPresentationChartLineIcon className="h-6 w-6" />,
     ],
     isAuth: null,
   },
@@ -70,7 +70,7 @@ export const routerElements: RouterElement[] = [
     element: <Players />,
     icon: [
       <OPresentationChartBarIcon className="h-6 w-6" />,
-      <SPresentationChartBarIcon className="h-6 w-6 fill-main-400" />,
+      <SPresentationChartBarIcon className="h-6 w-6" />,
     ],
     isAuth: null,
   },
@@ -80,7 +80,7 @@ export const routerElements: RouterElement[] = [
     element: <Community />,
     icon: [
       <OBookOpenIcon className="h-6 w-6" />,
-      <SBookOpenIcon className="h-6 w-6 fill-main-400" />,
+      <SBookOpenIcon className="h-6 w-6" />,
     ],
     isAuth: null,
   },
@@ -90,7 +90,7 @@ export const routerElements: RouterElement[] = [
     element: <Home />,
     icon: [
       <OLockOpenIcon className="h-6 w-6" />,
-      <SLockOpenIcon className="h-6 w-6 fill-main-400" />,
+      <SLockOpenIcon className="h-6 w-6" />,
     ],
     isAuth: null,
   },

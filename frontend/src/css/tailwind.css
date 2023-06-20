@@ -10,4 +10,8 @@
   body {
     @apply bg-main-bg text-white
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }

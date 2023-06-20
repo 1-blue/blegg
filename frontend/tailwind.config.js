@@ -8,8 +8,8 @@ export default {
       sub: ["PyeongChangPeace"],
     },
 
-    /** 2023/06/19 - 색상 ( 남색 ) - by 1-blue */
     extend: {
+      /** 2023/06/19 - 색상 ( 남색 ) - by 1-blue */
       colors: {
         "main-50": "#eef2ff",
         "main-100": "#e0e7ff",
@@ -26,6 +26,18 @@ export default {
         "main-bg": "#080F25",
         "main-text": "#c7d2fe", // main-200
         "main-line": "#37446b",
+        "main-box-bg": "#101935",
+      },
+
+      keyframes: {
+        "move-left": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+      },
+
+      animation: {
+        "move-left": "move-left 0.4s ease-in-out",
       },
     },
   },
