@@ -1,3 +1,5 @@
+import NavBarProvider from "@src/contexts/NavBar";
+
 import ScrollProgress from "./ScrollProgress";
 // import Header from "./Header";
 import ASide from "./ASide";
@@ -11,7 +13,11 @@ const GeneralLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <ScrollProgress />
 
       {/* <Header /> */}
-      <ASide />
+
+      <NavBarProvider>
+        <ASide />
+      </NavBarProvider>
+
       <Main>
         {children}
         <Footer />

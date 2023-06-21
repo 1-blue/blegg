@@ -56,7 +56,7 @@ export const routerElements: RouterElement[] = [
   },
   {
     path: "/champions",
-    label: "챔피언 분석",
+    label: "챔피언 정보",
     element: <Champions />,
     icon: [
       <OPresentationChartLineIcon className="h-6 w-6" />,
