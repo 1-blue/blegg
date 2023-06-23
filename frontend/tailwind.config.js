@@ -9,6 +9,12 @@ export default {
     },
 
     extend: {
+      /** 2023/06/21 - 반응형 사이즈 - by 1-blue */
+      screens: {
+        xs: "400px",
+        mdlg: "896px",
+      },
+
       /** 2023/06/19 - 색상 ( 남색 ) - by 1-blue */
       colors: {
         "main-50": "#eef2ff",
@@ -34,10 +40,16 @@ export default {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0%)" },
         },
+        "skeleton-gradient": {
+          "0%": { backgroundColor: "rgba(165, 165, 165, 0.1)" },
+          "50%": { backgroundColor: "rgba(165, 165, 165, 0.5)" },
+          "100%": { backgroundColor: "rgba(165, 165, 165, 0.1)" },
+        },
       },
 
       animation: {
         "move-left": "move-left 0.4s ease-in-out",
+        "skeleton-gradient": "skeleton-gradient 1.4s infinite ease-in-out",
       },
     },
   },
