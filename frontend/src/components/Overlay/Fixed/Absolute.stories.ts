@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Overlay from "./Overlay";
+import Fixed from "./Fixed";
 
 const meta = {
-  title: "Common/Overlay",
-  component: Overlay,
-  tags: ["autodocs"],
+  title: "Overlay/Fixed",
+  component: Fixed,
   argTypes: {
     show: { description: "렌더링 여부" },
     onCloseOverlay: { description: "닫는 함수" },
+    className: { description: "TailwindCss className" },
   },
-} satisfies Meta<typeof Overlay>;
+  tags: ["autodocs"],
+} satisfies Meta<typeof Fixed>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -18,5 +19,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     show: true,
+    className: "flex justify-center items-center bg-main-400/80",
   },
 };

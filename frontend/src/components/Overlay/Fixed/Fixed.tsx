@@ -1,10 +1,13 @@
-import { AnimatePresence, Variants, motion } from "framer-motion";
+import { AnimatePresence, type Variants, motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   /** 렌더링 여부 */
   show: boolean;
   /** 닫는 함수 */
   onCloseOverlay: () => void;
+  /** TailwindCss className */
+  className?: string;
 }
 
 const variants: Variants = {
@@ -25,18 +28,19 @@ const variants: Variants = {
   },
 };
 
-/** 2023/06/22 - 전체 영역 검정(80%) 배경 - by 1-blue */
-const Overlay: React.FC<React.PropsWithChildren<Props>> = ({
+/** 2023/06/24 - ( fixed ) 배경 씌우는 컴포넌트 - by 1-blue */
+const Fixed: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   show,
   onCloseOverlay,
+  className,
 }) => {
   return (
     <AnimatePresence>
       {show && (
         <motion.article
           onClick={onCloseOverlay}
-          className="fixed inset-0 bg-black/80 flex justify-center items-center"
+          className={twMerge("fixed inset-0", className)}
           variants={variants}
           initial="initial"
           animate="animate"
@@ -49,4 +53,4 @@ const Overlay: React.FC<React.PropsWithChildren<Props>> = ({
   );
 };
 
-export default Overlay;
+export default Fixed;
