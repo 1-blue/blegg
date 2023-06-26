@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Circle from "./Circle";
+import ChampionCard from "./ChampionCard";
 
 const meta = {
-  title: "Skeleton/Circle",
-  component: Circle,
+  title: "Common/Skeleton/ChampionCard",
+  component: ChampionCard,
   tags: ["autodocs"],
-} satisfies Meta<typeof Circle>;
+} satisfies Meta<typeof ChampionCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

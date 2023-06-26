@@ -7,10 +7,10 @@ const variants: Variants = {
 };
 
 interface Props {
-  /** 캡션 */
-  caption?: string;
   /** 공간을 채울 비율 ( 0 ~ 100 ) */
   percent: number;
+  /** 캡션 */
+  caption?: string;
   /** TailwindCss className */
   className?: string;
 }

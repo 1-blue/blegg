@@ -10,12 +10,12 @@ import Nav from "@src/layout/Nav";
 /** 2023/06/19 - 사이드 컴포넌트 - by 1-blue */
 const ASide: React.FC = () => {
   const { width } = useWindowSize();
-
-  const overMedium = width <= 768;
   const { isShowNavBar } = useNavBarValue();
 
+  const overMedium = width <= 768;
+
   return (
-    <aside className="sticky top-0 flex-shrink-0 md:w-[300px] h-auto md:h-screen bg-main-bg border-r border-main-line overflow-y-auto">
+    <aside className="sticky top-0 flex-shrink-0 md:w-[300px] h-auto md:h-screen bg-main-bg border-r border-main-line overflow-y-auto z-[1] lg:z-0">
       {/* 로고 */}
       <ASideLogo />
 

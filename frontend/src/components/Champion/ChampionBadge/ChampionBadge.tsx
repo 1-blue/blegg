@@ -1,5 +1,5 @@
 import Animate from "@src/components/Animate";
-import Icon from "@src/components/Icon";
+import Icon from "@src/components/Common/Icon";
 
 import type { ChampionData } from "@src/types";
 
@@ -19,7 +19,7 @@ const ChampionBadge: React.FC<Props> = ({ champion }) => {
       {/* Tag */}
       <div className="absolute top-2 left-2 flex space-x-1.5 pointer-events-none">
         {champion.tags.map((tag) => (
-          <Icon key={tag} tag={tag} />
+          <Icon.Tag key={tag} tag={tag} />
         ))}
       </div>
 

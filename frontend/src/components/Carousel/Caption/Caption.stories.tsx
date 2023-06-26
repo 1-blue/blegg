@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { getMocDetailChampion } from "@src/libs";
+
 import Caption from "./Caption";
+
+const champion = getMocDetailChampion();
 
 const meta = {
   title: "Carousel/Caption",
@@ -17,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    main: "뽀삐",
-    sub: "망치의 수호자",
+    main: champion.name,
+    sub: champion.title,
   },
 };

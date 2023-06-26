@@ -12,6 +12,7 @@ export default {
       /** 2023/06/21 - 반응형 사이즈 - by 1-blue */
       screens: {
         xs: "400px",
+        xssm: "584px",
         mdlg: "896px",
       },
 

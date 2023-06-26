@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { getMocDetailChampion } from "@src/libs";
+
 import ChampionSkill from "./ChampionSkill";
+
+const champion = getMocDetailChampion();
 
 const meta = {
   title: "Champion/ChampionSkill",
@@ -22,13 +26,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    type: "P",
-    src: "http://ddragon.leagueoflegends.com/cdn/13.12.1/img/passive/Poppy_Passive.png",
-    alt: "강철의 외교관 ( 뽀삐 패시브 )",
-    title: "강철의 외교관",
-    description:
-      "뽀삐가 던진 방패가 대상을 맞히고 튕겨나갑니다. 뽀삐는 방패를 다시 주워 일시적인 보호막 효과를 얻을 수 있습니다.",
-  },
-};
+export const Default: Story = { args: { ...champion.skills[1] } };

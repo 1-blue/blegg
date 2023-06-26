@@ -1,7 +1,4 @@
-import { AnimatePresence } from "framer-motion";
-
-import Carousel from "..";
-import ProgressBar from "@src/components/ProgressBar";
+import Animate from "@src/components/Animate";
 
 import type { RiotInfo, RiotStats } from "@src/types";
 
@@ -16,72 +13,59 @@ interface Props {
 const ChampionInfo: React.FC<Props> = ({ info, stats }) => {
   return (
     <section className="absolute bottom-0 w-full flex items-start space-x-4 lg:space-x-8 p-4 flex-row">
-      <AnimatePresence initial={true}>
-        <div>
-          <Carousel.Text
-            custom={1}
-            main={`공격력: ${stats.attackdamage}`}
-            sub={`${stats.attackdamageperlevel}`}
-          />
-          <Carousel.Text
-            custom={2}
-            main={`공격속도: ${stats.attackspeed}`}
-            sub={`${stats.attackspeedperlevel}`}
-          />
-          <Carousel.Text
-            custom={3}
-            main={`방어력: ${stats.armor}`}
-            sub={`${stats.armorperlevel}`}
-          />
-          <Carousel.Text
-            custom={4}
-            main={`마법저항력: ${stats.spellblock}`}
-            sub={`${stats.spellblockperlevel}`}
-          />
-          <Carousel.Text custom={5} main={`평타사거리: ${stats.attackrange}`} />
-        </div>
-        <div>
-          <Carousel.Text
-            custom={1}
-            main={`체력: ${stats.hp}`}
-            sub={`${stats.hpperlevel}`}
-          />
-          <Carousel.Text
-            custom={2}
-            main={`체력재생량: ${stats.hpregen}`}
-            sub={`${stats.hpregenperlevel}`}
-          />
-          <Carousel.Text
-            custom={3}
-            main={`마나: ${stats.mp}`}
-            sub={`${stats.mpperlevel}`}
-          />
-          <Carousel.Text
-            custom={4}
-            main={`마나재생량: ${stats.mpregen}`}
-            sub={`${stats.mpregenperlevel}`}
-          />
-          <Carousel.Text custom={5} main={`이동속도: ${stats.movespeed}`} />
-        </div>
-        <div className="flex-1 flex flex-col space-y-2 text-xs lg:text-sm">
-          <div className="flex flex-col items-center">
-            <span className="self-start">물리공격력 ( {info.attack} )</span>
-            <ProgressBar percent={info.attack * 10} />
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="self-start">마법공격력 ( {info.magic} )</span>
-            <ProgressBar percent={info.magic * 10} />
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="self-start">방어력 ( {info.defense} )</span>
-            <ProgressBar percent={info.defense * 10} />
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="self-start">난이도 ( {info.difficulty} )</span>
-            <ProgressBar percent={info.difficulty * 10} />
-          </div>
-        </div>
-      </AnimatePresence>
+      {/* 능력치 - 1 */}
+      <Animate.Wrapper>
+        <Animate.Text
+          main={`공격력: ${stats.attackdamage}`}
+          sub={stats.attackdamageperlevel + ""}
+        />
+        <Animate.Text
+          main={`공격속도: ${stats.attackspeed}`}
+          sub={stats.attackspeedperlevel + ""}
+        />
+        <Animate.Text
+          main={`방어력: ${stats.armor}`}
+          sub={stats.armorperlevel + ""}
+        />
+        <Animate.Text
+          main={`마법저항력: ${stats.spellblock}`}
+          sub={stats.spellblockperlevel + ""}
+        />
+        <Animate.Text main={`평타사거리: ${stats.attackrange}`} />
+      </Animate.Wrapper>
+      {/* 능력치 - 2 */}
+      <Animate.Wrapper>
+        <Animate.Text main={`체력: ${stats.hp}`} sub={stats.hpperlevel + ""} />
+        <Animate.Text
+          main={`체력재생량: ${stats.hpregen}`}
+          sub={stats.hpregenperlevel + ""}
+        />
+        <Animate.Text main={`마나: ${stats.mp}`} sub={stats.mpperlevel + ""} />
+        <Animate.Text
+          main={`마나재생량: ${stats.mpregen}`}
+          sub={stats.mpregenperlevel + ""}
+        />
+        <Animate.Text main={`이동속도: ${stats.movespeed}`} />
+      </Animate.Wrapper>
+      {/* 정보 */}
+      <Animate.Wrapper className="flex-1 flex flex-col space-y-2 text-xs lg:text-sm">
+        <Animate.ProgressBar
+          caption={`물리공격력  ( ${info.attack} )`}
+          percent={info.attack * 10}
+        />
+        <Animate.ProgressBar
+          caption={`마법공격력  ( ${info.magic} )`}
+          percent={info.magic * 10}
+        />
+        <Animate.ProgressBar
+          caption={`방어력  ( ${info.defense} )`}
+          percent={info.defense * 10}
+        />
+        <Animate.ProgressBar
+          caption={`난이도  ( ${info.difficulty} )`}
+          percent={info.difficulty * 10}
+        />
+      </Animate.Wrapper>
     </section>
   );
 };

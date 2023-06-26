@@ -15,7 +15,20 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-    layout: "fullscreen", // padding: 1rem 제거 ( padded ) ( https://storybook.js.org/docs/react/configure/story-layout )
+
+    // https://storybook.js.org/docs/react/configure/story-layout
+    layout: "centered",
+
+    // https://storybook.js.org/docs/react/essentials/backgrounds
+    backgrounds: {
+      default: "default",
+      values: [
+        {
+          name: "default",
+          value: "#080F25",
+        },
+      ],
+    },
   },
 };
 

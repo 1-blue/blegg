@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { AnimatePresence, type Variants, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
@@ -35,6 +36,12 @@ const Fixed: React.FC<React.PropsWithChildren<Props>> = ({
   onCloseOverlay,
   className,
 }) => {
+  /** 2023/06/26 - scroll 금지 - by 1-blue */
+  useEffect(() => {
+    if (show) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+  }, [show]);
+
   return (
     <AnimatePresence>
       {show && (

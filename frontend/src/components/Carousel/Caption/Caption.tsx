@@ -9,6 +9,7 @@ const variants: Variants = {
     opacity: 1,
     y: -80,
     transition: {
+      type: "spring",
       delay: 0.2,
       duration: 0.6,
     },

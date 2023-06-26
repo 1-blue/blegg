@@ -6,9 +6,9 @@ const meta = {
   title: "Animate/ProgressBar",
   component: ProgressBar,
   argTypes: {
-    percent: { description: "" },
-    caption: { description: "" },
-    className: { description: "" },
+    percent: { description: "공간을 채울 비율 ( 0 ~ 100 )" },
+    caption: { description: "캡션" },
+    className: { description: "TailwindCss className" },
   },
   tags: ["autodocs"],
   parameters: { layout: "padded" },

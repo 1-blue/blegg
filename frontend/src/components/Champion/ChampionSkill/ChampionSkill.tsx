@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 
-import Tooltip from "@src/components/Tooltip";
+import Tooltip from "@src/components/Common/Tooltip";
 
 import type { SkillType } from "@src/types";
 

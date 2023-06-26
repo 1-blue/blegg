@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Absolute from "./Absolute";
 
 const meta = {
-  title: "Overlay/Absolute",
+  title: "Common/Overlay/Absolute",
   component: Absolute,
   argTypes: {
     className: { description: "TailwindCss className" },

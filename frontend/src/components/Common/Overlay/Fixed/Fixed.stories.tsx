@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Fixed from "./Fixed";
 
 const meta = {
-  title: "Overlay/Fixed",
+  title: "Common/Overlay/Fixed",
   component: Fixed,
   argTypes: {
     show: { description: "렌더링 여부" },
