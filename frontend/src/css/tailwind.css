@@ -6,4 +6,23 @@
   html {
     font-family: SBAggro, system-ui, sans-serif;
   }
+
+  body {
+    @apply bg-main-bg text-white
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /** custom-scroll */
+  .scroll::-webkit-scrollbar {
+    @apply w-2
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    @apply bg-main-400 rounded-sm transition-colors hover:bg-main-500 active:bg-main-600
+  }
+  .scroll::-webkit-scrollbar-track {
+    @apply bg-main-100
+  }
 }
