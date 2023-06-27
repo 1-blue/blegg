@@ -46,11 +46,16 @@ export default {
           "50%": { backgroundColor: "rgba(165, 165, 165, 0.5)" },
           "100%": { backgroundColor: "rgba(165, 165, 165, 0.1)" },
         },
+        "spin-y": {
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(360deg)" },
+        },
       },
 
       animation: {
         "move-left": "move-left 0.4s ease-in-out",
         "skeleton-gradient": "skeleton-gradient 1.4s infinite ease-in-out",
+        "spin-y": "spin-y 1.4s linear infinite",
       },
     },
   },

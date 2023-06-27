@@ -18,3 +18,4 @@ const axiosInstance = axios.create({
 export default axiosInstance;
 
 export * from "./champions";
+export * from "./champion";
