@@ -1,226 +1,40 @@
-export interface Info {
-  attack: number;
-  defense: number;
-  magic: number;
-  difficulty: number;
-}
-export interface Image {
-  full: string;
-  sprite: string;
-  group: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-export type Tag =
-  | "Fighter"
-  | "Tank"
-  | "Mage"
-  | "Assassin"
-  | "Marksman"
-  | "Support";
-export interface Stats {
-  hp: number;
-  hpperlevel: number;
-  mp: number;
-  mpperlevel: number;
-  movespeed: number;
-  armor: number;
-  armorperlevel: number;
-  spellblock: number;
-  spellblockperlevel: number;
-  attackrange: number;
-  hpregen: number;
-  hpregenperlevel: number;
-  mpregen: number;
-  mpregenperlevel: number;
-  crit: number;
-  critperlevel: number;
-  attackdamage: number;
-  attackdamageperlevel: number;
-  attackspeedperlevel: number;
-  attackspeed: number;
-}
+import type {
+  RiotChampionName,
+  RiotImage,
+  RiotInfo,
+  RiotStats,
+  RiotTag,
+} from "src/types";
 
-export interface ChampionData {
+/** 2023/06/22 - 모든 챔피언들 데이터에서 가져온 특정 챔피언의 데이터 타입 - by 1-blue */
+export interface RiotChampionData {
   version: string;
   id: string;
   key: string;
   name: string;
   title: string;
   blurb: string;
-  info: Info;
-  image: Image;
-  tags: Tag[];
+  info: RiotInfo;
+  image: RiotImage;
+  tags: RiotTag[];
   partype: string;
-  stats: Stats;
+  stats: RiotStats;
+  src: string;
 }
-export type ChampionName =
-  | "Aatrox"
-  | "Ahri"
-  | "Akali"
-  | "Akshan"
-  | "Alistar"
-  | "Amumu"
-  | "Anivia"
-  | "Annie"
-  | "Aphelios"
-  | "Ashe"
-  | "AurelionSol"
-  | "Azir"
-  | "Bard"
-  | "Belveth"
-  | "Blitzcrank"
-  | "Brand"
-  | "Braum"
-  | "Caitlyn"
-  | "Camille"
-  | "Cassiopeia"
-  | "Chogath"
-  | "Corki"
-  | "Darius"
-  | "Diana"
-  | "Draven"
-  | "DrMundo"
-  | "Ekko"
-  | "Elise"
-  | "Evelynn"
-  | "Ezreal"
-  | "Fiddlesticks"
-  | "Fiora"
-  | "Fizz"
-  | "Galio"
-  | "Gangplank"
-  | "Garen"
-  | "Gnar"
-  | "Gragas"
-  | "Graves"
-  | "Gwen"
-  | "Hecarim"
-  | "Heimerdinger"
-  | "Illaoi"
-  | "Irelia"
-  | "Ivern"
-  | "Janna"
-  | "JarvanIV"
-  | "Jax"
-  | "Jayce"
-  | "Jhin"
-  | "Jinx"
-  | "Kaisa"
-  | "Kalista"
-  | "Karma"
-  | "Karthus"
-  | "Kassadin"
-  | "Katarina"
-  | "Kayle"
-  | "Kayn"
-  | "Kennen"
-  | "Khazix"
-  | "Kindred"
-  | "Kled"
-  | "KogMaw"
-  | "KSante"
-  | "Leblanc"
-  | "LeeSin"
-  | "Leona"
-  | "Lillia"
-  | "Lissandra"
-  | "Lucian"
-  | "Lulu"
-  | "Lux"
-  | "Malphite"
-  | "Malzahar"
-  | "Maokai"
-  | "MasterYi"
-  | "Milio"
-  | "MissFortune"
-  | "MonkeyKing"
-  | "Mordekaiser"
-  | "Morgana"
-  | "Nami"
-  | "Nasus"
-  | "Nautilus"
-  | "Neeko"
-  | "Nidalee"
-  | "Nilah"
-  | "Nocturne"
-  | "Nunu"
-  | "Olaf"
-  | "Orianna"
-  | "Ornn"
-  | "Pantheon"
-  | "Poppy"
-  | "Pyke"
-  | "Qiyana"
-  | "Quinn"
-  | "Rakan"
-  | "Rammus"
-  | "RekSai"
-  | "Rell"
-  | "Renata"
-  | "Renekton"
-  | "Rengar"
-  | "Riven"
-  | "Rumble"
-  | "Ryze"
-  | "Samira"
-  | "Sejuani"
-  | "Senna"
-  | "Seraphine"
-  | "Sett"
-  | "Shaco"
-  | "Shen"
-  | "Shyvana"
-  | "Singed"
-  | "Sion"
-  | "Sivir"
-  | "Skarner"
-  | "Sona"
-  | "Soraka"
-  | "Swain"
-  | "Sylas"
-  | "Syndra"
-  | "TahmKench"
-  | "Taliyah"
-  | "Talon"
-  | "Taric"
-  | "Teemo"
-  | "Thresh"
-  | "Tristana"
-  | "Trundle"
-  | "Tryndamere"
-  | "TwistedFate"
-  | "Twitch"
-  | "Udyr"
-  | "Urgot"
-  | "Varus"
-  | "Vayne"
-  | "Veigar"
-  | "Velkoz"
-  | "Vex"
-  | "Vi"
-  | "Viego"
-  | "Viktor"
-  | "Vladimir"
-  | "Volibear"
-  | "Warwick"
-  | "Xayah"
-  | "Xerath"
-  | "XinZhao"
-  | "Yasuo"
-  | "Yone"
-  | "Yorick"
-  | "Yuumi"
-  | "Zac"
-  | "Zed"
-  | "Zeri"
-  | "Ziggs"
-  | "Zilean"
-  | "Zoe"
-  | "Zyra";
 
-export type Champions = {
-  [key in ChampionName]: ChampionData;
+/** 2023/06/22 - [모든 챔피언들 데이터](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion.json)에서 필요한 부분의 타입 - by 1-blue */
+export type RiotChampions = {
+  [key in RiotChampionName]: RiotChampionData;
 };
+
+interface ChampionData {
+  id: string;
+  name: string;
+  title: string;
+  src: string;
+  info: RiotInfo;
+  tags: RiotTag[];
+  stats: RiotStats;
+}
+/** 2023/06/23 - 응답할 챔피언들 데이터 타입 - by 1-blue */
+export type Champions = ChampionData[];
