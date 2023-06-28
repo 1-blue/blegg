@@ -18,3 +18,7 @@ export const convertToPassiveSquareImageURL = (name: string) =>
   `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/passive/${name}`;
 
 export const SkillTypeCoords = ["Q", "W", "E", "R"] as const;
+
+/** 2023/06/28 - (아이콘) 정사각형 이미지 url로 변경 - by 1-blue */
+export const convertToIconImageURL = (iconId: number) =>
+  `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/profileicon/${iconId}.png`;
