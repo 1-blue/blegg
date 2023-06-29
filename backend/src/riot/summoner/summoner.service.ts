@@ -3,34 +3,34 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { firstValueFrom, map } from "rxjs";
 
-import type {
-  ApiResponseSummoner,
-  RiotLeagueEntry,
-  RiotSummoner,
-} from "./interfaces/summoner.interface";
 import { convertToIconImageURL } from "src/libs";
+
+import { AccountService } from "../account/account.service";
+
+import type { ApiResponseSummoner } from "./interface/find-summoner-by-name.interface";
+import type { RiotLeagueEntry } from "./model/summoner.model";
 
 @Injectable()
 export class SummonerService {
   private readonly httpService: HttpService;
   private readonly configService: ConfigService;
-  constructor(httpService: HttpService, configService: ConfigService) {
+  private readonly accountService: AccountService;
+  constructor(
+    httpService: HttpService,
+    configService: ConfigService,
+    accountService: AccountService,
+  ) {
     this.httpService = httpService;
     this.configService = configService;
+    this.accountService = accountService;
   }
 
-  async findSummoner({ name }: { name: string }): Promise<ApiResponseSummoner> {
+  /** 2023/06/29 - 특정 소환사 정보 및 솔로/자유랭크 정보 얻기 */
+  async findByName(name: string): Promise<ApiResponseSummoner> {
     const TOKEN = this.configService.get<string>("keys.riot");
 
     // 계정 정보 얻기
-    const account = await firstValueFrom<RiotSummoner>(
-      this.httpService
-        .get(
-          `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}`,
-          { headers: { "X-Riot-Token": TOKEN } },
-        )
-        .pipe(map((res) => res.data)),
-    );
+    const account = await this.accountService.findByName(name);
 
     // 계정 정보를 통해 얻는 소환사 ID를 이용해서 소환사 정보 얻기
     const { id } = account;
