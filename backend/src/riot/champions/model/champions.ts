@@ -7,7 +7,7 @@ import type {
 } from "src/types";
 
 /** 2023/06/22 - 모든 챔피언들 데이터에서 가져온 특정 챔피언의 데이터 타입 - by 1-blue */
-export interface RiotChampionData {
+export interface RiotChampion {
   version: string;
   id: string;
   key: string;
@@ -24,17 +24,5 @@ export interface RiotChampionData {
 
 /** 2023/06/22 - [모든 챔피언들 데이터](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion.json)에서 필요한 부분의 타입 - by 1-blue */
 export type RiotChampions = {
-  [key in RiotChampionName]: RiotChampionData;
+  [key in RiotChampionName]: RiotChampion;
 };
-
-interface ChampionData {
-  id: string;
-  name: string;
-  title: string;
-  src: string;
-  info: RiotInfo;
-  tags: RiotTag[];
-  stats: RiotStats;
-}
-/** 2023/06/23 - 응답할 챔피언들 데이터 타입 - by 1-blue */
-export type Champions = ChampionData[];

@@ -6,11 +6,8 @@ import { DDRANGON_BASE_URL, LANGUAGE, VERSION } from "src/config/riot";
 
 import { convertToChampionSquareImageURL } from "src/libs";
 
-import type {
-  Champions,
-  RiotChampionData,
-  RiotChampions,
-} from "./interfaces/champions.interface";
+import type { ApiResponseChampions } from "./interfaces/champions.interface";
+import type { RiotChampion, RiotChampions } from "./model/champions";
 
 @Injectable()
 export class ChampionsService {
@@ -19,16 +16,16 @@ export class ChampionsService {
     this.httpService = httpService;
   }
 
-  async get(): Promise<Champions> {
-    const data = await firstValueFrom<Champions>(
+  async get(): Promise<ApiResponseChampions> {
+    const data = await firstValueFrom<ApiResponseChampions>(
       this.httpService
         .get(
           `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion.json`,
         )
         .pipe(
           map((res) => res.data.data),
-          map<RiotChampions, Champions>((champions) =>
-            Object.values<RiotChampionData>(champions).map((champion) => ({
+          map<RiotChampions, ApiResponseChampions>((champions) =>
+            Object.values<RiotChampion>(champions).map((champion) => ({
               id: champion.id,
               name: champion.name,
               title: champion.title,

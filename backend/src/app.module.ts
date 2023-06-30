@@ -8,8 +8,6 @@ import { HelloMiddleware } from "./middlewares/hello.middleware";
 
 import { HelloModule } from "./hello/hello.module";
 import { RiotModule } from "./riot/riot.module";
-import { ChampionsModule } from "./champions/champions.module";
-import { ChampionModule } from "./champion/champion.module";
 
 @Module({
   imports: [
@@ -26,9 +24,6 @@ import { ChampionModule } from "./champion/champion.module";
     },
     HelloModule,
     RiotModule,
-
-    ChampionsModule,
-    ChampionModule,
   ],
 })
 export class AppModule implements NestModule {

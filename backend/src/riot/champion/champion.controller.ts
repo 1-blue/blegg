@@ -2,9 +2,9 @@ import { Controller, Get, Param } from "@nestjs/common";
 
 import { ChampionService } from "./champion.service";
 
-import type { Champion } from "./interfaces/champion.interface";
+import type { ApiResponseChampion } from "./interface/champion.interface";
 
-@Controller("champion")
+@Controller("riot/champion")
 export class ChampionController {
   private championService: ChampionService;
 
@@ -13,7 +13,7 @@ export class ChampionController {
   }
 
   @Get(":name")
-  async get(@Param() { name }: { name: string }): Promise<Champion> {
-    return this.championService.get({ name });
+  async get(@Param("name") name: string): Promise<ApiResponseChampion> {
+    return this.championService.get(name);
   }
 }

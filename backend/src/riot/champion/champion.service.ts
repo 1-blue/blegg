@@ -13,7 +13,8 @@ import {
   restEffectRegExp,
 } from "src/libs";
 
-import type { RiotChampion, Champion } from "./interfaces/champion.interface";
+import type { RiotChampionDetail } from "./model/find-champion-by-name.model";
+import type { ApiResponseChampion } from "./interface/champion.interface";
 
 @Injectable()
 export class ChampionService {
@@ -22,15 +23,15 @@ export class ChampionService {
     this.httpService = httpService;
   }
 
-  async get({ name }): Promise<Champion> {
-    const data = await firstValueFrom<Champion>(
+  async get(name: string): Promise<ApiResponseChampion> {
+    const data = await firstValueFrom<ApiResponseChampion>(
       this.httpService
         .get(
           `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion/${name}.json`,
         )
         .pipe(
           map((res) => res.data.data[name]),
-          map<RiotChampion, RiotChampion>((champion) => ({
+          map<RiotChampionDetail, RiotChampionDetail>((champion) => ({
             ...champion,
             spells: champion.spells.map((spell) => {
               // "{{ eN }}" 형식 effect로 대체 ( N은 숫자 )
@@ -52,7 +53,7 @@ export class ChampionService {
               return spell;
             }),
           })),
-          map<RiotChampion, Champion>((champion) => ({
+          map<RiotChampionDetail, ApiResponseChampion>((champion) => ({
             id: champion.id,
             name: champion.name,
             title: champion.title,
