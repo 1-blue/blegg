@@ -34,6 +34,8 @@ export default {
         "main-text": "#c7d2fe", // main-200
         "main-line": "#37446b",
         "main-box-bg": "#101935",
+        "main-search": "#101935",
+        "main-search-hover": "#222e50",
       },
 
       keyframes: {
