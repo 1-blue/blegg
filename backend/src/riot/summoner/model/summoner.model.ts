@@ -1,6 +1,4 @@
-/**
- * 2023/06/28 - [소환사id로 소환사 정보 얻기](https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner) by 1-blue
- */
+/** 2023/06/28 - [소환사id로 소환사 정보 얻기](https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner) by 1-blue */
 export interface RiotLeagueEntry {
   leagueId: string;
   /** "RANKED_SOLO_5x5" | "RANKED_FLEX_SR" */

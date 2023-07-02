@@ -41,12 +41,14 @@ export class SpellService {
               Object.values(spells.data).map((spell) => ({
                 id: spell.id,
                 name: spell.name,
-                description: spell.description,
-                key: spell.key,
+                description:
+                  spell.description +
+                  "\n\n" +
+                  `사거리: ${spell.rangeBurn}` +
+                  "\n" +
+                  `쿨타임: ${spell.cooldownBurn}초`,
                 imageSrc: convertToSpellImageURL(spell.id),
-                cooldown: spell.cooldownBurn,
-                range: spell.rangeBurn,
-                cost: spell.costBurn,
+                key: spell.key,
               })),
             ),
           ),

@@ -1,21 +1,22 @@
 import { RiotImage } from "src/types";
 
+/** 2023/07/03 - [Riot API 아이템들](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/item.json) - by 1-blue */
 export interface RiotItems {
   type: string;
   version: string;
   /** ? */
-  basic: RiotBasic;
+  basic: RiotItemBasic;
   /** 아이템들 정보 */
   data: {
-    [itemId: string]: RiotItem;
+    [itemId: string]: RiotItemItem;
   };
   /** ? */
-  groups: RiotGroup[];
+  groups: RiotItemGroup[];
   /** ? */
-  tree: RiotTree[];
+  tree: RiotItemTree[];
 }
 
-interface RiotBasic {
+interface RiotItemBasic {
   name: string;
   rune: {
     isrune: boolean;
@@ -118,7 +119,7 @@ interface RiotBasic {
     "12": boolean;
   };
 }
-interface RiotItem {
+interface RiotItemItem {
   /** 이름 */
   name: string;
   /** 구체적인 설명 */
@@ -132,7 +133,7 @@ interface RiotItem {
   /** 이미지 */
   image: RiotImage;
   /** 가격에 대한 정보 */
-  gold: RiotGold;
+  gold: RiotItemGold;
   /** 카테고리 */
   tags: string[];
   /** ? */
@@ -148,7 +149,7 @@ interface RiotItem {
   };
 }
 /** 가격에 대한 정보 타입 */
-interface RiotGold {
+interface RiotItemGold {
   /** 기본 가격 */
   base: number;
   /** 구매 가능 여부 ? */
@@ -158,11 +159,11 @@ interface RiotGold {
   /** 판매 가격 */
   sell: number;
 }
-interface RiotGroup {
+interface RiotItemGroup {
   id: string;
   [name: string]: string;
 }
-interface RiotTree {
+interface RiotItemTree {
   header: string;
   tags: string[];
 }

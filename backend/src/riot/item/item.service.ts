@@ -2,12 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { firstValueFrom, map } from "rxjs";
 
-import {
-  LANGUAGE,
-  VERSION,
-  convertToItemImageURL,
-  statsCoords,
-} from "src/libs";
+import { LANGUAGE, VERSION, convertToItemImageURL } from "src/libs";
 
 import type { RiotItems } from "./model/item.model";
 import type {
@@ -57,20 +52,17 @@ export class ItemService {
                   total: v.gold.total,
                   sell: v.gold.sell,
                 },
-                stats: Object.entries(v.stats)
-                  .filter(([name]) => name !== "FlatHPRegenMod")
-                  .map(
-                    ([name, stat]) =>
-                      `${statsCoords[name]}: ${
-                        stat < 1 ? Math.floor(stat * 100) + "%" : stat + ""
-                      }`,
-                  ),
+                totalDescription:
+                  (v.plaintext ? v.plaintext + "<br /><br />" : "") +
+                  v.description,
               })),
             ),
           ),
       );
 
       return item;
-    } catch (error) {}
+    } catch (error) {
+      console.error("/riot/item findAll >> ", error);
+    }
   }
 }

@@ -1,11 +1,8 @@
-/** 2023/06/29 - 응답할 스펠들 데이터 타입 - by 1-blue */
+/** 2023/06/29 - 응답할 스펠 데이터 타입 ( [Riot API 스펠](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/summoner.json) ) - by 1-blue */
 export interface ApiResponseSpell {
   id: string;
   name: string;
   description: string;
-  key: string;
   imageSrc: string;
-  cooldown: string;
-  range: string;
-  cost: string;
+  key: string;
 }

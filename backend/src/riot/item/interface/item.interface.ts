@@ -1,3 +1,4 @@
+/** 2023/07/03 - [Riot API 아이템](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/item.json)에서 필요한 것만 추출한 응답 타입 - by 1-blue */
 export interface ApiResponseItem {
   /** 아이템 Id */
   id: string;
@@ -18,8 +19,9 @@ export interface ApiResponseItem {
     /** 판매 가격 */
     sell: number;
   };
-  /** 아이템 효과 */
-  stats: string[];
+
+  /** 아이템 설명/별칭/가격들을 모두 합쳐서 설명하는 텍스트 */
+  totalDescription: string;
 }
 
 /** 2023/06/29 - 응답할 아이템들 데이터 타입 - by 1-blue */

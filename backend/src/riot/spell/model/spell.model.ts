@@ -1,5 +1,6 @@
 import { RiotImage } from "src/types";
 
+/** 2023/07/03 - [Riot API 스펠](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/summoner.json)에서 얻는 데이터 타입 - by 1-blue */
 export interface RiotSpell {
   type: string;
   version: string;

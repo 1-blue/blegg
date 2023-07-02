@@ -54,25 +54,23 @@ export class SummonerService {
 
             return {
               // 소환사 정보
-              summoner: {
+              info: {
                 name: account.name,
-                summonerLevel: account.summonerLevel,
+                level: account.summonerLevel,
                 profileIconSrc: convertToIconImageURL(account.profileIconId),
               },
               // 솔로랭크 정보
-              RANKED_SOLO_5x5: soloRank && {
+              soloRank: soloRank && {
                 tier: soloRank.tier,
                 rank: soloRank.rank,
-                summonerName: soloRank.summonerName,
                 leaguePoints: soloRank.leaguePoints,
                 wins: soloRank.wins,
                 losses: soloRank.losses,
               },
               // 자유랭크 정보
-              RANKED_FLEX_SR: freeRank && {
+              freeRank: freeRank && {
                 tier: freeRank.tier,
                 rank: freeRank.rank,
-                summonerName: freeRank.summonerName,
                 leaguePoints: freeRank.leaguePoints,
                 wins: freeRank.wins,
                 losses: freeRank.losses,
