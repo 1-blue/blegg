@@ -3,20 +3,20 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { getPrevAndNextRiotChampionNames, shuffle } from "@src/libs";
 
-import { useGetAllChampions } from "@src/query";
+import { useGetAllChampion } from "@src/query";
 
 import Overlay from "@src/components/Common/Overlay";
 import Indicator from "@src/components/Common/Indicator";
 import Carousel from "@src/components/Carousel";
 import ChampionCard from "@src/components/Champion/ChampionCard";
-import ChampionBadge from "@src/components/Champion/ChampionBadge/ChampionBadge";
+import ChampionBadge from "@src/components/Champion/ChampionBadge";
 
-import type { Champions, RiotChampionName } from "@src/types";
+import type { RiotChampionName } from "@src/types";
 
 /** 2023/06/19 - 챔피언 분석 페이지 컴포넌트 - by 1-blue */
 const Champions = () => {
   const navigate = useNavigate();
-  const { champions } = useGetAllChampions();
+  const { champions } = useGetAllChampion();
 
   const selectName = useSearchParams()[0].get("name") as RiotChampionName;
 
@@ -62,7 +62,9 @@ const Champions = () => {
     );
   };
   /** 2023/06/25 - 랜덤으로 섞은 챔피언들 정보 - by 1-blue */
-  const [shuffleChampions, setShuffleChampions] = useState<Champions>([]);
+  const [shuffleChampions, setShuffleChampions] = useState<
+    NonNullable<typeof champions>
+  >([]);
   useEffect(() => {
     if (!champions) return;
 

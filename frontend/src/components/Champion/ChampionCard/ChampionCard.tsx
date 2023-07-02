@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import { riotChampionNames } from "@src/libs";
 
-import { useGetChampion } from "@src/query";
+import { useGetDetailChampion } from "@src/query";
 
 import Animate from "@src/components/Animate";
 import Skeleton from "@src/components/Common/Skeleton";
@@ -17,7 +17,7 @@ interface Props {
 
 /** 2023/06/26 - 챔피언 상세 정보 Card 컴포넌트 - by 1-blue */
 const ChampionCard: React.FC<Props> = ({ name }) => {
-  const { champion, isLoading } = useGetChampion({ name });
+  const { champion, isLoading } = useGetDetailChampion({ name });
 
   // 잘못된 챔피언 이름인 경우
   if (!riotChampionNames.find((championName) => championName === name)) {

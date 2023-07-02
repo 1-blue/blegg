@@ -5,5 +5,5 @@ const QUERY_KEYS = {
 };
 export default QUERY_KEYS;
 
-export * from "./useGetAllChampions";
-export * from "./useGetChampion";
+export * from "./useGetAllChampion";
+export * from "./useGetDetailChampion";

@@ -1,38 +1,15 @@
-export type RiotTag =
-  | "Fighter"
-  | "Tank"
-  | "Mage"
-  | "Assassin"
-  | "Marksman"
-  | "Support";
-export interface RiotInfo {
-  attack: number;
-  defense: number;
-  magic: number;
-  difficulty: number;
+/** 2023/07/02 - RiotAPI에서 사용하는 이미지 타입 형태 - by 1-blue */
+export interface RiotImage {
+  full: string;
+  sprite: string;
+  group: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }
-export interface RiotStats {
-  hp: number;
-  hpperlevel: number;
-  mp: number;
-  mpperlevel: number;
-  movespeed: number;
-  armor: number;
-  armorperlevel: number;
-  spellblock: number;
-  spellblockperlevel: number;
-  attackrange: number;
-  hpregen: number;
-  hpregenperlevel: number;
-  mpregen: number;
-  mpregenperlevel: number;
-  crit: number;
-  critperlevel: number;
-  attackdamage: number;
-  attackdamageperlevel: number;
-  attackspeedperlevel: number;
-  attackspeed: number;
-}
+
+/** 2023/07/02 - 모든 챔피언 이름 ( FIXME: 챔피언 추가되는 경우 고려하기 ) - by 1-blue */
 export type RiotChampionName =
   | "Aatrox"
   | "Ahri"
