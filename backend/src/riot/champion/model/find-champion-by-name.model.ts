@@ -1,12 +1,12 @@
+import type { RiotImage } from "src/types";
 import type {
-  RiotImage,
-  RiotInfo,
-  RiotPassive,
-  RiotSkin,
-  RiotSpell,
-  RiotStats,
-  RiotTag,
-} from "src/types";
+  RiotChampionInfo,
+  RiotChampionPassive,
+  RiotChampionSkin,
+  RiotChampionSpell,
+  RiotChampionStats,
+  RiotChampionTag,
+} from "./champion";
 
 /** 2023/06/22 - [특정 챔피언 데이터](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion/Poppy.json)에서 필요한 부분의 타입 - by 1-blue */
 export interface RiotChampionDetail {
@@ -15,16 +15,15 @@ export interface RiotChampionDetail {
   name: string;
   title: string;
   image: RiotImage;
-  skins: RiotSkin[];
+  skins: RiotChampionSkin[];
   lore: string;
   blurb: string;
   allytips: string[];
   enemytips: string[];
-  tags: RiotTag[];
+  tags: RiotChampionTag[];
   partype: string;
-  info: RiotInfo;
-  stats: RiotStats;
-  spells: RiotSpell[];
-  passive: RiotPassive;
-  // recommended: [];
+  info: RiotChampionInfo;
+  stats: RiotChampionStats;
+  spells: RiotChampionSpell[];
+  passive: RiotChampionPassive;
 }

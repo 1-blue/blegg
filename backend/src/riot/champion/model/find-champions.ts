@@ -1,10 +1,9 @@
+import type { RiotChampionName, RiotImage } from "src/types";
 import type {
-  RiotChampionName,
-  RiotImage,
-  RiotInfo,
-  RiotStats,
-  RiotTag,
-} from "src/types";
+  RiotChampionInfo,
+  RiotChampionStats,
+  RiotChampionTag,
+} from "./champion";
 
 /** 2023/06/22 - 모든 챔피언들 데이터에서 가져온 특정 챔피언의 데이터 타입 - by 1-blue */
 export interface RiotChampion {
@@ -14,11 +13,11 @@ export interface RiotChampion {
   name: string;
   title: string;
   blurb: string;
-  info: RiotInfo;
+  info: RiotChampionInfo;
   image: RiotImage;
-  tags: RiotTag[];
+  tags: RiotChampionTag[];
   partype: string;
-  stats: RiotStats;
+  stats: RiotChampionStats;
   src: string;
 }
 
