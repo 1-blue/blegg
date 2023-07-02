@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon as SMagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
 
+import useRecentSearches from "@src/hooks/useRecentSearches";
 import useClickOutside from "@src/hooks/useClickOutside";
 
 import AutoComplete from "@src/components/Common/AutoComplete";
@@ -10,10 +11,19 @@ import AutoComplete from "@src/components/Common/AutoComplete";
 interface SearchForm {
   searchWord: string;
 }
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  baseURL: string;
+  wrapperClassName?: string;
+}
 
-/** 2023/06/20 - 사이드바 검색 컴포넌트 - by 1-blue */
-const ASideSearch: React.FC<Props> = ({ ...props }) => {
+/** 2023/07/01 - 검색 input 컴포넌트 - by 1-blue */
+const SearchInput: React.FC<Props> = ({
+  baseURL,
+  wrapperClassName,
+  ...props
+}) => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -23,62 +33,53 @@ const ASideSearch: React.FC<Props> = ({ ...props }) => {
   } = useForm<SearchForm>();
 
   /** 2023/06/30 - 최근 검색어 - by 1-blue */
-  const [recentWords, setRecentWords] = useState<string[]>([]);
-  /** 2023/06/30 - 최근 검색어 불러오기 - by 1-blue */
-  useEffect(() => {
-    const words = JSON.parse(localStorage.getItem("recentWords") || "[]");
+  const {
+    recentSearches,
+    setRecentSearches,
+    onClaerOneRecentSearches,
+    onClaerAllRecentSearches,
+  } = useRecentSearches();
 
-    if (!Array.isArray(words)) return setRecentWords([]);
-
-    setRecentWords(words);
-  }, []);
-  /** 2023/06/30 - 모든 최근 검색어 지우기 - by 1-blue */
-  const onClaerAllRecentWords = () => {
-    localStorage.removeItem("recentWords");
-    setRecentWords([]);
-  };
-  /** 2023/06/30 - 특정 최근 검색어 지우기 - by 1-blue */
-  const onClaerOneRecentWords = (word: string) => {
-    const words = recentWords.filter((recentWord) => recentWord !== word);
-
-    localStorage.setItem("recentWords", JSON.stringify(words));
-    setRecentWords(words);
-  };
+  /** 2023/06/30 - 검색창에 포커싱 여부 ( + form 내부를 클릭하는지 여부 ) - by 1-blue */
+  const { containerRef: formRef, isFocus } = useClickOutside<HTMLFormElement>();
 
   /** 2023/06/30 - 검색 - by 1-blue */
   const onSearch: React.FormEventHandler<HTMLFormElement> = handleSubmit(
     ({ searchWord }) => {
+      if (searchWord.trim().length === 0) return;
+
       // 최근 검색어에 없다면
-      if (!recentWords.includes(searchWord)) {
+      if (!recentSearches.includes(searchWord)) {
         // localStorage에 등록
         localStorage.setItem(
-          "recentWords",
-          JSON.stringify([...recentWords, searchWord])
+          "recentSearches",
+          JSON.stringify([...recentSearches, searchWord])
         );
         // state에 등록
-        setRecentWords((prev) => [...prev, searchWord]);
+        setRecentSearches((prev) => [...prev, searchWord]);
       }
 
       // input reset
       reset({ searchWord: "" });
+
+      // 이동
+      navigate(`${baseURL}?q=${searchWord}`, { replace: true });
     }
   );
-
-  /** 2023/06/30 - 검색창에 포커싱 여부 ( + form 내부를 클릭하는지 여부 ) - by 1-blue */
-  const [isFocus, setIsFocus] = useState(false);
-  const [formRef] = useClickOutside<HTMLFormElement>({
-    onOpen: () => setIsFocus(true),
-    onClose: () => setIsFocus(false),
-  });
 
   // 현재 작성중인 검색어
   const searchWord = watch("searchWord");
 
   return (
-    <section className="bg-main-bg p-8 border-b border-main-line">
+    <section
+      className={twMerge(
+        "relative bg-main-bg p-8 border-b border-main-line",
+        wrapperClassName
+      )}
+    >
       {/* error message */}
       {errors.searchWord && (
-        <span className="text-red-500 text-xs">
+        <span className="absolute top-3 left-0 right-0 text-center text-red-500 text-xs">
           {errors.searchWord.message}
         </span>
       )}
@@ -112,19 +113,20 @@ const ASideSearch: React.FC<Props> = ({ ...props }) => {
 
         {/* 최근/추천 검색어 */}
         <AutoComplete
-          isShow={isFocus && !!recentWords.length}
+          baseURL={baseURL}
+          isShow={isFocus && !!recentSearches.length}
           // 작성하지 않았으면 최근 검색어 / 작성했으면 최근 검색어중에 포함하는 것만 렌더링
           items={
             searchWord
-              ? recentWords.filter((v) => v.includes(searchWord))
-              : recentWords
+              ? recentSearches.filter((v) => v.includes(searchWord))
+              : recentSearches
           }
-          onClearOne={onClaerOneRecentWords}
-          onClearAll={onClaerAllRecentWords}
+          onClearOne={onClaerOneRecentSearches}
+          onClearAll={onClaerAllRecentSearches}
         />
       </form>
     </section>
   );
 };
 
-export default ASideSearch;
+export default SearchInput;

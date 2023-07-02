@@ -1,14 +1,16 @@
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, type Variants, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const variants: Variants = {
   initial: { opacity: 0, y: "90%" },
-  animate: { opacity: 1, y: "102%" },
+  animate: { opacity: 1, y: "101%" },
   exit: { opacity: 0, y: "110%" },
 };
 
 interface Props {
+  /** 이동할 URL */
+  baseURL: string;
   /** 렌더링 여부 */
   isShow: boolean;
   /** 렌더링할 요소 */
@@ -21,6 +23,7 @@ interface Props {
 
 /** 2023/06/30 - 추천/최근 검색어 자동완성 - by 1-blue */
 const AutoComplete: React.FC<Props> = ({
+  baseURL,
   isShow,
   items,
   onClearOne,
@@ -30,7 +33,7 @@ const AutoComplete: React.FC<Props> = ({
     <AnimatePresence>
       {isShow && (
         <motion.section
-          className="absolute left-0 bottom-0 mt-0.5 text-sm bg-main-search w-full rounded-b-md overflow-hidden flex flex-col justify-center border-main-line border"
+          className="max-h-[360px] overflow-y-auto scroll absolute left-0 bottom-0 text-sm bg-main-search w-full rounded-b-md flex flex-col justify-center border-main-line border z-[2]"
           variants={variants}
           initial="initial"
           animate="animate"
@@ -39,19 +42,26 @@ const AutoComplete: React.FC<Props> = ({
           {items.map((item) => (
             <Link
               key={item}
-              to={"/"}
-              className="flex justify-between items-center px-4 py-3 cursor-pointer transition-colors hover:bg-main-search-hover border-b border-main-line"
+              to={`${baseURL}?q=${item}`}
+              replace
+              className="flex justify-between items-center cursor-pointer transition-colors hover:bg-main-search-hover border-b border-main-line"
+              data-type="close"
             >
-              <span>{item}</span>
+              <span className="pl-4 py-3" data-type="close">
+                {item}
+              </span>
               {onClearOne && (
-                <XMarkIcon
-                  className="w-5 h-5"
+                <button
+                  type="button"
+                  className="group p-4 transition-all hover:text-main-text"
                   onClick={(e) => {
                     e.preventDefault();
 
                     onClearOne(item);
                   }}
-                />
+                >
+                  <XMarkIcon className="w-5 h-5 stroke-2 transition-all group-hover:stroke-[3px]" />
+                </button>
               )}
             </Link>
           ))}

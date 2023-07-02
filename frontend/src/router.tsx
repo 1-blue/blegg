@@ -21,7 +21,7 @@ import Home from "@src/pages/Home";
 import Error from "@src/pages/Error";
 import GeneralLayout from "./layout/GeneralLayout";
 import Champions from "./pages/Champions";
-import Players from "./pages/Players";
+import Summoner from "./pages/Summoner";
 import Community from "./pages/Community";
 
 interface RouterElement {
@@ -65,9 +65,9 @@ export const routerElements: RouterElement[] = [
     isAuth: null,
   },
   {
-    path: "/players",
-    label: "플레이어 랭킹",
-    element: <Players />,
+    path: "/summoner",
+    label: "소환사 전적",
+    element: <Summoner />,
     icon: [
       <OPresentationChartBarIcon className="h-6 w-6" />,
       <SPresentationChartBarIcon className="h-6 w-6" />,

@@ -16,6 +16,7 @@ const meta = {
     ),
   ],
   argTypes: {
+    baseURL: { description: "이동할 URL" },
     isShow: { description: "렌더링 여부" },
     items: { description: "렌더링할 요소" },
     onClearOne: { description: "특정 최근 검색어 제거 이벤트" },
@@ -28,6 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    baseURL: "/",
     isShow: true,
     items: ["대충", "아무", "거나 테스트"],
   },
