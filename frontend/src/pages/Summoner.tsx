@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 
 import SearchInput from "@src/components/Form/SearchInput";
 import SummonerInfo from "@src/components/Summoner/SummonerInfo";
-import SummonerRecords from "@src/components/Summoner/SummonerRecords/SummonerRecords";
+import SummonerRecord from "@src/components/Summoner/SummonerRecord";
 
 /** 2023/06/19 - 소환사 랭킹 페이지 컴포넌트 - by 1-blue */
 const Summoner = () => {
@@ -22,8 +22,8 @@ const Summoner = () => {
       {/* 티어 / 포인트 / 승률 */}
       {q && <SummonerInfo name={q} />}
 
-      {/* 최근 전적 */}
-      {q && <SummonerRecords name={q} />}
+      {/* 최근 전적들 */}
+      {q && <SummonerRecord name={q} />}
     </>
   );
 };
