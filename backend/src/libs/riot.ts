@@ -27,21 +27,14 @@ export const convertToIconImageURL = (iconId: number) =>
 export const convertToItemImageURL = (itemId: string) =>
   `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/item/${itemId}.png`;
 
-/** 2023/06/30 - 아이템 스텟 번역 테이블 - by 1-blue */
-export const statsCoords = {
-  FlatHPPoolMod: "체력",
-  FlatMPPoolMod: "마나",
-  // FlatHPRegenMod: "체력 재생량",
-  FlatArmorMod: "방어력",
-  FlatPhysicalDamageMod: "공격력",
-  FlatMagicDamageMod: "주문력",
-  PercentAttackSpeedMod: "공격 속도",
-  FlatCritChanceMod: "치명타 확률",
-  FlatSpellBlockMod: "마법 저항력",
-  PercentLifeStealMod: "생명력 흡수",
-  FlatMovementSpeedMod: "이동 속도",
-};
-
 /** 2023/06/30 - (스펠) 정사각형 이미지 url로 변경 - by 1-blue */
 export const convertToSpellImageURL = (name: string) =>
   `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/spell/${name}.png`;
+
+/** 2023/07/01 - [ququeId를 기준으로 게임모드를 판단하는 테이블](https://static.developer.riotgames.com/docs/lol/queues.json) - by 1-blue */
+export const queueIdCoords = {
+  420: "솔로랭크",
+  430: "일반게임",
+  440: "자유랭크",
+  450: "칼바람나락",
+};
