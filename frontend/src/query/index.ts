@@ -2,8 +2,16 @@
 const QUERY_KEYS = {
   ALL_CHAMPION: "ALL_CHAMPION",
   CHAMPION: "CHAMPION",
+  SUMMONER: "SUMMONER",
+  SPELL: "SPELL",
+  ITEM: "ITEM",
+  MATCHES: "MATCHES",
 };
 export default QUERY_KEYS;
 
-export * from "./useGetAllChampions";
-export * from "./useGetChampion";
+export * from "./useGetAllChampion";
+export * from "./useGetDetailChampion";
+export * from "./useGetSummoner";
+export * from "./useGetSpell";
+export * from "./useGetItem";
+export * from "./useGetMatches";

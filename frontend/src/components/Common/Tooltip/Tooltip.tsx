@@ -55,7 +55,7 @@ const Tooltip: React.FC<Props> = ({
         >
           <h4 className="text-main-text font-bold">{title}</h4>
           <p
-            className="text-sm"
+            className="text-sm whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         </motion.div>

@@ -11,11 +11,14 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
  * */
 const axiosInstance = axios.create({
   baseURL: SERVER_URL,
-  timeout: 1000,
+  timeout: 5000,
   withCredentials: true,
 });
 
 export default axiosInstance;
 
-export * from "./champions";
 export * from "./champion";
+export * from "./summoner";
+export * from "./spell";
+export * from "./item";
+export * from "./match";

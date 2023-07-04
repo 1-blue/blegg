@@ -1,12 +1,12 @@
 import Animate from "@src/components/Animate";
 
-import type { RiotInfo, RiotStats } from "@src/types";
+import type { RiotChampionInfo, RiotChampionStats } from "@src/types";
 
 interface Props {
   /** [Riot API](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion.json)에서 제공해준 특정 챔피언의 info */
-  info: RiotInfo;
+  info: RiotChampionInfo;
   /** [Riot API](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion.json)에서 제공해준 특정 챔피언의 stats */
-  stats: RiotStats;
+  stats: RiotChampionStats;
 }
 
 /** 2023/06/24 - Carousel에서 하단 설명 컴포넌트 - by 1-blue */

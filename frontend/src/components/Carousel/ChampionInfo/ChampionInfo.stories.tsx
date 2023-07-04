@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMocDetailChampion } from "@src/libs";
+import { mocDetailChampion } from "@src/libs";
 
 import ChampionInfo from "./ChampionInfo";
-
-const champion = getMocDetailChampion();
 
 const meta = {
   title: "Carousel/ChampionInfo",
@@ -28,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    stats: champion.stats,
-    info: champion.info,
+    stats: mocDetailChampion.stats,
+    info: mocDetailChampion.info,
   },
 };

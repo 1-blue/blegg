@@ -1,7 +1,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 
 /** 2023/06/20 - 스크롤 진행표시줄 컴포넌트 - by 1-blue */
-const ScrollProgress = () => {
+const ScrollProgress: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,

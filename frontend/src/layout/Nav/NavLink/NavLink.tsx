@@ -5,9 +5,13 @@ import { ChevronRightIcon as SChevronRightIcon } from "@heroicons/react/24/solid
 import { useNavBarActions } from "@src/contexts/NavBar";
 
 interface Props {
+  /** 이동할 경로 */
   path: string;
+  /** 아이콘 [안채워짐, 채워짐] */
   icon: [React.ReactNode, React.ReactNode];
+  /** 사용할 이름 */
   label: string;
+  /** 현재 경로와 일치하는지에 대한 값 */
   isActive: boolean;
 }
 

@@ -16,6 +16,10 @@ export default {
         mdlg: "896px",
       },
 
+      fontSize: {
+        xxs: "0.625rem",
+      },
+
       /** 2023/06/19 - 색상 ( 남색 ) - by 1-blue */
       colors: {
         "main-50": "#eef2ff",
@@ -34,6 +38,8 @@ export default {
         "main-text": "#c7d2fe", // main-200
         "main-line": "#37446b",
         "main-box-bg": "#101935",
+        "main-search": "#101935",
+        "main-search-hover": "#222e50",
       },
 
       keyframes: {

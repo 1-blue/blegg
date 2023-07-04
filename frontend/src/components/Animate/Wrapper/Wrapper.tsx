@@ -12,6 +12,7 @@ const variants: Variants = {
 };
 
 interface Props {
+    /** TailwindCss className */
   className?: string;
 }
 
