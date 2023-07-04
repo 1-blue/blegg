@@ -8,13 +8,13 @@ import { useGetAllChampion } from "@src/query";
 import Overlay from "@src/components/Common/Overlay";
 import Indicator from "@src/components/Common/Indicator";
 import Carousel from "@src/components/Carousel";
-import ChampionCard from "@src/components/Champion/ChampionCard";
-import ChampionBadge from "@src/components/Champion/ChampionBadge";
+import ChampionCard from "@src/components/Riot/Champion/ChampionCard";
+import ChampionBadge from "@src/components/Riot/Champion/ChampionBadge";
 
 import type { RiotChampionName } from "@src/types";
 
 /** 2023/06/19 - 챔피언 분석 페이지 컴포넌트 - by 1-blue */
-const Champions = () => {
+const Champions: React.FC = () => {
   const navigate = useNavigate();
   const { champions } = useGetAllChampion();
 

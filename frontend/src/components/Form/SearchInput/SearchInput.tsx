@@ -12,7 +12,9 @@ interface SearchForm {
   searchWord: string;
 }
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  /** 이동할 기본 URL */
   baseURL: string;
+  /** 감싸는 엘리먼트의 className */
   wrapperClassName?: string;
 }
 

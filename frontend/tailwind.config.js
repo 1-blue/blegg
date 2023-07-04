@@ -16,6 +16,10 @@ export default {
         mdlg: "896px",
       },
 
+      fontSize: {
+        xxs: "0.625rem",
+      },
+
       /** 2023/06/19 - 색상 ( 남색 ) - by 1-blue */
       colors: {
         "main-50": "#eef2ff",

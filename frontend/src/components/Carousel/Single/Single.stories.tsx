@@ -1,14 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMocDetailChampion } from "@src/libs";
+import { mocDetailChampion } from "@src/libs";
 
 import Carousel from "..";
 import Single from "./Single";
 import Overlay from "@src/components/Common/Overlay";
 
-const champion = getMocDetailChampion();
-
-const { name, title, info, stats } = champion;
+const { name, title, info, stats } = mocDetailChampion;
 
 const meta = {
   title: "Carousel/Single",
@@ -22,8 +20,7 @@ const meta = {
         "Carousel의 요소를 구분할 key<br />( key가 달라야 새로운 컴포넌트로 인식해서 animation이 발생함 )",
     },
     children: {
-      description:
-        "여러 이미지를 등록하는 방식이 아니라서 표현하기가 힘들어서 단일 이미지만 렌더링함",
+      description: `여러 이미지를 등록하는 방식이 아니라서 표현하기가 힘들어서 단일 이미지만 렌더링함<br />( <a href="https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/champion/Poppy.json" target="_blank">특정 챔피언 API</a> )`,
     },
   },
   tags: ["autodocs"],

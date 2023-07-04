@@ -14,10 +14,14 @@ import type {
 interface Props extends ApiGetDetailChampionRequest {}
 
 /** 2023/06/22 - 특정 챔피언 상세 정보 요청 훅 - by 1-blue */
-export const useGetDetailChampion = ({ name }: Props) => {
+export const useGetDetailChampion = (
+  { name }: Props,
+  initialData?: ApiGetDetailChampionResponse
+) => {
   const { data, isLoading, isError } = useQuery<ApiGetDetailChampionResponse>(
     [QUERY_KEYS.CHAMPION, name],
-    () => apiGetDetailChampion({ name })
+    () => apiGetDetailChampion({ name }),
+    { initialData }
   );
 
   /** 2023/06/25 - 이전/다음 챔피언 prefetch - by 1-blue */

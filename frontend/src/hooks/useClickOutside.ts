@@ -21,7 +21,7 @@ const useClickOutside = <T extends HTMLElement>() => {
 
       // 닫아야 하는 엘리먼트라면
       if (e.target.dataset.type === "close") {
-        setTimeout(() => setIsFocus(false), 50);
+        setTimeout(() => setIsFocus(false), 200);
       }
     };
 

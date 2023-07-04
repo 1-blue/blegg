@@ -1,9 +1,9 @@
-import type { RiotTag } from "@src/types";
 import { twMerge } from "tailwind-merge";
 
+import type { RiotChampionTag } from "@src/types";
 interface Props {
   /** Riot API에서 제공해주는 tag들중 하나 */
-  tag: RiotTag;
+  tag: RiotChampionTag;
   /** TailwindCss className */
   className?: string;
 }

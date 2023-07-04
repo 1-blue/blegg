@@ -6,6 +6,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 4, // 4분
       cacheTime: 1000 * 60 * 5, // 5분
+      retry: 1, // 재요청 한번만
     },
   },
 });

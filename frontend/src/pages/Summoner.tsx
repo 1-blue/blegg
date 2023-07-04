@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 
 import SearchInput from "@src/components/Form/SearchInput";
-import SummonerInfo from "@src/components/Summoner/SummonerInfo";
-import SummonerRecord from "@src/components/Summoner/SummonerRecord";
+import SummonerInfo from "@src/components/Riot/Summoner/SummonerInfo";
+import SummonerRecords from "@src/components/Riot/Summoner/SummonerRecords";
 
 /** 2023/06/19 - 소환사 랭킹 페이지 컴포넌트 - by 1-blue */
-const Summoner = () => {
+const Summoner: React.FC = () => {
   /** 2023/07/02 - 검색어 - by 1-blue */
   const q = useSearchParams()[0].get("q");
 
@@ -23,7 +23,7 @@ const Summoner = () => {
       {q && <SummonerInfo name={q} />}
 
       {/* 최근 전적들 */}
-      {q && <SummonerRecord name={q} />}
+      {q && <SummonerRecords name={q} />}
     </>
   );
 };

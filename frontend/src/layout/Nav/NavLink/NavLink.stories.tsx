@@ -9,6 +9,12 @@ import NavLink from "./NavLink";
 const meta = {
   title: "Layout/NavLink",
   component: NavLink,
+  argTypes: {
+    path: { description: "이동할 경로" },
+    icon: { description: "아이콘 [안채워짐, 채워짐]" },
+    label: { description: "사용할 이름" },
+    isActive: { description: "현재 경로와 일치하는지에 대한 값" },
+  },
   tags: ["autodocs"],
   decorators: [
     (Story) => (
