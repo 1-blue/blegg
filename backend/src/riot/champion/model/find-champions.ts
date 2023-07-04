@@ -1,40 +1,27 @@
+import type { RiotChampionName, RiotImage } from "src/types";
 import type {
-  RiotChampionName,
-  RiotImage,
-  RiotInfo,
-  RiotStats,
-  RiotTag,
-} from "src/types";
+  RiotChampionInfo,
+  RiotChampionStats,
+  RiotChampionTag,
+} from "./champion";
 
 /** 2023/06/22 - 모든 챔피언들 데이터에서 가져온 특정 챔피언의 데이터 타입 - by 1-blue */
-export interface RiotChampionData {
+export interface RiotChampion {
   version: string;
   id: string;
   key: string;
   name: string;
   title: string;
   blurb: string;
-  info: RiotInfo;
+  info: RiotChampionInfo;
   image: RiotImage;
-  tags: RiotTag[];
+  tags: RiotChampionTag[];
   partype: string;
-  stats: RiotStats;
+  stats: RiotChampionStats;
   src: string;
 }
 
 /** 2023/06/22 - [모든 챔피언들 데이터](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion.json)에서 필요한 부분의 타입 - by 1-blue */
 export type RiotChampions = {
-  [key in RiotChampionName]: RiotChampionData;
+  [key in RiotChampionName]: RiotChampion;
 };
-
-interface ChampionData {
-  id: string;
-  name: string;
-  title: string;
-  src: string;
-  info: RiotInfo;
-  tags: RiotTag[];
-  stats: RiotStats;
-}
-/** 2023/06/23 - 응답할 챔피언들 데이터 타입 - by 1-blue */
-export type Champions = ChampionData[];

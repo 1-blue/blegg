@@ -1,3 +1,4 @@
+/** 2023/07/02 - RiotAPI에서 사용하는 이미지 타입 형태 - by 1-blue */
 export interface RiotImage {
   full: string;
   sprite: string;
@@ -7,76 +8,7 @@ export interface RiotImage {
   w: number;
   h: number;
 }
-export interface RiotSkin {
-  id: string;
-  num: number;
-  name: string;
-  chromas: boolean;
-}
-export type RiotTag =
-  | "Fighter"
-  | "Tank"
-  | "Mage"
-  | "Assassin"
-  | "Marksman"
-  | "Support";
-export interface RiotInfo {
-  attack: number;
-  defense: number;
-  magic: number;
-  difficulty: number;
-}
-export interface RiotStats {
-  hp: number;
-  hpperlevel: number;
-  mp: number;
-  mpperlevel: number;
-  movespeed: number;
-  armor: number;
-  armorperlevel: number;
-  spellblock: number;
-  spellblockperlevel: number;
-  attackrange: number;
-  hpregen: number;
-  hpregenperlevel: number;
-  mpregen: number;
-  mpregenperlevel: number;
-  crit: number;
-  critperlevel: number;
-  attackdamage: number;
-  attackdamageperlevel: number;
-  attackspeedperlevel: number;
-  attackspeed: number;
-}
-export interface RiotSpell {
-  id: string;
-  name: string;
-  description: string;
-  tooltip: string;
-  leveltip: {
-    label: string;
-    effect: string[];
-  };
-  maxrank: number;
-  cooldown: number[];
-  cooldownBurn: string;
-  cost: number[];
-  costBurn: string;
-  effect: (number | null)[][];
-  effectBurn: (number | null)[];
-  // vars: [];
-  costType: string;
-  maxammo: string;
-  range: number[];
-  rangeBurn: string;
-  image: RiotImage;
-  resource: string;
-}
-export interface RiotPassive {
-  name: string;
-  description: string;
-  image: RiotImage;
-}
+/** 2023/07/02 - LOL 챔피언 이름들 - by 1-blue */
 export type RiotChampionName =
   | "Aatrox"
   | "Ahri"

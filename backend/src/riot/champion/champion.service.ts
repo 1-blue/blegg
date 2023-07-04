@@ -6,6 +6,7 @@ import { DDRANGON_BASE_URL, LANGUAGE, VERSION } from "src/config/riot";
 
 import {
   SkillTypeCoords,
+  convertToChampionSquareImageURL,
   convertToPassiveSquareImageURL,
   convertToRectangleImageURL,
   convertToSkillSquareImageURL,
@@ -13,7 +14,10 @@ import {
   restEffectRegExp,
 } from "src/libs";
 
-import type { RiotChampion, Champion } from "./interfaces/champion.interface";
+import type { RiotChampions } from "./model/find-champions";
+import type { RiotChampionDetail } from "./model/find-champion-by-name.model";
+import type { ApiResponseChampion } from "./interface/champions.interface";
+import type { ApiResponseDetailChampion } from "./interface/champion.interface";
 
 @Injectable()
 export class ChampionService {
@@ -22,15 +26,42 @@ export class ChampionService {
     this.httpService = httpService;
   }
 
-  async get({ name }): Promise<Champion> {
-    const data = await firstValueFrom<Champion>(
+  /** 2023/07/02 - 모든 챔피언 정보 요청 - by 1-blue */
+  async findAll(): Promise<ApiResponseChampion[]> {
+    const data = await firstValueFrom<ApiResponseChampion[]>(
+      this.httpService
+        .get(
+          `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion.json`,
+        )
+        .pipe(
+          map((res) => res.data.data),
+          map<RiotChampions, ApiResponseChampion[]>((champions) =>
+            Object.values(champions).map((champion) => ({
+              id: champion.id,
+              name: champion.name,
+              title: champion.title,
+              src: convertToChampionSquareImageURL(champion.id),
+              info: champion.info,
+              stats: champion.stats,
+              tags: champion.tags,
+            })),
+          ),
+        ),
+    );
+
+    return data;
+  }
+
+  /** 2023/07/02 - 특정 챔피언 상세 정보 요청 - by 1-blue */
+  async findOne(name: string): Promise<ApiResponseDetailChampion> {
+    const data = await firstValueFrom<ApiResponseDetailChampion>(
       this.httpService
         .get(
           `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion/${name}.json`,
         )
         .pipe(
           map((res) => res.data.data[name]),
-          map<RiotChampion, RiotChampion>((champion) => ({
+          map<RiotChampionDetail, RiotChampionDetail>((champion) => ({
             ...champion,
             spells: champion.spells.map((spell) => {
               // "{{ eN }}" 형식 effect로 대체 ( N은 숫자 )
@@ -52,7 +83,7 @@ export class ChampionService {
               return spell;
             }),
           })),
-          map<RiotChampion, Champion>((champion) => ({
+          map<RiotChampionDetail, ApiResponseDetailChampion>((champion) => ({
             id: champion.id,
             name: champion.name,
             title: champion.title,
