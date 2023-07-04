@@ -1,13 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { getMocDetailChampion } from "@src/libs";
+import { mocDetailChampion } from "@src/libs";
 
 import ChampionSkill from "./ChampionSkill";
 
-const champion = getMocDetailChampion();
-
 const meta = {
-  title: "Champion/ChampionSkill",
+  title: "Riot/Champion/ChampionSkill",
   component: ChampionSkill,
   tags: ["autodocs"],
   argTypes: {
@@ -26,4 +24,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { ...champion.skills[1] } };
+export const Default: Story = { args: { ...mocDetailChampion.skills[1] } };

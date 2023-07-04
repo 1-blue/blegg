@@ -11,19 +11,29 @@ const variants: Variants = {
   animate: { opacity: 1, y: 0 },
 };
 
+import type { ApiGetItemResponse } from "@src/types/apis";
 interface Props {
+  /** 해당 아이템의 ID ( 식별자, Riot API에서 제공 ) */
   id: number;
+  /** React-Query를 컴포넌트에서 사용하는 경우 StoryBook 위한 값 ( [Riot Item API](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/item.json) ) */
+  initialData?: ApiGetItemResponse;
 }
 
 /** 2023/07/03 - 특정 아이템 이미지 및 툴팁 컴포넌트 - by 1-blue */
-const ChampionItem: React.FC<Props> = ({ id }) => {
-  const { item, isLoading } = useGetItem({ id });
+const ChampionItem: React.FC<Props> = ({ id, initialData }) => {
+  const { item, isLoading } = useGetItem({ id }, initialData);
 
   const [isHover, setIsHover] = useState(false);
 
-  // TODO:
-  if (!item) return <></>;
+  // loading
   if (isLoading) return <Skeleton.ChampionItem />;
+  // 404
+  if (!item)
+    return (
+      <div className="w-11 h-11 bg-gray-700/70 rounded-md flex justify-center items-center text-xxs">
+        404
+      </div>
+    );
 
   return (
     <motion.figure

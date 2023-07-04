@@ -1,28 +1,35 @@
 import { useGetMatches } from "@src/query";
 
-import Inner from "./Inner";
+import SummonerRecord from "./SummonerRecord";
 import Skeleton from "@src/components/Common/Skeleton";
 
+import type { ApiGetMatchesResponse } from "@src/types/apis";
+
 interface Props {
+  /** 최근 전적을 검색할 유저 이름 */
   name: string;
+  /** React-Query를 컴포넌트에서 사용하는 경우 StoryBook 위한 값 */
+  initialDatas?: ApiGetMatchesResponse[];
 }
 
 /** 2023/07/03 - 소환사의 특정 게임 정보 컨테이너 컴포넌트 - by 1-blue */
-const SummonerRecord: React.FC<Props> = ({ name }) => {
-  const { matches, isLoading, isFetching, fetchNextPage } = useGetMatches({
-    name,
-    start: 0,
-    count: 10,
-  });
+const SummonerRecords: React.FC<Props> = ({ name, initialDatas }) => {
+  const { matches, isLoading, isFetching, fetchNextPage } = useGetMatches(
+    { name, start: 0, count: 10 },
+    initialDatas
+  );
 
+  // loading
   if (isLoading) return <Skeleton.SummonerRecord />;
-  // TODO:
+  // 404
   if (!matches) return <></>;
 
   return (
     <ul className="mt-6 -mx-4 space-y-4">
       {matches.pages.map((page) =>
-        page.map((match) => <Inner key={match.info.id} match={match} />)
+        page.map((match) => (
+          <SummonerRecord key={match.info.id} match={match} />
+        ))
       )}
 
       {isFetching && <Skeleton.SummonerRecord />}
@@ -38,4 +45,4 @@ const SummonerRecord: React.FC<Props> = ({ name }) => {
   );
 };
 
-export default SummonerRecord;
+export default SummonerRecords;

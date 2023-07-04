@@ -1,11 +1,11 @@
 import Animate from "@src/components/Animate";
 import Icon from "@src/components/Common/Icon";
 
-import type { ChampionData } from "@src/types";
+import type { ApiGetAllChampionResponse } from "@src/types/apis";
 
 interface Props {
-  /** 특정 챔피언 정보 ( ChampionData ) */
-  champion: ChampionData;
+  /** 특정 챔피언 정보 ( [특정 챔피언 API](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/champion/Poppy.json) */
+  champion: ApiGetAllChampionResponse[0];
 }
 
 /** 2023/06/26 - 특정 챔피언 간단 정보 Badge 컴포넌트 - by 1-blue */

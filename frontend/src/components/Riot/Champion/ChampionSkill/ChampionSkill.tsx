@@ -3,7 +3,7 @@ import { motion, Variants } from "framer-motion";
 
 import Tooltip from "@src/components/Common/Tooltip";
 
-import type { SkillType } from "@src/types";
+import type { RiotChmapionSkillType } from "@src/types";
 
 const variants: Variants = {
   initial: { opacity: 0, y: 20 },
@@ -12,7 +12,7 @@ const variants: Variants = {
 
 interface Props {
   /** 좌측 상단 스킬 키 설명 */
-  type: SkillType;
+  type: RiotChmapionSkillType;
   /** 스킬 이미지 src */
   src: string;
   /** 스킬 이미지 alt */

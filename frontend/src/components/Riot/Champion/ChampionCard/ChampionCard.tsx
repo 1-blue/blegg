@@ -6,18 +6,21 @@ import { useGetDetailChampion } from "@src/query";
 
 import Animate from "@src/components/Animate";
 import Skeleton from "@src/components/Common/Skeleton";
-import SkillBox from "@src/components/Champion/ChampionSkill";
+import ChampionSkill from "@src/components/Riot/Champion/ChampionSkill";
 
 import type { RiotChampionName } from "@src/types";
+import type { ApiGetDetailChampionResponse } from "@src/types/apis";
 
 interface Props {
   /** 챔피언 영어 이름 */
   name: RiotChampionName;
+  /** React-Query를 컴포넌트에서 사용하는 경우 StoryBook 위한 값 ( [Riot Champion API](https://ddragon.leagueoflegends.com/cdn/13.13.1/data/ko_KR/champion/Poppy.json) ) */
+  initialData?: ApiGetDetailChampionResponse;
 }
 
 /** 2023/06/26 - 챔피언 상세 정보 Card 컴포넌트 - by 1-blue */
-const ChampionCard: React.FC<Props> = ({ name }) => {
-  const { champion, isLoading } = useGetDetailChampion({ name });
+const ChampionCard: React.FC<Props> = ({ name, initialData }) => {
+  const { champion, isLoading } = useGetDetailChampion({ name }, initialData);
 
   // 잘못된 챔피언 이름인 경우
   if (!riotChampionNames.find((championName) => championName === name)) {
@@ -132,7 +135,7 @@ const ChampionCard: React.FC<Props> = ({ name }) => {
             <section className="flex justify-between space-x-2">
               {/* 패시브 && 스킬 ( Q, W, E, R ) */}
               {champion.skills.map((skill) => (
-                <SkillBox key={skill.type} {...skill} />
+                <ChampionSkill key={skill.type} {...skill} />
               ))}
             </section>
           </Animate.Wrapper>

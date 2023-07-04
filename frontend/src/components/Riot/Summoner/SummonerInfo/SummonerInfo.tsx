@@ -2,17 +2,30 @@ import { useGetSummoner } from "@src/query";
 
 import Skeleton from "@src/components/Common/Skeleton";
 
+import type { ApiGetSummonerResponse } from "@src/types/apis";
+import NotFound from "@src/components/Common/NotFound/NotFound";
+
 interface Props {
+  /** 최근 전적을 검색할 소환사 이름 */
   name: string;
+  /** React-Query를 컴포넌트에서 사용하는 경우 StoryBook 위한 값 */
+  initialData?: ApiGetSummonerResponse;
 }
 
 /** 2023/07/02 - 특정 유저의 정보 ( 레벨, 아이콘, 솔로/자유랭크 정보 ) - by 1-blue */
-const SummonerInfo: React.FC<Props> = ({ name }) => {
-  const { summoner, isLoading } = useGetSummoner({ name });
+const SummonerInfo: React.FC<Props> = ({ name, initialData }) => {
+  const { summoner, isLoading } = useGetSummoner({ name }, initialData);
 
-  // TODO:
-  if (!summoner) return <></>;
+  // loading
   if (isLoading) return <Skeleton.SummonerInfo name={name} />;
+  // 404
+  if (!summoner)
+    return (
+      <NotFound
+        title={`"${name}"님을 찾을 수 없습니다.`}
+        sub="다른 소환사를 검색해주세요!"
+      />
+    );
 
   const { info, soloRank, freeRank } = summoner;
 
@@ -27,7 +40,7 @@ const SummonerInfo: React.FC<Props> = ({ name }) => {
           </span>
           <img
             src={info.profileIconSrc}
-            alt=""
+            alt={`${info.name}님의 아이콘`}
             className="w-28 h-28 rounded-md"
           />
         </figure>
@@ -129,7 +142,7 @@ const SummonerInfo: React.FC<Props> = ({ name }) => {
         <section className="min-w-[320px] flex space-x-6 p-6 bg-main-box-bg border border-main-line rounded-md">
           {/* 티어 이미지 */}
           <img
-            src={`/images/tier/${freeRank.tier.toLowerCase()}.png`}
+            src={`/images/emblem/${freeRank.tier.toLowerCase()}.png`}
             alt={`${freeRank.tier.toLowerCase()}`}
             className="flex-shrink-0 w-28 h-28 bg-main-bg rounded-md"
           />

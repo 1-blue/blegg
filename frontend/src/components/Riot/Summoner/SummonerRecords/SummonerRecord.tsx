@@ -3,17 +3,18 @@ import { twMerge } from "tailwind-merge";
 
 import { timeFormat } from "@src/libs";
 
-import ChampionSpell from "@src/components/Champion/ChampionSpell";
-import ChampionItem from "@src/components/Champion/ChampionItem";
+import ChampionSpell from "@src/components/Riot/Champion/ChampionSpell";
+import ChampionItem from "@src/components/Riot/Champion/ChampionItem";
 
 import type { RiotMatch } from "@src/types/apis";
 
 interface Props {
+  /** 특정 경기에 대한 정보 */
   match: RiotMatch;
 }
 
 /** 2023/07/03 - 소환사의 특정 게임 정보 컴포넌트 - by 1-blue */
-const Inner: React.FC<Props> = ({ match }) => {
+const SummonerRecord: React.FC<Props> = ({ match }) => {
   const playTimeMinute = Math.floor(match.info.time.play / 1000 / 60);
   const playTimeSecend = Math.floor((match.info.time.play / 1000) % 60);
 
@@ -148,7 +149,7 @@ const Inner: React.FC<Props> = ({ match }) => {
             .map((itemId) =>
               itemId === 0 ? (
                 <div
-                  key={itemId}
+                  key={itemId + Math.random()}
                   className="w-11 h-11 bg-gray-700/60 rounded-md"
                 />
               ) : (
@@ -161,7 +162,10 @@ const Inner: React.FC<Props> = ({ match }) => {
         <section className="flex-1 flex space-x-2">
           <div className="flex flex-col justify-between w-0 flex-1 bg-red-500/50 p-0.5 rounded-md">
             {match.redTeam.map((red) => (
-              <div className="flex items-center space-x-0.5">
+              <div
+                key={red.summoner.name}
+                className="flex items-center space-x-0.5"
+              >
                 <Link
                   to={`/champions?name=${red.champion.name}`}
                   className="flex-shrink-0"
@@ -183,7 +187,10 @@ const Inner: React.FC<Props> = ({ match }) => {
           </div>
           <div className="flex flex-col justify-between w-0 flex-1 bg-blue-500/50 p-0.5 rounded-md">
             {match.blueTeam.map((blue) => (
-              <div className="flex items-center space-x-0.5">
+              <div
+                key={blue.summoner.name}
+                className="flex items-center space-x-0.5"
+              >
                 <Link
                   to={`/champions?name=${blue.champion.name}`}
                   className="flex-shrink-0"
@@ -209,4 +216,4 @@ const Inner: React.FC<Props> = ({ match }) => {
   );
 };
 
-export default Inner;
+export default SummonerRecord;
