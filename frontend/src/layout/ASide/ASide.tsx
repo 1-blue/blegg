@@ -4,7 +4,7 @@ import { useNavBarValue } from "@src/contexts/NavBar";
 
 import ASideLogo from "@src/layout/ASide/ASideLogo";
 import ASideHamburger from "@src/layout/ASide/ASideHamburger";
-import SearchInput from "@src/components/Form/SearchInput/SearchInput";
+import FormToolkit from "@src/components/FormToolkit";
 import Nav from "@src/layout/Nav";
 
 /** 2023/06/19 - 사이드 컴포넌트 - by 1-blue */
@@ -25,7 +25,7 @@ const ASide: React.FC = () => {
       {(!overMedium || isShowNavBar) && (
         <article className="animate-move-left md:animate-none fixed md:static md:top-[105px] w-full h-full md:w-auto md:h-auto bg-main-bg">
           {/* 검색창 */}
-          <SearchInput baseURL="/summoner" />
+          <FormToolkit.SearchInput baseURL="/summoner" />
 
           {/* 네비게이션바 */}
           <Nav />

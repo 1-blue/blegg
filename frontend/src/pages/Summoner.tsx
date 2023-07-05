@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-import SearchInput from "@src/components/Form/SearchInput";
+import FormToolkit from "@src/components/FormToolkit";
 import SummonerInfo from "@src/components/Riot/Summoner/SummonerInfo";
 import SummonerRecords from "@src/components/Riot/Summoner/SummonerRecords";
 
@@ -12,7 +12,7 @@ const Summoner: React.FC = () => {
   return (
     <>
       {/* 검색창 */}
-      <SearchInput
+      <FormToolkit.SearchInput
         key="search"
         baseURL="/summoner"
         wrapperClassName="px-0 -mx-4"
@@ -24,6 +24,14 @@ const Summoner: React.FC = () => {
 
       {/* 최근 전적들 */}
       {q && <SummonerRecords name={q} />}
+
+      {!q && (
+        <section className="flex flex-col items-center mt-6 -mx-4 p-12 bg-main-box-bg border border-main-line rounded-md font-sub space-y-4">
+          <h6 className="font-black text-2xl xs:text-3xl sm:text-4xl animate-bounce mt-4">
+            소환사를 검색해보세요!
+          </h6>
+        </section>
+      )}
     </>
   );
 };
