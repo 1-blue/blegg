@@ -5,6 +5,7 @@ import {
   PresentationChartBarIcon as OPresentationChartBarIcon,
   BookOpenIcon as OBookOpenIcon,
   LockOpenIcon as OLockOpenIcon,
+  KeyIcon as OKeyIcon,
 } from "@heroicons/react/24/outline";
 import {
   HomeIcon as SHomeIcon,
@@ -12,17 +13,20 @@ import {
   PresentationChartBarIcon as SPresentationChartBarIcon,
   BookOpenIcon as SBookOpenIcon,
   LockOpenIcon as SLockOpenIcon,
+  KeyIcon as SKeyIcon,
 } from "@heroicons/react/24/solid";
 
 import AuthenticationCheck from "@src/components/AuthenticationCheck";
 
-import Home from "@src/pages/Home";
+import GeneralLayout from "@src/layout/GeneralLayout";
 
+import Home from "@src/pages/Home";
+import Champions from "@src/pages/Champions";
+import Summoner from "@src/pages/Summoner";
+import Community from "@src/pages/Community";
+import SignIn from "@src/pages/SignIn";
+import SignUp from "@src/pages/SignUp";
 import Error from "@src/pages/Error";
-import GeneralLayout from "./layout/GeneralLayout";
-import Champions from "./pages/Champions";
-import Summoner from "./pages/Summoner";
-import Community from "./pages/Community";
 
 interface RouterElement {
   /** 페이지 경로 */
@@ -85,13 +89,20 @@ export const routerElements: RouterElement[] = [
     isAuth: null,
   },
   {
-    path: "/?login=t",
+    path: "/signin",
     label: "로그인",
-    element: <Home />,
+    element: <SignIn />,
     icon: [
       <OLockOpenIcon className="h-6 w-6" />,
       <SLockOpenIcon className="h-6 w-6" />,
     ],
+    isAuth: null,
+  },
+  {
+    path: "/signup",
+    label: "회원가입",
+    element: <SignUp />,
+    icon: [<OKeyIcon className="h-6 w-6" />, <SKeyIcon className="h-6 w-6" />],
     isAuth: null,
   },
 ];
