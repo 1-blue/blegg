@@ -9,6 +9,7 @@ import { HelloMiddleware } from "./middlewares/hello.middleware";
 import { PrismaModule } from "./prisma/prisma.module";
 import { HelloModule } from "./hello/hello.module";
 import { RiotModule } from "./riot/riot.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { RiotModule } from "./riot/riot.module";
     PrismaModule,
     HelloModule,
     RiotModule,
+    AuthModule,
   ],
 })
 export class AppModule implements NestModule {
