@@ -6,6 +6,7 @@ import configuration from "./config/configuration";
 
 import { HelloMiddleware } from "./middlewares/hello.middleware";
 
+import { PrismaModule } from "./prisma/prisma.module";
 import { HelloModule } from "./hello/hello.module";
 import { RiotModule } from "./riot/riot.module";
 
@@ -22,6 +23,7 @@ import { RiotModule } from "./riot/riot.module";
       ...HttpModule.register({ timeout: 1000 }),
       global: true,
     },
+    PrismaModule,
     HelloModule,
     RiotModule,
   ],
