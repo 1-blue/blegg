@@ -4,3 +4,4 @@ export * from "./spell";
 export * from "./item";
 export * from "./match";
 export * from "./auth";
+export * from "./user";

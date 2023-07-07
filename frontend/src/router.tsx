@@ -6,6 +6,7 @@ import {
   BookOpenIcon as OBookOpenIcon,
   LockOpenIcon as OLockOpenIcon,
   KeyIcon as OKeyIcon,
+  UserCircleIcon as OUserCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
   HomeIcon as SHomeIcon,
@@ -14,6 +15,7 @@ import {
   BookOpenIcon as SBookOpenIcon,
   LockOpenIcon as SLockOpenIcon,
   KeyIcon as SKeyIcon,
+  UserCircleIcon as SUserCircleIcon,
 } from "@heroicons/react/24/solid";
 
 import AuthenticationCheck from "@src/components/AuthenticationCheck";
@@ -26,6 +28,7 @@ import Summoner from "@src/pages/Summoner";
 import Community from "@src/pages/Community";
 import SignIn from "@src/pages/SignIn";
 import SignUp from "@src/pages/SignUp";
+import Profile from "@src/pages/Profile";
 import Error from "@src/pages/Error";
 
 interface RouterElement {
@@ -96,14 +99,24 @@ export const routerElements: RouterElement[] = [
       <OLockOpenIcon className="h-6 w-6" />,
       <SLockOpenIcon className="h-6 w-6" />,
     ],
-    isAuth: null,
+    isAuth: false,
   },
   {
     path: "/signup",
     label: "회원가입",
     element: <SignUp />,
     icon: [<OKeyIcon className="h-6 w-6" />, <SKeyIcon className="h-6 w-6" />],
-    isAuth: null,
+    isAuth: false,
+  },
+  {
+    path: "/profile",
+    label: "내 정보",
+    element: <Profile />,
+    icon: [
+      <OUserCircleIcon className="h-6 w-6" />,
+      <SUserCircleIcon className="h-6 w-6" />,
+    ],
+    isAuth: true,
   },
 ];
 

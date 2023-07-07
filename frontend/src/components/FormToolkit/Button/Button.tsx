@@ -11,7 +11,7 @@ const Button: React.FC<Props> = ({ label, className, ...props }) => {
     <button
       {...props}
       className={twMerge(
-        "px-2 py-3 rounded-md transition-colors bg-main-500 hover:bg-main-500/80 focus:outline-none focus:ring focus:ring-main-500 focus:ring-offset-4 focus:ring-offset-main-bg",
+        "px-2 py-3 rounded-md transition-colors bg-main-500 hover:bg-main-500/80 focus:outline-none focus:ring-2 focus:ring-main-500 focus:ring-offset-4 focus:ring-offset-main-bg",
         className
       )}
     >

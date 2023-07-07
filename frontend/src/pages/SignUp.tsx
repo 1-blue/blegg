@@ -18,7 +18,7 @@ interface SignUpAxiosError {
 }
 
 /** 2023/07/05 - 회원가입 페이지 - by 1-blue */
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -60,9 +60,9 @@ const SignUp = () => {
           id="아이디"
           placeholder="ex) blegg98"
           required
-          error={errors.id?.message}
           // FIXME: 개발용
           defaultValue="1blue"
+          error={errors.id?.message}
           {...register("id", {
             required: { value: true, message: "아이디를 입력해주세요!" },
             minLength: { value: 4, message: "최소 4자를 입력해주세요!" },

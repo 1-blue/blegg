@@ -1,5 +1,7 @@
 import { Navigate } from "react-router-dom";
 
+import { useGetMe } from "@src/query/useGetMe";
+
 interface Props {
   isAuth: boolean | null;
 }
@@ -14,13 +16,12 @@ const AuthenticationCheck: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   isAuth,
 }) => {
-  // FIXME: 로그인한 유저 정보 얻는 코드로 수정하기
-  const user = {};
+  const { me } = useGetMe();
 
   // 로그인하지 않고 접근
-  if (isAuth === true && !user) return <Navigate replace to="/login" />;
+  if (isAuth === true && !me) return <Navigate replace to="/signin" />;
   // 로그인하고 접근
-  else if (isAuth === false && user) return <Navigate replace to="/" />;
+  else if (isAuth === false && me) return <Navigate replace to="/" />;
 
   // 접근 조건에 만족
   return children;
