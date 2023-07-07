@@ -5,5 +5,6 @@ export default () => ({
   },
   keys: {
     riot: process.env.RIOT_API_KEY,
+    jwt: process.env.JWT_SECRET,
   },
 });

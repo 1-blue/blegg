@@ -10,6 +10,7 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { HelloModule } from "./hello/hello.module";
 import { RiotModule } from "./riot/riot.module";
 import { AuthModule } from "./auth/auth.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AuthModule } from "./auth/auth.module";
     HelloModule,
     RiotModule,
     AuthModule,
+    UserModule,
   ],
 })
 export class AppModule implements NestModule {
