@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { HttpService } from "@nestjs/axios";
+import { firstValueFrom } from "rxjs";
 
 import { UserService } from "src/user/user.service";
 import { AuthRepository } from "./auth.repository";
@@ -8,24 +9,19 @@ import { AuthRepository } from "./auth.repository";
 import { SignInDto } from "./dto/sign-in.dto";
 import type { TokenPayload } from "./interface/token-payload.interface";
 import type { OAuthUser } from "./interface/oauth.interface";
-import { firstValueFrom } from "rxjs";
-import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
-  private readonly configService: ConfigService;
   private readonly httpService: HttpService;
   private readonly jwtService: JwtService;
   private readonly authRepository: AuthRepository;
   private readonly userService: UserService;
   constructor(
-    configService: ConfigService,
     httpService: HttpService,
     authRepository: AuthRepository,
     jwtService: JwtService,
     userService: UserService,
   ) {
-    this.configService = configService;
     this.httpService = httpService;
     this.authRepository = authRepository;
     this.jwtService = jwtService;
@@ -55,13 +51,21 @@ export class AuthService {
   }
 
   /** 2023/07/07 - 인증 쿠키 제거 옵션 얻기 - by 1-blue */
-  getCookieForLogOut() {
+  getCookieForSignOut() {
     return `accessToken=; HttpOnly; Path=/; Max-Age=0`;
   }
 
   /** 2023/07/09 - 구글 로그인 - by 1-blue */
   async oauthGoogleSignIn(user: OAuthUser) {
     return await this.authRepository.upsertOAuthUser(user);
+  }
+  /** 2023/07/09 - [구글 로그아웃](https://developers.google.com/identity/protocols/oauth2/web-server?hl=ko#node.js_8) - by 1-blue */
+  async oauthGoogleSignOut(accessToken: string) {
+    await firstValueFrom(
+      this.httpService.post(
+        `https://oauth2.googleapis.com/revoke?token=${accessToken}`,
+      ),
+    ).catch(console.error);
   }
 
   /** 2023/07/09 - 카카오 로그인 - by 1-blue */

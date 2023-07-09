@@ -61,16 +61,24 @@ export class AuthController {
   async signOut(@Req() req: RequestWithUser, @Res() res: Response) {
     const { provider } = req.user;
 
-    // 카카오 로그아웃
-    if (provider === "kakao") {
+    // oauth 로그아웃
+    if (provider !== "local") {
       const decode = this.jwtService.decode(req.cookies.accessToken);
+      const oauthAccessToken = decode["oauthAccessToken"];
 
-      await this.authService.oauthKakaoSignOut(decode["oauthAccessToken"]);
+      // 구글 로그아웃
+      if (provider === "google") {
+        await this.authService.oauthGoogleSignOut(oauthAccessToken);
+      }
+      // 카카오 로그아웃
+      if (provider === "kakao") {
+        await this.authService.oauthKakaoSignOut(oauthAccessToken);
+      }
     }
 
     // 1. "guard"로 쿠키 검사 ( jwt로 만든 인증 토큰 )
     // 2. 쿠키 내용 및 유효 기간 없애는 옵션
-    const cookieOption = this.authService.getCookieForLogOut();
+    const cookieOption = this.authService.getCookieForSignOut();
     // 3. 쿠키 응답 헤더에 등록
     res.setHeader("Set-Cookie", cookieOption);
 
