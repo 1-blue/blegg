@@ -7,11 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// OAuth 로그인 제공자
+enum Provider {
+  local
+  google
+}
+
 model User {
   idx Int @default(autoincrement()) @id
-  id String @db.VarChar(20) @unique
-  password String @db.VarChar(100)
-  nickname String @db.VarChar(9) @unique
+  id String @db.VarChar(40) @unique
+  password String? @db.VarChar(100)
+  nickname String @db.VarChar(20) @unique
   summonerName String? @db.VarChar(20) @unique
   avatar String @db.VarChar(100)
+
+  provider Provider @default(local)
 }

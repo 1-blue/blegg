@@ -11,6 +11,7 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
 import { UserService } from "src/user/user.service";
 import { UserRepository } from "src/user/user.repository";
 import { AccountService } from "src/riot/account/account.service";
+import { GoogleStrategy } from "./strategies/google.strategy";
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AccountService } from "src/riot/account/account.service";
     AuthRepository,
     LocalStrategy,
     JwtStrategy,
+    GoogleStrategy,
     UserService,
     UserRepository,
     AccountService,

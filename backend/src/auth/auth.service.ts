@@ -6,6 +6,7 @@ import { AuthRepository } from "./auth.repository";
 
 import { SignInDto } from "./dto/sign-in.dto";
 import type { TokenPayload } from "./interface/token-payload.interface";
+import type { OAuthUser } from "./interface/oauth.interface";
 
 @Injectable()
 export class AuthService {
@@ -48,5 +49,10 @@ export class AuthService {
   /** 2023/07/07 - 인증 쿠키 제거 옵션 얻기 - by 1-blue */
   getCookieForLogOut() {
     return `accessToken=; HttpOnly; Path=/; Max-Age=0`;
+  }
+
+  /** 2023/07/09 - 구글 로그인 - by 1-blue */
+  async oauthGoogleSignIn(user: OAuthUser) {
+    return await this.authRepository.upsertOAuthUser(user);
   }
 }

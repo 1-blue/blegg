@@ -2,6 +2,8 @@ import { Injectable, ConflictException } from "@nestjs/common";
 
 import { PrismaService } from "src/prisma/prisma.service";
 
+import type { OAuthUser } from "./interface/oauth.interface";
+
 @Injectable()
 export class AuthRepository {
   private readonly prismaService: PrismaService;
@@ -47,5 +49,23 @@ export class AuthRepository {
         type: "summonerName",
       });
     }
+  }
+
+  /** 2023/07/09 - OAuth 유저 가입 여부 확인 및 가입 - by 1-blue */
+  async upsertOAuthUser({ email, avatar, provider }: OAuthUser) {
+    const user = await this.prismaService.user.upsert({
+      where: { id: email },
+      create: {
+        id: email,
+        nickname: "user" + Date.now(),
+        avatar,
+        provider,
+      },
+      update: {
+        avatar,
+      },
+    });
+
+    return user;
   }
 }
