@@ -22,5 +22,10 @@ declare namespace NodeJS {
     KAKAO_CLIENT_ID: string;
     KAKAO_SECRET: string;
     KAKAO_OAUTH_CALLBACK_URL: string;
+
+    // naver OAuth
+    NAVER_CLIENT_ID: string;
+    NAVER_SECRET: string;
+    NAVER_OAUTH_CALLBACK_URL: string;
   }
 }

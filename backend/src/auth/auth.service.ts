@@ -82,4 +82,10 @@ export class AuthService {
       ),
     ).catch(console.error);
   }
+
+  /** 2023/07/09 - 네이버 로그인 - by 1-blue */
+  async oauthNaverSignIn(user: OAuthUser) {
+    return await this.authRepository.upsertOAuthUser(user);
+  }
+  // 네이버는 따로 로그아웃 없음
 }

@@ -61,8 +61,8 @@ export class AuthController {
   async signOut(@Req() req: RequestWithUser, @Res() res: Response) {
     const { provider } = req.user;
 
-    // oauth 로그아웃
-    if (provider !== "local") {
+    // google || kakao 로그아웃
+    if (provider === "google" || provider === "kakao") {
       const decode = this.jwtService.decode(req.cookies.accessToken);
       const oauthAccessToken = decode["oauthAccessToken"];
 
@@ -125,6 +125,32 @@ export class AuthController {
     @Res() res: Response,
   ) {
     const { user, accessToken } = await this.authService.oauthKakaoSignIn(
+      req.user,
+    );
+
+    const cookieOption = this.authService.getCookieWithToken({
+      idx: user.idx,
+      oauthAccessToken: accessToken,
+    });
+    res.setHeader("Set-Cookie", cookieOption);
+
+    return res.redirect(this.configService.get("callbacks.front.success"));
+  }
+
+  // ==================== naver oauth ====================
+  @UseGuards(AuthGuard("naver"))
+  @Get("naver")
+  async oauthNaver() {
+    //
+  }
+
+  @UseGuards(AuthGuard("naver"))
+  @Get("naver/redirect")
+  async oauthNaverRedirect(
+    @Req() req: RequestWithOAuthUser,
+    @Res() res: Response,
+  ) {
+    const { user, accessToken } = await this.authService.oauthNaverSignIn(
       req.user,
     );
 
