@@ -15,6 +15,8 @@ interface SignInForm {
   summonerName: string;
 }
 
+const serverURL = import.meta.env.VITE_SERVER_URL;
+
 /** 2023/07/05 - 로그인 페이지 - by 1-blue */
 const SignIn: React.FC = () => {
   const queryClient = new QueryClient();
@@ -97,21 +99,24 @@ const SignIn: React.FC = () => {
         />
 
         <div className="grid grid-cols-1 xssm:grid-cols-3 gap-4">
-          <FormToolkit.Button
-            type="button"
-            className="font-bold text-base xl:text-lg text-main-box-bg bg-yellow-400 hover:bg-yellow-400/90 focus:ring-yellow-400"
-            label="Kakao"
-          />
-          <FormToolkit.Button
-            type="button"
-            className="font-bold text-base xl:text-lg text-main-box-bg bg-gray-200 hover:bg-gray-200/90 focus:ring-gray-200"
-            label="Google"
-          />
-          <FormToolkit.Button
-            type="button"
-            className="font-bold text-base xl:text-lg bg-gray-700 hover:bg-gray-700/90 focus:ring-gray-700"
-            label="GitHub"
-          />
+          <a
+            href={serverURL + "/auth/kakao"}
+            className="px-2 py-3 text-center rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-offset-main-bg font-bold text-base xl:text-lg text-main-box-bg bg-yellow-400 hover:bg-yellow-400/90 focus:ring-yellow-400"
+          >
+            Kakao
+          </a>
+          <a
+            href={serverURL + "/auth/google"}
+            className="px-2 py-3 text-center rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-offset-main-bg font-bold text-base xl:text-lg text-main-box-bg bg-gray-200 hover:bg-gray-200/90 focus:ring-gray-200"
+          >
+            Google
+          </a>
+          <a
+            href={serverURL + "/auth/naver"}
+            className="px-2 py-3 text-center rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-4 focus:ring-offset-main-bg font-bold text-base xl:text-lg bg-green-500 hover:bg-green-500/90 focus:ring-green-500"
+          >
+            Naver
+          </a>
         </div>
       </form>
     </>

@@ -30,16 +30,18 @@ import SignIn from "@src/pages/SignIn";
 import SignUp from "@src/pages/SignUp";
 import Profile from "@src/pages/Profile";
 import Error from "@src/pages/Error";
+import OAuthSuccess from "./pages/OAuthSuccess";
+import OAuthFailure from "./pages/OAuthFailure";
 
 interface RouterElement {
   /** 페이지 경로 */
   path: string;
   /** 사이드바에 표시할 페이지 이름 */
-  label: string;
+  label?: string;
   /** 페이지 엘리먼트 */
   element: React.ReactNode;
   /** 페이지 아이콘 */
-  icon: [React.ReactNode, React.ReactNode];
+  icon?: [React.ReactNode, React.ReactNode];
   /**
    * 인증이 필요한 페이지 여부
    * true: 로그인한 유저만 접근 가능
@@ -117,6 +119,16 @@ export const routerElements: RouterElement[] = [
       <SUserCircleIcon className="h-6 w-6" />,
     ],
     isAuth: true,
+  },
+  {
+    path: "/oauth/success",
+    element: <OAuthSuccess />,
+    isAuth: null,
+  },
+  {
+    path: "/oauth/failure",
+    element: <OAuthFailure />,
+    isAuth: null,
   },
 ];
 
