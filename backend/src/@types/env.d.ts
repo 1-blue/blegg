@@ -17,5 +17,10 @@ declare namespace NodeJS {
     GOOGLE_CLIENT_ID: string;
     GOOGLE_SECRET: string;
     GOOGLE_OAUTH_CALLBACK_URL: string;
+
+    // kakao OAuth
+    KAKAO_CLIENT_ID: string;
+    KAKAO_SECRET: string;
+    KAKAO_OAUTH_CALLBACK_URL: string;
   }
 }

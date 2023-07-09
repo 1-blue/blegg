@@ -12,6 +12,7 @@ import { UserService } from "src/user/user.service";
 import { UserRepository } from "src/user/user.repository";
 import { AccountService } from "src/riot/account/account.service";
 import { GoogleStrategy } from "./strategies/google.strategy";
+import { KakaoStrategy } from "./strategies/kakao.strategy";
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { GoogleStrategy } from "./strategies/google.strategy";
     LocalStrategy,
     JwtStrategy,
     GoogleStrategy,
+    KakaoStrategy,
     UserService,
     UserRepository,
     AccountService,

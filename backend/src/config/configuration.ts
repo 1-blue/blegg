@@ -7,9 +7,11 @@ export default () => ({
     riot: process.env.RIOT_API_KEY,
     jwt: process.env.JWT_SECRET,
     google: process.env.GOOGLE_SECRET,
+    kakao: process.env.KAKAO_SECRET,
   },
   ids: {
     google: process.env.GOOGLE_CLIENT_ID,
+    kakao: process.env.KAKAO_CLIENT_ID,
   },
   callbacks: {
     front: {
@@ -17,5 +19,6 @@ export default () => ({
       failure: process.env.FRONT_CALLBACK_URL + "/failure",
     },
     google: process.env.GOOGLE_OAUTH_CALLBACK_URL,
+    kakao: process.env.KAKAO_OAUTH_CALLBACK_URL,
   },
 });

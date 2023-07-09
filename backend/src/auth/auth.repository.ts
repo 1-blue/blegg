@@ -52,7 +52,14 @@ export class AuthRepository {
   }
 
   /** 2023/07/09 - OAuth 유저 가입 여부 확인 및 가입 - by 1-blue */
-  async upsertOAuthUser({ email, avatar, provider }: OAuthUser) {
+  async upsertOAuthUser({
+    snsId,
+    email,
+    avatar,
+    provider,
+    accessToken,
+    refreshToken,
+  }: OAuthUser) {
     const user = await this.prismaService.user.upsert({
       where: { id: email },
       create: {
@@ -60,12 +67,18 @@ export class AuthRepository {
         nickname: "user" + Date.now(),
         avatar,
         provider,
+        snsId,
       },
       update: {
         avatar,
+        snsId,
       },
     });
 
-    return user;
+    return {
+      user,
+      accessToken,
+      refreshToken,
+    };
   }
 }

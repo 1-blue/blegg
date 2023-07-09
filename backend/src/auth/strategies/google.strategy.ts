@@ -22,13 +22,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     refreshToken: string,
     profile: Profile,
     done: VerifyCallback,
-  ): Promise<any> {
-    const { provider, displayName, emails, photos } = profile;
+  ) {
+    const { id, provider, emails, photos } = profile;
 
     const user: OAuthUser = {
       provider: provider as Provider,
+      snsId: id + "",
       email: emails[0].value,
-      nickname: displayName,
       avatar: photos[0].value,
       accessToken,
       refreshToken,
