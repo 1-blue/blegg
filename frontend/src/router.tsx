@@ -5,6 +5,8 @@ import {
   PresentationChartBarIcon as OPresentationChartBarIcon,
   BookOpenIcon as OBookOpenIcon,
   LockOpenIcon as OLockOpenIcon,
+  KeyIcon as OKeyIcon,
+  UserCircleIcon as OUserCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
   HomeIcon as SHomeIcon,
@@ -12,27 +14,34 @@ import {
   PresentationChartBarIcon as SPresentationChartBarIcon,
   BookOpenIcon as SBookOpenIcon,
   LockOpenIcon as SLockOpenIcon,
+  KeyIcon as SKeyIcon,
+  UserCircleIcon as SUserCircleIcon,
 } from "@heroicons/react/24/solid";
 
 import AuthenticationCheck from "@src/components/AuthenticationCheck";
 
-import Home from "@src/pages/Home";
+import GeneralLayout from "@src/layout/GeneralLayout";
 
+import Home from "@src/pages/Home";
+import Champions from "@src/pages/Champions";
+import Summoner from "@src/pages/Summoner";
+import Community from "@src/pages/Community";
+import SignIn from "@src/pages/SignIn";
+import SignUp from "@src/pages/SignUp";
+import Profile from "@src/pages/Profile";
 import Error from "@src/pages/Error";
-import GeneralLayout from "./layout/GeneralLayout";
-import Champions from "./pages/Champions";
-import Summoner from "./pages/Summoner";
-import Community from "./pages/Community";
+import OAuthSuccess from "./pages/OAuthSuccess";
+import OAuthFailure from "./pages/OAuthFailure";
 
 interface RouterElement {
   /** 페이지 경로 */
   path: string;
   /** 사이드바에 표시할 페이지 이름 */
-  label: string;
+  label?: string;
   /** 페이지 엘리먼트 */
   element: React.ReactNode;
   /** 페이지 아이콘 */
-  icon: [React.ReactNode, React.ReactNode];
+  icon?: [React.ReactNode, React.ReactNode];
   /**
    * 인증이 필요한 페이지 여부
    * true: 로그인한 유저만 접근 가능
@@ -85,13 +94,40 @@ export const routerElements: RouterElement[] = [
     isAuth: null,
   },
   {
-    path: "/?login=t",
+    path: "/signin",
     label: "로그인",
-    element: <Home />,
+    element: <SignIn />,
     icon: [
       <OLockOpenIcon className="h-6 w-6" />,
       <SLockOpenIcon className="h-6 w-6" />,
     ],
+    isAuth: false,
+  },
+  {
+    path: "/signup",
+    label: "회원가입",
+    element: <SignUp />,
+    icon: [<OKeyIcon className="h-6 w-6" />, <SKeyIcon className="h-6 w-6" />],
+    isAuth: false,
+  },
+  {
+    path: "/profile",
+    label: "내 정보",
+    element: <Profile />,
+    icon: [
+      <OUserCircleIcon className="h-6 w-6" />,
+      <SUserCircleIcon className="h-6 w-6" />,
+    ],
+    isAuth: true,
+  },
+  {
+    path: "/oauth/success",
+    element: <OAuthSuccess />,
+    isAuth: null,
+  },
+  {
+    path: "/oauth/failure",
+    element: <OAuthFailure />,
     isAuth: null,
   },
 ];

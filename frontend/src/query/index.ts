@@ -6,6 +6,7 @@ const QUERY_KEYS = {
   SPELL: "SPELL",
   ITEM: "ITEM",
   MATCHES: "MATCHES",
+  ME: "ME",
 };
 export default QUERY_KEYS;
 

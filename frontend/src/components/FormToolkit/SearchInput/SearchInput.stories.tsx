@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import SearchInput from "./SearchInput";
 
 const meta = {
-  title: "Form/SearchInput",
+  title: "FormToolkit/SearchInput",
   component: SearchInput,
   argTypes: {
     baseURL: { description: "이동할 기본 URL" },
