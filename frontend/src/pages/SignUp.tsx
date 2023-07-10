@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import {
   EyeIcon as SEyeIcon,
   EyeSlashIcon as SEyeSlashIcon,
@@ -19,6 +20,7 @@ interface SignUpAxiosError {
 
 /** 2023/07/05 - 회원가입 페이지 - by 1-blue */
 const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,7 +34,14 @@ const SignUp: React.FC = () => {
   /** 2023/07/05 - 회원가입 요청 핸들러 - by 1-blue */
   const signUpHandler = handleSubmit(async (body) => {
     try {
-      await apiSignUp(body);
+      await apiSignUp({
+        ...body,
+        summonerName: body.summonerName ? body.summonerName : undefined,
+      });
+
+      alert("회원가입에 성공했습니다.\n로그인 페이지로 이동됩니다!");
+
+      navigate("/signin");
     } catch (error) {
       if (isAxiosError<SignUpAxiosError>(error)) {
         if (!error.response) return;
@@ -128,6 +137,7 @@ const SignUp: React.FC = () => {
           id="소환사 이름"
           placeholder="ex) Akaps"
           info="소환사의 아이콘이 프로필 이미지가 됩니다. 입력하지 않으면 기본 이미지를 사용합니다."
+          error={errors.summonerName?.message}
           {...register("summonerName")}
         />
 

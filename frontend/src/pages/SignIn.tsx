@@ -1,5 +1,10 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  EyeIcon as SEyeIcon,
+  EyeSlashIcon as SEyeSlashIcon,
+} from "@heroicons/react/24/solid";
 import { isAxiosError } from "axios";
 
 import QUERY_KEYS from "@src/query";
@@ -11,20 +16,22 @@ import FormToolkit from "@src/components/FormToolkit";
 interface SignInForm {
   id: string;
   password: string;
-  nickname: string;
-  summonerName: string;
 }
 
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 /** 2023/07/05 - 로그인 페이지 - by 1-blue */
 const SignIn: React.FC = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setFocus,
   } = useForm<SignInForm>();
+
+  /** 2023/07/10 - 비밀번호 보이기 - by 1-blue */
+  const [isVisible, setIsVisible] = useState(false);
 
   /** 2023/07/07 - 로그인 요청 핸들러 - by 1-blue */
   const signInHandler = handleSubmit(async (body) => {
@@ -42,6 +49,8 @@ const SignIn: React.FC = () => {
         const { message } = error.response.data;
 
         alert(message);
+
+        setFocus("id");
       } else {
         console.error("error >> ", error);
       }
@@ -73,25 +82,41 @@ const SignIn: React.FC = () => {
             },
           })}
         />
-        <FormToolkit.Input
-          type="password"
-          id="비밀번호"
-          placeholder="ex) 123456789a!"
-          // FIXME: 개발용
-          defaultValue="123456789a!"
-          error={errors.password?.message}
-          {...register("password", {
-            required: { value: true, message: "비밀번호를 입력해주세요!" },
-            minLength: { value: 8, message: "최소 8자를 입력해주세요!" },
-            pattern: {
-              value:
-                /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/,
-              message:
-                "알파벳, 숫자, 특수문자를 하나 이상 입력하고 그 이외의 문자는 입력할 수 없습니다!",
-            },
-          })}
-        />
+        <div className="relative min-w-[243px]">
+          <FormToolkit.Input
+            type={isVisible ? "text" : "password"}
+            id="비밀번호"
+            placeholder="ex) 123456789a!"
+            required
+            // FIXME: 개발용
+            defaultValue="123456789a!"
+            error={errors.password?.message}
+            {...register("password", {
+              required: { value: true, message: "비밀번호를 입력해주세요!" },
+              minLength: { value: 8, message: "최소 8자를 입력해주세요!" },
+              pattern: {
+                value:
+                  /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/,
+                message:
+                  "알파벳, 숫자, 특수문자를 하나 이상 입력하고 그 이외의 문자는 입력할 수 없습니다!",
+              },
+            })}
+          />
 
+          {isVisible ? (
+            <SEyeSlashIcon
+              role="button"
+              className="absolute w-6 h-6 top-8 right-2"
+              onClick={() => setIsVisible(false)}
+            />
+          ) : (
+            <SEyeIcon
+              role="button"
+              className="absolute w-6 h-6 top-8 right-2"
+              onClick={() => setIsVisible(true)}
+            />
+          )}
+        </div>
         <FormToolkit.Button
           type="submit"
           className="font-bold text-lg"

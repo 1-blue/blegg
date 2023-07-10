@@ -23,6 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           htmlFor={id}
           className={twMerge(
             "flex items-center space-x-1.5 cursor-pointer text-main-text font-bold",
+            warning && "text-yellow-500",
             error && "text-red-500"
           )}
         >
@@ -30,8 +31,9 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           {required && (
             <span
               className={twMerge(
-                "text-xs",
-                error ? "text-red-500" : "text-blue-400"
+                "text-xs text-blue-400",
+                warning && "text-yellow-500",
+                error && "text-red-500"
               )}
             >
               ( 필수 )
@@ -43,7 +45,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           className={twMerge(
             "px-3 py-2 bg-main-box-bg border border-main-line rounded-sm transition-colors hover:border-main-300 placeholder:text-main-text placeholder:text-xs focus:outline-none",
             isFocus && "border-main-500 hover:border-main-500",
-            error && "border-red-500 hover:border-red-400",
+            warning && "border-yellow-400 hover:border-yellow-600",
+            error && "border-red-500 hover:border-red-700",
             className
           )}
           ref={ref}

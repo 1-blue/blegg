@@ -3,7 +3,7 @@ export interface ApiSignUpRequest {
   id: string;
   password: string;
   nickname: string;
-  summonerName: string;
+  summonerName?: string;
 }
 /** 2023/07/05 - 회원가입 응답 타입 - by 1-blue */
 export interface ApiSignUpResponse {}

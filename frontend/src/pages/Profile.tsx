@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { isAxiosError } from "axios";
 
@@ -11,7 +11,7 @@ import FormToolkit from "@src/components/FormToolkit";
 
 /** 2023/07/07 - 프로필 페이지 - by 1-blue */
 const Profile: React.FC = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { me } = useGetMe();
 
   /** 2023/07/07 - 로그아웃 요청 - by 1-blue */
@@ -19,14 +19,10 @@ const Profile: React.FC = () => {
     try {
       await apiSignOut({});
 
-      alert("로그아웃에 성공했습니다.\n메인 페이지로 이동됩니다.");
+      alert("로그아웃에 성공했습니다.\n로그인 페이지로 이동됩니다.");
 
-      // FIXME:로그인한 유저 데이터 제거... 왜 작동 안 하는지 확인하기
+      // 로그인한 유저 데이터 제거
       queryClient.setQueryData([QUERY_KEYS.ME], null);
-      queryClient.invalidateQueries([QUERY_KEYS.ME]);
-      queryClient.removeQueries([QUERY_KEYS.ME]);
-      queryClient.resetQueries([QUERY_KEYS.ME]);
-      queryClient.clear();
     } catch (error) {
       if (isAxiosError(error)) {
         if (!error.response) return;
