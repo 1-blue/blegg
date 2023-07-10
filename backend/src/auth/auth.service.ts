@@ -34,7 +34,8 @@ export class AuthService {
       await Promise.all([
         this.authRepository.isDuplicateId(body.id),
         this.authRepository.isDuplicateNickname(body.nickname),
-        this.authRepository.isDuplicateSummonerName(body.summonerName),
+        body.summonerName &&
+          this.authRepository.isDuplicateSummonerName(body.summonerName),
       ]);
     } catch (error) {
       throw error;

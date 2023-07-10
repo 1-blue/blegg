@@ -29,7 +29,7 @@ export class UserRepository {
     try {
       const [hashedPassword, account] = await Promise.all([
         hash(password, 10),
-        this.accountService.findByName(summonerName),
+        summonerName && this.accountService.findByName(summonerName),
       ]);
 
       const createdUser = await this.prismaService.user.create({
@@ -38,12 +38,21 @@ export class UserRepository {
           nickname,
           summonerName,
           password: hashedPassword,
-          avatar: convertToIconImageURL(account.profileIconId),
+          avatar: account
+            ? convertToIconImageURL(account.profileIconId)
+            : "/images/emblem/challenger.png",
         },
       });
 
       return createdUser;
     } catch (error) {
+      // 존재하지 않는 소환사명을 작성한 경우
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException({
+          message: "존재하지 않는 소환사입니다.",
+          type: "summonerName",
+        });
+      }
       throw error;
     }
   }
