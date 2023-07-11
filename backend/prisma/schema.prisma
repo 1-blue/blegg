@@ -25,4 +25,37 @@ model User {
 
   provider Provider @default(local)
   snsId String? @db.VarChar(100)
+
+  // 1:N
+  posts Post[]
+
+  // N:M
+  ratingOfPosts Rating[]
+}
+
+model Post {
+  idx Int @default(autoincrement()) @id
+  title String @db.VarChar(20)
+  content String @db.Text
+  thumbnail String @db.VarChar(100)
+  viewCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+
+  // N:M
+  ratingOfUsers Rating[]
+}
+
+// 좋아요 / 싫어요
+model Rating {
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+  post Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  @@id([userIdx, postIdx])
 }
