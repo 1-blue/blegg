@@ -1,3 +1,4 @@
+import type { SimpleUser } from "@src/types";
 import type {
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
@@ -959,3 +960,12 @@ export const mocSummonerRecords: ApiGetMatchesResponse = [
     ],
   },
 ];
+
+/** 특정 유저 가짜 데이터 */
+export const mocUser: SimpleUser = {
+  idx: 1,
+  avatar:
+    "http://ddragon.leagueoflegends.com/cdn/13.12.1/img/profileicon/3791.png",
+  nickname: "Akaps",
+  summonerName: "Akaps",
+};

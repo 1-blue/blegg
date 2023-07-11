@@ -7,6 +7,8 @@ const QUERY_KEYS = {
   ITEM: "ITEM",
   MATCHES: "MATCHES",
   ME: "ME",
+  POST: "POST",
+  POSTS: "POSTS",
 };
 export default QUERY_KEYS;
 
