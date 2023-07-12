@@ -38,6 +38,8 @@ const getMocPost = (): Prisma.PostCreateManyInput[] =>
         emblems[Math.floor(Math.random() * emblems.length)]
       }.png`,
       userIdx: Math.floor(Math.random() * emblems.length),
+      viewCount: Math.floor(Math.random() * 100),
+      createdAt: new Date(Date.now() - i * 1000 * 60),
     }));
 
 async function main() {
