@@ -1,4 +1,4 @@
-import type { SimpleUser } from "@src/types";
+import type { PostWithUser, SimpleUser } from "@src/types";
 import type {
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
@@ -968,4 +968,22 @@ export const mocUser: SimpleUser = {
     "http://ddragon.leagueoflegends.com/cdn/13.12.1/img/profileicon/3791.png",
   nickname: "Akaps",
   summonerName: "Akaps",
+};
+
+/** 특정 게시글 + 유저 가짜 데이터 */
+export const mocPostWithUser: PostWithUser = {
+  idx: 2,
+  title: "대충 제목1",
+  content: "🐶🐕🫥\n🍕👏\n대충 내용\n☔🎥\n📮🏅🕕1",
+  thumbnail: "/images/emblem/challenger.png",
+  viewCount: 11,
+  createdAt: new Date("2023-07-12T03:42:50.759Z"),
+  updatedAt: new Date("2023-07-12T03:43:50.763Z"),
+  userIdx: 5,
+  user: {
+    idx: 5,
+    avatar: "/images/emblem/platinum.png",
+    nickname: "platinum",
+    summonerName: "platinum",
+  },
 };
