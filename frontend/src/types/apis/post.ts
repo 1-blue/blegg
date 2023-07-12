@@ -1,4 +1,4 @@
-import type { Post, PostWithUser } from "..";
+import type { Post, PostWithUser, SortBy } from "..";
 
 /** 2023/07/11 - 게시글 생성 요청 타입 - by 1-blue */
 export interface ApiCreatePostRequest extends Pick<Post, "title" | "content"> {
@@ -24,6 +24,8 @@ export interface ApiFindOnePostHandler {
 export interface ApiFindManyPostRequest {
   start?: number;
   count?: number;
+  sortBy?: SortBy;
+  search?: string | null;
 }
 /** 2023/07/11 - 여러 게시글들 요청 응답 타입 - by 1-blue */
 export type ApiFindManyPostResponse = PostWithUser[];
