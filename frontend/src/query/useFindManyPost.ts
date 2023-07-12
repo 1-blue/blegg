@@ -13,16 +13,19 @@ interface Props extends ApiFindManyPostRequest {}
 
 /** 2023/07/11 - 여러 게시글들 요청 훅 - by 1-blue */
 export const useFindManyPost = (
-  { start, count }: Props,
+  { start, count, sortBy, search }: Props,
   initialDatas?: ApiFindManyPostResponse[]
 ) => {
-  const { data, isLoading, isError, isFetching, fetchNextPage } =
+  const { data, isLoading, isError, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery<ApiFindManyPostResponse>(
-      [QUERY_KEYS.POSTS],
-      ({ pageParam = start }) => apiFindManyPost({ start: pageParam, count }),
+      [QUERY_KEYS.POSTS, sortBy, search],
+      ({ pageParam = start }) =>
+        apiFindManyPost({ start: pageParam, count, sortBy, search }),
       {
-        getNextPageParam(_, pages) {
-          return pages.reduce((curr, prev) => curr + prev.length, 0);
+        getNextPageParam(lastPage) {
+          return lastPage.length === count
+            ? lastPage[lastPage.length - 1].idx
+            : null;
         },
         initialData: initialDatas && {
           pageParams: [],
@@ -31,5 +34,12 @@ export const useFindManyPost = (
       }
     );
 
-  return { posts: data, isLoading, isError, isFetching, fetchNextPage };
+  return {
+    posts: data,
+    isLoading,
+    isError,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  };
 };
