@@ -6,6 +6,8 @@ import SummonerInfo from "./SummonerInfo";
 import ChampionItem from "./ChampionItem";
 import ChampionSpell from "./ChampionSpell";
 import SummonerRecord from "./SummonerRecord";
+import Post from "./Post";
+import Avatar from "./Avatar";
 
 const Skeleton = {
   /** 2023/06/23 - Skeleton UI Circle - by 1-blue */
@@ -23,6 +25,10 @@ const Skeleton = {
   ChampionSpell,
   /** 2023/07/03 - "SummonerRecord" Skeleton UI - by 1-blue */
   SummonerRecord,
+  /** 2023/07/11 - "Post" - Skeleton UI - by 1-blue */
+  Post,
+  /** 2023/07/11 - "Avatar" - Skeleton UI - by 1-blue */
+  Avatar,
 };
 
 export default Skeleton;
