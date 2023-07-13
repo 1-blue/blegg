@@ -24,11 +24,13 @@ export interface Post {
   userIdx: number;
 }
 
+/** 2023/07/11 - 게시글 평가 타입 ( 좋아요/싫어요 ) - by 1-blue */
+export interface PostRating {
+  userIdx: number;
+  postIdx: number;
+  isLike: boolean;
+}
+
 /** 2023/07/11 - 간단한 유저 타입 - by 1-blue */
 export interface SimpleUser
   extends Pick<User, "idx" | "avatar" | "nickname" | "summonerName"> {}
-
-/** 2023/07/11 - 게시글 + 유저 타입 - by 1-blue */
-export interface PostWithUser extends Post {
-  user: SimpleUser;
-}
