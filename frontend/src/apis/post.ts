@@ -1,6 +1,8 @@
 import axiosInstance from ".";
 
 import type {
+  ApiAddViewCountOfPostHandler,
+  ApiAddViewCountOfPostResponse,
   ApiCreatePostHandler,
   ApiCreatePostResponse,
   ApiCreateRatingOfPostHandler,
@@ -81,6 +83,17 @@ export const apiDeleteRatingOfPost: ApiDeleteRatingOfPostHandler = async ({
 }) => {
   const { data } = await axiosInstance.delete<ApiDeleteRatingOfPostResponse>(
     `/post/${idx}/rating`
+  );
+
+  return data;
+};
+
+/** 2023/07/13 - 게시글 조회수 증가 요청 - by 1-blue */
+export const apiAddViewCountOfPost: ApiAddViewCountOfPostHandler = async ({
+  idx,
+}) => {
+  const { data } = await axiosInstance.post<ApiAddViewCountOfPostResponse>(
+    `/post/${idx}/view`
   );
 
   return data;

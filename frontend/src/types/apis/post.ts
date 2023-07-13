@@ -79,3 +79,12 @@ export interface ApiDeleteRatingOfPostResponse {}
 export interface ApiDeleteRatingOfPostHandler {
   (body: ApiDeleteRatingOfPostRequest): Promise<ApiDeleteRatingOfPostResponse>;
 }
+
+/** 2023/07/13 - 게시글 조회수 증가 요청 타입 - by 1-blue */
+export interface ApiAddViewCountOfPostRequest extends Pick<Post, "idx"> {}
+/** 2023/07/13 - 게시글 조회수 증가 요청 응답 타입 - by 1-blue */
+export interface ApiAddViewCountOfPostResponse {}
+/** 2023/07/13 - 게시글 조회수 증가 요청 핸들러 타입 - by 1-blue */
+export interface ApiAddViewCountOfPostHandler {
+  (body: ApiAddViewCountOfPostRequest): Promise<ApiAddViewCountOfPostResponse>;
+}
