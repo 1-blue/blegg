@@ -1,23 +1,18 @@
 import { Link } from "react-router-dom";
 import { type Variants, motion } from "framer-motion";
-import {
-  EyeIcon as OEyeIcon,
-  HandThumbUpIcon as OHandThumbUpIcon,
-  HandThumbDownIcon as OHandThumbDownIcon,
-} from "@heroicons/react/24/outline";
 
 import { timeFormat } from "@src/libs";
 
-import Avatar from "@src/components/Common/Avatar";
+import { ApiFindManyPostResponse } from "@src/types/apis";
 
-import type { PostWithUser } from "@src/types";
+import Info from "@src/components/Community/Info";
 
 const variants: Variants = {
   initial: { opacity: 0, scale: 0.9 },
   animate: { opacity: 1, scale: 1 },
 };
 
-interface Props extends PostWithUser {}
+type Props = ApiFindManyPostResponse[0];
 
 const Post: React.FC<Props> = ({
   idx,
@@ -27,6 +22,7 @@ const Post: React.FC<Props> = ({
   createdAt,
   viewCount,
   user,
+  ratingOfUsers,
 }) => {
   return (
     <motion.li variants={variants} layoutId={idx + ""}>
@@ -58,26 +54,12 @@ const Post: React.FC<Props> = ({
             {content}
           </p>
           {/* 작성자 && 조회수/좋아요/싫어요 */}
-          <div className="flex justify-between items-end">
-            {/* 작성자 */}
-            <Avatar {...user} />
-
-            {/* 조회수/좋아요/싫어요 */}
-            <div className="flex space-x-3">
-              <div className="flex items-center space-x-1">
-                <OHandThumbUpIcon className="w-4 h-4" />
-                <span className="text-xs">{0}</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <OHandThumbDownIcon className="w-4 h-4" />
-                <span className="text-xs">{0}</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <OEyeIcon className="w-4 h-4" />
-                <span className="text-xs">{viewCount}</span>
-              </div>
-            </div>
-          </div>
+          <Info
+            idx={idx}
+            user={user}
+            viewCount={viewCount}
+            ratingOfUsers={ratingOfUsers}
+          />
         </div>
       </Link>
     </motion.li>

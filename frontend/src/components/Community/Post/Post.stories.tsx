@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { mocPostWithUser } from "@src/libs";
+import MyReactQueryProvider from "@src/providers/MyReactQueryProvider";
+
+import { mocPostWithData } from "@src/libs";
 
 import Post from "./Post";
 
@@ -11,11 +13,14 @@ const meta = {
 
   decorators: [
     (Story) => (
-      <div className="list-none">
-        <Story />
-      </div>
+      <MyReactQueryProvider>
+        <div className="list-none">
+          <Story />
+        </div>
+      </MyReactQueryProvider>
     ),
   ],
+
   argTypes: {
     idx: { description: "게시글 식별자" },
     title: { description: "게시글 제목" },
@@ -34,4 +39,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { ...mocPostWithUser } };
+export const Default: Story = { args: { ...mocPostWithData } };

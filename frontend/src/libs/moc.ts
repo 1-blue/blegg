@@ -1,5 +1,6 @@
-import type { PostWithUser, SimpleUser } from "@src/types";
+import type { SimpleUser } from "@src/types";
 import type {
+  ApiFindManyPostResponse,
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
   ApiGetItemResponse,
@@ -970,8 +971,8 @@ export const mocUser: SimpleUser = {
   summonerName: "Akaps",
 };
 
-/** 특정 게시글 + 유저 가짜 데이터 */
-export const mocPostWithUser: PostWithUser = {
+/** 특정 게시글 + 추가 데이터들 ( 유저/평가 ) */
+export const mocPostWithData: ApiFindManyPostResponse[0] = {
   idx: 2,
   title: "대충 제목1",
   content: "🐶🐕🫥\n🍕👏\n대충 내용\n☔🎥\n📮🏅🕕1",
@@ -980,10 +981,11 @@ export const mocPostWithUser: PostWithUser = {
   createdAt: new Date("2023-07-12T03:42:50.759Z"),
   updatedAt: new Date("2023-07-12T03:43:50.763Z"),
   userIdx: 5,
-  user: {
-    idx: 5,
-    avatar: "/images/emblem/platinum.png",
-    nickname: "platinum",
-    summonerName: "platinum",
-  },
+  user: mocUser,
+  ratingOfUsers: [
+    { isLike: true, userIdx: 1 },
+    { isLike: true, userIdx: 2 },
+    { isLike: true, userIdx: 3 },
+    { isLike: false, userIdx: 4 },
+  ],
 };
