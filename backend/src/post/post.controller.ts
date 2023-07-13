@@ -20,6 +20,7 @@ import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { DeletePostDto } from "./dto/delete-post.dto";
 import { RatingPostDto } from "./dto/rating.dto";
+import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 import type { RequestWithUser } from "src/types/model";
 
 @Controller("post")
@@ -72,5 +73,10 @@ export class PostController {
     @Req() { user }: RequestWithUser,
   ) {
     return await this.postService.deleteRating(param, user.idx);
+  }
+
+  @Post(":idx/view")
+  async addViewCount(@Param() param: AddViewCountPostDto) {
+    return await this.postService.addViewCount(param);
   }
 }

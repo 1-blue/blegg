@@ -9,6 +9,7 @@ import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { DeletePostDto } from "./dto/delete-post.dto";
 import { RatingPostDto } from "./dto/rating.dto";
+import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 
 @Injectable()
 export class PostRepository {
@@ -205,5 +206,17 @@ export class PostRepository {
 
       return await this.createHate(idx, userIdx);
     }
+  }
+
+  /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
+  async addViewCount({ idx }: AddViewCountPostDto) {
+    const exPost = await this.findOne({ idx });
+
+    console.log("exPost >> ", exPost);
+
+    return await this.prismaService.post.update({
+      where: { idx },
+      data: { viewCount: exPost.viewCount + 1 },
+    });
   }
 }

@@ -8,6 +8,7 @@ import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { DeletePostDto } from "./dto/delete-post.dto";
 import { RatingPostDto } from "./dto/rating.dto";
+import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 
 @Injectable()
 export class PostService {
@@ -49,5 +50,10 @@ export class PostService {
   /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
   async deleteRating(body: RatingPostDto, userIdx: number) {
     return await this.postRepository.deleteRating(body, userIdx);
+  }
+
+  /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
+  async addViewCount(body: AddViewCountPostDto) {
+    return await this.postRepository.addViewCount(body);
   }
 }
