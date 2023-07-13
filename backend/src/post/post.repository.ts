@@ -4,10 +4,11 @@ import type { Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
-import { FindOnePost } from "./dto/find-one-post.dto";
-import { FindManyPost } from "./dto/find-many-post.dto";
+import { FindOnePostDto } from "./dto/find-one-post.dto";
+import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
-import { DeletePost } from "./dto/delete-post.dto";
+import { DeletePostDto } from "./dto/delete-post.dto";
+import { RatingPostDto } from "./dto/rating.dto";
 
 @Injectable()
 export class PostRepository {
@@ -30,8 +31,26 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 단일 게시글 찾기 - by 1-blue */
-  async findOne({ idx }: FindOnePost) {
-    const exPost = await this.prismaService.post.findUnique({ where: { idx } });
+  async findOne({ idx }: FindOnePostDto) {
+    const exPost = await this.prismaService.post.findUnique({
+      where: { idx },
+      include: {
+        user: {
+          select: {
+            idx: true,
+            avatar: true,
+            nickname: true,
+            summonerName: true,
+          },
+        },
+        ratingOfUsers: {
+          select: {
+            isLike: true,
+            userIdx: true,
+          },
+        },
+      },
+    });
 
     if (!exPost) throw new NotFoundException("게시글이 존재하지 않습니다.");
 
@@ -39,7 +58,7 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 게시글들 찾기 - by 1-blue */
-  async findMany({ start, count, sortBy, search }: FindManyPost) {
+  async findMany({ start, count, sortBy, search }: FindManyPostDto) {
     // 검색 조건 ( title || content에 포함되었다면 )
     const where: Prisma.PostWhereInput = {
       ...(search && {
@@ -56,22 +75,27 @@ export class PostRepository {
       skip: start === -1 ? 0 : 1,
       take: count,
       where,
+      include: {
+        user: {
+          select: {
+            idx: true,
+            avatar: true,
+            nickname: true,
+            summonerName: true,
+          },
+        },
+        ratingOfUsers: {
+          select: {
+            isLike: true,
+          },
+        },
+      },
     };
 
     // 최신순
     if (sortBy === "recent") {
       return await this.prismaService.post.findMany({
         orderBy: [{ createdAt: "desc" }],
-        include: {
-          user: {
-            select: {
-              idx: true,
-              avatar: true,
-              nickname: true,
-              summonerName: true,
-            },
-          },
-        },
         ...condition,
       });
     }
@@ -79,16 +103,6 @@ export class PostRepository {
     if (sortBy === "viewed") {
       return await this.prismaService.post.findMany({
         orderBy: [{ viewCount: "desc" }, { createdAt: "desc" }],
-        include: {
-          user: {
-            select: {
-              idx: true,
-              avatar: true,
-              nickname: true,
-              summonerName: true,
-            },
-          },
-        },
         ...condition,
       });
     }
@@ -96,23 +110,13 @@ export class PostRepository {
     if (sortBy === "popular") {
       return await this.prismaService.post.findMany({
         orderBy: [{ viewCount: "desc" }],
-        include: {
-          user: {
-            select: {
-              idx: true,
-              avatar: true,
-              nickname: true,
-              summonerName: true,
-            },
-          },
-        },
         ...condition,
       });
     }
   }
 
   /** 2023/07/11 - 게시글 수정 - by 1-blue */
-  async update({ idx, ...body }: FindOnePost & UpdatePostDto) {
+  async update({ idx, ...body }: FindOnePostDto & UpdatePostDto) {
     await this.findOne({ idx });
 
     return await this.prismaService.post.update({
@@ -122,9 +126,84 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 게시글 삭제 - by 1-blue */
-  async delete({ idx }: DeletePost) {
+  async delete({ idx }: DeletePostDto) {
     await this.findOne({ idx });
 
     return await this.prismaService.post.delete({ where: { idx } });
+  }
+
+  /** 2023/07/13 - 좋아요 얻기 ( 좋아요 눌렀는지 여부 확인 ) - by 1-blue */
+  async findLike(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.findFirst({
+      where: { isLike: true, postIdx, userIdx },
+    });
+  }
+  /** 2023/07/13 - 싫어요 얻기 ( 싫어요 눌렀는지 여부 확인 ) - by 1-blue */
+  async findHate(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.findFirst({
+      where: { isLike: false, postIdx, userIdx },
+    });
+  }
+  /** 2023/07/13 - 좋아요 추가 - by 1-blue */
+  async createLike(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.create({
+      data: { isLike: true, postIdx, userIdx },
+    });
+  }
+  /** 2023/07/13 - 좋아요 제거 - by 1-blue */
+  async deleteLike(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.delete({
+      where: { userIdx_postIdx: { postIdx, userIdx } },
+    });
+  }
+  /** 2023/07/13 - 싫어요 추가 - by 1-blue */
+  async createHate(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.create({
+      data: { isLike: false, postIdx, userIdx },
+    });
+  }
+  /** 2023/07/13 - 싫어요 제거 - by 1-blue */
+  async deleteHate(postIdx: number, userIdx: number) {
+    return await this.prismaService.postRating.delete({
+      where: { userIdx_postIdx: { postIdx, userIdx } },
+    });
+  }
+
+  /** 2023/07/13 - 게시글 좋아요 - by 1-blue */
+  async createRating({ idx }: RatingPostDto, userIdx: number) {
+    await this.findOne({ idx });
+
+    // 이미 좋아요 눌렀는지 확인
+    const exLike = await this.findLike(idx, userIdx);
+
+    // 좋아요 취소
+    if (exLike) return await this.deleteLike(idx, userIdx);
+    // 좋아요 추가
+    else {
+      // 이미 싫어요가 있다면 제거
+      const exHate = await this.findHate(idx, userIdx);
+      if (exHate) await this.deleteHate(idx, userIdx);
+
+      return await this.createLike(idx, userIdx);
+    }
+  }
+
+  /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
+  async deleteRating({ idx }: RatingPostDto, userIdx: number) {
+    await this.findOne({ idx });
+
+    // 이미 싫어요 눌렀는지 확인
+    const exHate = await this.findHate(idx, userIdx);
+
+    // 싫어요 취소
+    if (exHate) return await this.deleteHate(idx, userIdx);
+    // 싫어요 추가
+    else {
+      // 이미 좋아요가 있다면 제거
+      const exLike = await this.findLike(idx, userIdx);
+      if (exLike) await this.deleteLike(idx, userIdx);
+
+      return await this.createHate(idx, userIdx);
+    }
   }
 }

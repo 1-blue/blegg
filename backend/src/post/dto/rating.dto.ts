@@ -1,7 +1,7 @@
 import { Type } from "class-transformer";
 import { IsNumber } from "class-validator";
 
-export class FindOnePostDto {
+export class RatingPostDto {
   @Type(() => Number)
   @IsNumber()
   idx: number;

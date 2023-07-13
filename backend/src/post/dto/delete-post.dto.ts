@@ -1,6 +1,6 @@
 import { IsNumber } from "class-validator";
 
-export class DeletePost {
+export class DeletePostDto {
   @IsNumber()
   idx: number;
 }

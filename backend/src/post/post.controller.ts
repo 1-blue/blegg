@@ -15,10 +15,11 @@ import { AuthGuard } from "@nestjs/passport";
 import { PostService } from "./post.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
-import { FindOnePost } from "./dto/find-one-post.dto";
-import { FindManyPost } from "./dto/find-many-post.dto";
+import { FindOnePostDto } from "./dto/find-one-post.dto";
+import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
-import { DeletePost } from "./dto/delete-post.dto";
+import { DeletePostDto } from "./dto/delete-post.dto";
+import { RatingPostDto } from "./dto/rating.dto";
 import type { RequestWithUser } from "src/types/model";
 
 @Controller("post")
@@ -35,24 +36,41 @@ export class PostController {
   }
 
   @Get(":idx")
-  async findOne(@Param() param: FindOnePost) {
+  async findOne(@Param() param: FindOnePostDto) {
     return await this.postService.findOne(param);
   }
 
   @Get()
-  async findMany(@Query() query: FindManyPost) {
+  async findMany(@Query() query: FindManyPostDto) {
     return await this.postService.findMany(query);
   }
 
   @UseGuards(AuthGuard("jwt"))
   @Patch(":idx")
-  async update(@Param() param: FindOnePost, @Body() body: UpdatePostDto) {
+  async update(@Param() param: FindOnePostDto, @Body() body: UpdatePostDto) {
     return await this.postService.update({ ...param, ...body });
   }
 
   @UseGuards(AuthGuard("jwt"))
   @Delete(":idx")
-  async delete(@Param() param: DeletePost) {
+  async delete(@Param() param: DeletePostDto) {
     return await this.postService.delete(param);
+  }
+
+  @UseGuards(AuthGuard("jwt"))
+  @Post(":idx/rating")
+  async createRating(
+    @Param() param: RatingPostDto,
+    @Req() { user }: RequestWithUser,
+  ) {
+    return await this.postService.createRating(param, user.idx);
+  }
+  @UseGuards(AuthGuard("jwt"))
+  @Delete(":idx/rating")
+  async deleteRating(
+    @Param() param: RatingPostDto,
+    @Req() { user }: RequestWithUser,
+  ) {
+    return await this.postService.deleteRating(param, user.idx);
   }
 }

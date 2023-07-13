@@ -30,7 +30,7 @@ model User {
   posts Post[]
 
   // N:M
-  ratingOfPosts Rating[]
+  ratingOfPosts PostRating[]
 }
 
 model Post {
@@ -47,15 +47,17 @@ model Post {
   userIdx Int
 
   // N:M
-  ratingOfUsers Rating[]
+  ratingOfUsers PostRating[]
 }
 
-// 좋아요 / 싫어요
-model Rating {
+// 게시글 좋아요 / 싫어요
+model PostRating {
   user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
   userIdx Int
   post Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
   postIdx Int
+
+  isLike Boolean
 
   @@id([userIdx, postIdx])
 }

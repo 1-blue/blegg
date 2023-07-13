@@ -1,7 +1,7 @@
 import { Transform } from "class-transformer";
 import { IsNumber, IsOptional, IsString } from "class-validator";
 
-export class FindManyPost {
+export class FindManyPostDto {
   @Transform(({ value }) => parseInt(value || -1))
   @IsNumber()
   @IsOptional()
