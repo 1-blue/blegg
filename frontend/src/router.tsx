@@ -26,6 +26,7 @@ import Home from "@src/pages/Home";
 import Champions from "@src/pages/Champions";
 import Summoner from "@src/pages/Summoner";
 import Community from "@src/pages/Community";
+import CommunityWriter from "./pages/CommunityWriter";
 import SignIn from "@src/pages/SignIn";
 import SignUp from "@src/pages/SignUp";
 import Profile from "@src/pages/Profile";
@@ -91,6 +92,11 @@ export const routerElements: RouterElement[] = [
       <OBookOpenIcon className="h-6 w-6" />,
       <SBookOpenIcon className="h-6 w-6" />,
     ],
+    isAuth: null,
+  },
+  {
+    path: "/community/create",
+    element: <CommunityWriter />,
     isAuth: null,
   },
   {
