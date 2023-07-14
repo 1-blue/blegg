@@ -4,11 +4,11 @@ import MyReactQueryProvider from "@src/providers/MyReactQueryProvider";
 
 import { mocPostWithData } from "@src/libs";
 
-import Info from "./Info";
+import PostInfo from "./PostInfo";
 
 const meta = {
-  title: "Community/Info",
-  component: Info,
+  title: "Community/PostInfo",
+  component: PostInfo,
   tags: ["autodocs"],
 
   decorators: [
@@ -24,7 +24,7 @@ const meta = {
     user: { description: "게시글 작성자 정보" },
     ratingOfUsers: { description: "게시글 평가 정보" },
   },
-} satisfies Meta<typeof Info>;
+} satisfies Meta<typeof PostInfo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

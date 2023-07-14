@@ -24,7 +24,7 @@ interface Props
   > {}
 
 /** 2023/07/13 - 게시글 정보 ( 유저/조회수/평가 ) 및 평가 컴포넌트 - by 1-blue */
-const Info: React.FC<Props> = ({ idx, viewCount, user, ratingOfUsers }) => {
+const PostInfo: React.FC<Props> = ({ idx, viewCount, user, ratingOfUsers }) => {
   const { me } = useGetMe();
 
   const likeOfPostMutate = useLikeOfPost({ idx });
@@ -101,4 +101,4 @@ const Info: React.FC<Props> = ({ idx, viewCount, user, ratingOfUsers }) => {
   );
 };
 
-export default Info;
+export default PostInfo;

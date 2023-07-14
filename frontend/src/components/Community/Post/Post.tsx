@@ -5,7 +5,7 @@ import { timeFormat } from "@src/libs";
 
 import { ApiFindManyPostResponse } from "@src/types/apis";
 
-import Info from "@src/components/Community/Info";
+import PostInfo from "@src/components/Community/PostInfo";
 
 const variants: Variants = {
   initial: { opacity: 0, scale: 0.9 },
@@ -54,7 +54,7 @@ const Post: React.FC<Props> = ({
             {content}
           </p>
           {/* 작성자 && 조회수/좋아요/싫어요 */}
-          <Info
+          <PostInfo
             idx={idx}
             user={user}
             viewCount={viewCount}
