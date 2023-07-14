@@ -20,12 +20,16 @@ export class PostRepository {
 
   /** 2023/07/11 - 게시글 생성 - by 1-blue */
   async create({ title, content, thumbnail }: CreatePostDto, userIdx: number) {
+    const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
+
     // TODO: 기본 썸네일
     return await this.prismaService.post.create({
       data: {
         title,
         content,
-        thumbnail: thumbnail || "/images/emblem/challenger.png",
+        thumbnail: thumbnail
+          ? `${S3_BASE_URL}/${thumbnail}`
+          : "/images/emblem/challenger.png",
         userIdx,
       },
     });
@@ -211,8 +215,6 @@ export class PostRepository {
   /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
   async addViewCount({ idx }: AddViewCountPostDto) {
     const exPost = await this.findOne({ idx });
-
-    console.log("exPost >> ", exPost);
 
     return await this.prismaService.post.update({
       where: { idx },
