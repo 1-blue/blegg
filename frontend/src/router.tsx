@@ -28,6 +28,7 @@ import Summoner from "@src/pages/Summoner";
 import Community from "@src/pages/Community";
 import CommunityDetail from "./pages/CommunityDetail";
 import CommunityWriter from "./pages/CommunityWriter";
+import CommunityUpdater from "./pages/CommunityUpdater";
 import SignIn from "@src/pages/SignIn";
 import SignUp from "@src/pages/SignUp";
 import Profile from "@src/pages/Profile";
@@ -103,6 +104,11 @@ export const routerElements: RouterElement[] = [
   {
     path: "/community/create",
     element: <CommunityWriter />,
+    isAuth: null,
+  },
+  {
+    path: "/community/:idx/update",
+    element: <CommunityUpdater />,
     isAuth: null,
   },
   {

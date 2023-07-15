@@ -11,14 +11,22 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   /** (브라우저에서만) 업로드한 이미지 setter */
   setImage: React.Dispatch<React.SetStateAction<FileList | null>>;
+  /** 기본 이미지 */
+  imageURL?: string;
 }
 
 /** 2023/07/14 - 단일 이미지 입력받는 컴포넌트 - by 1-blue */
-const SingleImage: React.FC<Props> = ({ id, required, setImage, ...props }) => {
+const SingleImage: React.FC<Props> = ({
+  id,
+  required,
+  setImage,
+  imageURL,
+  ...props
+}) => {
   /** 2023/07/14 - 이미지 ref - by 1-blue */
   const photoRef = useRef<null | HTMLInputElement>(null);
   /** 2023/07/14 - 업로드 전 미리보기 - by 1-blue */
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState(imageURL);
 
   /** 2023/07/14 - 이미지 등록 - by 1-blue */
   const onUploadPreview: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -35,6 +43,8 @@ const SingleImage: React.FC<Props> = ({ id, required, setImage, ...props }) => {
 
   /** 2023/07/14 - 이미지 업로드 취소 - by 1-blue */
   const onDeletePreview = () => {
+    if (!preview) return;
+
     URL.revokeObjectURL(preview);
     setImage?.(null);
     setPreview("");
@@ -43,6 +53,7 @@ const SingleImage: React.FC<Props> = ({ id, required, setImage, ...props }) => {
   /** 2023/07/14 - 새로운 이미지 업로드하면 Blob 할당 해제 - by 1-blue */
   useEffect(() => {
     if (!photoRef.current) return;
+    if (!preview) return;
 
     photoRef.current.onload = () => URL.revokeObjectURL(preview);
   }, [preview]);

@@ -8,6 +8,7 @@ const meta = {
   argTypes: {
     id: { description: "label의 이름" },
     setImage: { description: "이미지 값을 넣을 setter 함수 ( File )" },
+    imageURL: { description: "기본 이미지" },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof SingleImage>;
