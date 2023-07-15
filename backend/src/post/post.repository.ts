@@ -11,6 +11,8 @@ import { DeletePostDto } from "./dto/delete-post.dto";
 import { RatingPostDto } from "./dto/rating.dto";
 import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 
+const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
+
 @Injectable()
 export class PostRepository {
   private readonly prismaService: PrismaService;
@@ -20,8 +22,6 @@ export class PostRepository {
 
   /** 2023/07/11 - 게시글 생성 - by 1-blue */
   async create({ title, content, thumbnail }: CreatePostDto, userIdx: number) {
-    const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
-
     // TODO: 기본 썸네일
     return await this.prismaService.post.create({
       data: {
@@ -121,12 +121,15 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 게시글 수정 - by 1-blue */
-  async update({ idx, ...body }: FindOnePostDto & UpdatePostDto) {
-    await this.findOne({ idx });
+  async update({ idx, thumbnail, ...body }: FindOnePostDto & UpdatePostDto) {
+    const exPost = await this.findOne({ idx });
 
     return await this.prismaService.post.update({
       where: { idx },
-      data: { ...body },
+      data: {
+        ...body,
+        thumbnail: thumbnail ? `${S3_BASE_URL}/${thumbnail}` : exPost.thumbnail,
+      },
     });
   }
 
