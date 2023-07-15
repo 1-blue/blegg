@@ -9,6 +9,7 @@ import SummonerRecord from "./SummonerRecord";
 import Post from "./Post";
 import Avatar from "./Avatar";
 import PostInfo from "./PostInfo";
+import CommunityDetail from "./CommunityDetail";
 
 const Skeleton = {
   /** 2023/06/23 - Skeleton UI Circle - by 1-blue */
@@ -32,6 +33,8 @@ const Skeleton = {
   Avatar,
   /** 2023/07/14 - "PostInfo" Skeleton UI - by 1-blue */
   PostInfo,
+  /** 2023/07/14 - "CommunityDetail" Skeleton UI - by 1-blue */
+  CommunityDetail,
 };
 
 export default Skeleton;
