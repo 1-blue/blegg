@@ -111,10 +111,10 @@ export class PostRepository {
         ...condition,
       });
     }
-    // FIXME: 인기순 ( 조회 + (좋아요 +싫어요) * 100 ) 정도로 계산하기
+    // 인기순
     if (sortBy === "popular") {
       return await this.prismaService.post.findMany({
-        orderBy: [{ viewCount: "desc" }],
+        orderBy: [{ ratingOfUsers: { _count: "desc" } }],
         ...condition,
       });
     }
