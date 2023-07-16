@@ -4,12 +4,8 @@ import type { Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
-import { FindOnePostDto } from "./dto/find-one-post.dto";
 import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
-import { DeletePostDto } from "./dto/delete-post.dto";
-import { RatingPostDto } from "./dto/rating.dto";
-import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 
 const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
 
@@ -36,9 +32,9 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 단일 게시글 찾기 - by 1-blue */
-  async findOne({ idx }: FindOnePostDto) {
+  async findOne(postIdx: number) {
     const exPost = await this.prismaService.post.findUnique({
-      where: { idx },
+      where: { idx: postIdx },
       include: {
         user: {
           select: {
@@ -121,11 +117,11 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 게시글 수정 - by 1-blue */
-  async update({ idx, thumbnail, ...body }: FindOnePostDto & UpdatePostDto) {
-    const exPost = await this.findOne({ idx });
+  async update(postIdx: number, { thumbnail, ...body }: UpdatePostDto) {
+    const exPost = await this.findOne(postIdx);
 
     return await this.prismaService.post.update({
-      where: { idx },
+      where: { idx: postIdx },
       data: {
         ...body,
         thumbnail: thumbnail ? `${S3_BASE_URL}/${thumbnail}` : exPost.thumbnail,
@@ -134,10 +130,10 @@ export class PostRepository {
   }
 
   /** 2023/07/11 - 게시글 삭제 - by 1-blue */
-  async delete({ idx }: DeletePostDto) {
-    await this.findOne({ idx });
+  async delete(postIdx: number) {
+    await this.findOne(postIdx);
 
-    return await this.prismaService.post.delete({ where: { idx } });
+    return await this.prismaService.post.delete({ where: { idx: postIdx } });
   }
 
   /** 2023/07/13 - 좋아요 얻기 ( 좋아요 눌렀는지 여부 확인 ) - by 1-blue */
@@ -178,49 +174,49 @@ export class PostRepository {
   }
 
   /** 2023/07/13 - 게시글 좋아요 - by 1-blue */
-  async createRating({ idx }: RatingPostDto, userIdx: number) {
-    await this.findOne({ idx });
+  async createRating(postIdx: number, userIdx: number) {
+    await this.findOne(postIdx);
 
     // 이미 좋아요 눌렀는지 확인
-    const exLike = await this.findLike(idx, userIdx);
+    const exLike = await this.findLike(postIdx, userIdx);
 
     // 좋아요 취소
-    if (exLike) return await this.deleteLike(idx, userIdx);
+    if (exLike) return await this.deleteLike(postIdx, userIdx);
     // 좋아요 추가
     else {
       // 이미 싫어요가 있다면 제거
-      const exHate = await this.findHate(idx, userIdx);
-      if (exHate) await this.deleteHate(idx, userIdx);
+      const exHate = await this.findHate(postIdx, userIdx);
+      if (exHate) await this.deleteHate(postIdx, userIdx);
 
-      return await this.createLike(idx, userIdx);
+      return await this.createLike(postIdx, userIdx);
     }
   }
 
   /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
-  async deleteRating({ idx }: RatingPostDto, userIdx: number) {
-    await this.findOne({ idx });
+  async deleteRating(postIdx: number, userIdx: number) {
+    await this.findOne(postIdx);
 
     // 이미 싫어요 눌렀는지 확인
-    const exHate = await this.findHate(idx, userIdx);
+    const exHate = await this.findHate(postIdx, userIdx);
 
     // 싫어요 취소
-    if (exHate) return await this.deleteHate(idx, userIdx);
+    if (exHate) return await this.deleteHate(postIdx, userIdx);
     // 싫어요 추가
     else {
       // 이미 좋아요가 있다면 제거
-      const exLike = await this.findLike(idx, userIdx);
-      if (exLike) await this.deleteLike(idx, userIdx);
+      const exLike = await this.findLike(postIdx, userIdx);
+      if (exLike) await this.deleteLike(postIdx, userIdx);
 
-      return await this.createHate(idx, userIdx);
+      return await this.createHate(postIdx, userIdx);
     }
   }
 
   /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
-  async addViewCount({ idx }: AddViewCountPostDto) {
-    const exPost = await this.findOne({ idx });
+  async addViewCount(postIdx: number) {
+    const exPost = await this.findOne(postIdx);
 
     return await this.prismaService.post.update({
-      where: { idx },
+      where: { idx: postIdx },
       data: { viewCount: exPost.viewCount + 1 },
     });
   }

@@ -15,12 +15,8 @@ import { AuthGuard } from "@nestjs/passport";
 import { PostService } from "./post.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
-import { FindOnePostDto } from "./dto/find-one-post.dto";
 import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
-import { DeletePostDto } from "./dto/delete-post.dto";
-import { RatingPostDto } from "./dto/rating.dto";
-import { AddViewCountPostDto } from "./dto/add-view-count-post.dto";
 import type { RequestWithUser } from "src/types/model";
 
 @Controller("post")
@@ -30,53 +26,61 @@ export class PostController {
     this.postService = postService;
   }
 
+  /** 2023/07/11 - 게시글 생성 - by 1-blue */
   @UseGuards(AuthGuard("jwt"))
   @Post()
   async create(@Body() body: CreatePostDto, @Req() { user }: RequestWithUser) {
     return await this.postService.create(body, user.idx);
   }
 
-  @Get(":idx")
-  async findOne(@Param() param: FindOnePostDto) {
-    return await this.postService.findOne(param);
+  /** 2023/07/11 - 단일 게시글 찾기 - by 1-blue */
+  @Get(":postIdx")
+  async findOne(@Param("postIdx") postIdx: number) {
+    return await this.postService.findOne(postIdx);
   }
 
+  /** 2023/07/11 - 게시글들 찾기 - by 1-blue */
   @Get()
   async findMany(@Query() query: FindManyPostDto) {
     return await this.postService.findMany(query);
   }
 
+  /** 2023/07/11 - 게시글 수정 - by 1-blue */
   @UseGuards(AuthGuard("jwt"))
-  @Patch(":idx")
-  async update(@Param() param: FindOnePostDto, @Body() body: UpdatePostDto) {
-    return await this.postService.update({ ...param, ...body });
+  @Patch(":postIdx")
+  async update(@Param("postIdx") postIdx: number, @Body() body: UpdatePostDto) {
+    return await this.postService.update(postIdx, body);
   }
 
+  /** 2023/07/11 - 게시글 삭제 - by 1-blue */
   @UseGuards(AuthGuard("jwt"))
-  @Delete(":idx")
-  async delete(@Param() param: DeletePostDto) {
-    return await this.postService.delete(param);
+  @Delete(":postIdx")
+  async delete(@Param("postIdx") postIdx: number) {
+    return await this.postService.delete(postIdx);
   }
 
+  /** 2023/07/13 - 게시글 좋아요 - by 1-blue */
   @UseGuards(AuthGuard("jwt"))
-  @Post(":idx/rating")
+  @Post(":postIdx/rating")
   async createRating(
-    @Param() param: RatingPostDto,
+    @Param("postIdx") postIdx: number,
     @Req() { user }: RequestWithUser,
   ) {
-    return await this.postService.createRating(param, user.idx);
+    return await this.postService.createRating(postIdx, user.idx);
   }
+  /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
   @UseGuards(AuthGuard("jwt"))
-  @Delete(":idx/rating")
+  @Delete(":postIdx/rating")
   async deleteRating(
-    @Param() param: RatingPostDto,
+    @Param("postIdx") postIdx: number,
     @Req() { user }: RequestWithUser,
   ) {
-    return await this.postService.deleteRating(param, user.idx);
+    return await this.postService.deleteRating(postIdx, user.idx);
   }
 
-  @Post(":idx/view")
-  async addViewCount(@Param() param: AddViewCountPostDto) {
-    return await this.postService.addViewCount(param);
+  /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
+  @Post(":postIdx/view")
+  async addViewCount(@Param("postIdx") postIdx: number) {
+    return await this.postService.addViewCount(postIdx);
   }
 }
