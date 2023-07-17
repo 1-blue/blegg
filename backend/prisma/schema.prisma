@@ -26,11 +26,14 @@ model User {
   provider Provider @default(local)
   snsId String? @db.VarChar(100)
 
-  // 1:N
+  // 1:N ( 유저/게시글 )
   posts Post[]
 
-  // N:M
+  // N:M ( 유저/게시글 -> 좋아요 )
   ratingOfPosts PostRating[]
+
+  // 1:N ( 유저/댓글 )
+  comments Comment[]
 }
 
 model Post {
@@ -42,12 +45,15 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  // 1:N
+  // 1:N ( 유저/게시글 )
   user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
   userIdx Int
 
-  // N:M
+  // N:M ( 유저/게시글 -> 좋아요 )
   ratingOfUsers PostRating[]
+
+  // 1:N ( 게시글/댓글 )
+  comments Comment[]
 }
 
 // 게시글 좋아요 / 싫어요
@@ -60,4 +66,33 @@ model PostRating {
   isLike Boolean
 
   @@id([userIdx, postIdx])
+}
+
+model Comment {
+  idx Int @default(autoincrement()) @id
+  content String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N ( 유저/댓글 )
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+
+  // 1:N ( 게시글/댓글 )
+  post Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  // 1:N ( 댓글/답글 )
+  replies Reply[]
+}
+
+model Reply {
+  idx Int @default(autoincrement()) @id
+  content String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N ( 댓글/답글 )
+  comments Comment @relation(fields: [commentIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  commentIdx Int
 }

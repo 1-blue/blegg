@@ -5,6 +5,9 @@ import { PostRepository } from "./post.repository";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
+import { CreateCommentDto } from "./dto/create-comment.dto";
+import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { FindManyCommentDto } from "./dto/find-many-comment.dto";
 
 @Injectable()
 export class PostService {
@@ -51,5 +54,33 @@ export class PostService {
   /** 2023/07/13 - 게시글 조회수 증가 - by 1-blue */
   async addViewCount(postIdx: number) {
     return await this.postRepository.addViewCount(postIdx);
+  }
+
+  /** 2023/07/16 - 댓글 추가 - by 1-blue */
+  async createComment(
+    postIdx: number,
+    body: CreateCommentDto,
+    userIdx: number,
+  ) {
+    return await this.postRepository.createComment(postIdx, body, userIdx);
+  }
+
+  /** 2023/07/16 - 댓글들 조회 - by 1-blue */
+  async findManyComment(postIdx: number, body: FindManyCommentDto) {
+    return await this.postRepository.findManyComment(postIdx, body);
+  }
+
+  /** 2023/07/16 - 댓글 수정 - by 1-blue */
+  async updateComment(
+    postIdx: number,
+    commentIdx: number,
+    body: UpdateCommentDto,
+  ) {
+    return await this.postRepository.updateComment(postIdx, commentIdx, body);
+  }
+
+  /** 2023/07/16 - 댓글 삭제 - by 1-blue */
+  async deleteComment(postIdx: number, commentIdx: number) {
+    return await this.postRepository.deleteComment(postIdx, commentIdx);
   }
 }

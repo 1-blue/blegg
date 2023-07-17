@@ -15,8 +15,12 @@ import { AuthGuard } from "@nestjs/passport";
 import { PostService } from "./post.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
+
 import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
+import { CreateCommentDto } from "./dto/create-comment.dto";
+import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { FindManyCommentDto } from "./dto/find-many-comment.dto";
 import type { RequestWithUser } from "src/types/model";
 
 @Controller("post")
@@ -82,5 +86,46 @@ export class PostController {
   @Post(":postIdx/view")
   async addViewCount(@Param("postIdx") postIdx: number) {
     return await this.postService.addViewCount(postIdx);
+  }
+
+  /** 2023/07/16 - 댓글 추가 - by 1-blue */
+  @UseGuards(AuthGuard("jwt"))
+  @Post(":postIdx/comment")
+  async createComment(
+    @Param("postIdx") postIdx: number,
+    @Body() body: CreateCommentDto,
+    @Req() { user }: RequestWithUser,
+  ) {
+    return await this.postService.createComment(postIdx, body, user.idx);
+  }
+
+  /** 2023/07/16 - 댓글들 조회 - by 1-blue */
+  @Get(":postIdx/comment")
+  async findManyComment(
+    @Param("postIdx") postIdx: number,
+    @Query() query: FindManyCommentDto,
+  ) {
+    return await this.postService.findManyComment(postIdx, query);
+  }
+
+  /** 2023/07/16 - 댓글 수정 - by 1-blue */
+  @UseGuards(AuthGuard("jwt"))
+  @Patch(":postIdx/comment/:commentIdx")
+  async updateComment(
+    @Param("postIdx") postIdx: number,
+    @Param("commentIdx") commentIdx: number,
+    @Body() body: UpdateCommentDto,
+  ) {
+    return await this.postService.updateComment(postIdx, commentIdx, body);
+  }
+
+  /** 2023/07/16 - 댓글 삭제 - by 1-blue */
+  @UseGuards(AuthGuard("jwt"))
+  @Delete(":postIdx/comment/:commentIdx")
+  async deleteComment(
+    @Param("postIdx") postIdx: number,
+    @Param("commentIdx") commentIdx: number,
+  ) {
+    return await this.postService.deleteComment(postIdx, commentIdx);
   }
 }

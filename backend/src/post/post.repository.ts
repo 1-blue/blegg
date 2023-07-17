@@ -6,6 +6,9 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { FindManyPostDto } from "./dto/find-many-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
+import { CreateCommentDto } from "./dto/create-comment.dto";
+import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { FindManyCommentDto } from "./dto/find-many-comment.dto";
 
 const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
 
@@ -125,6 +128,7 @@ export class PostRepository {
       data: {
         ...body,
         thumbnail: thumbnail ? `${S3_BASE_URL}/${thumbnail}` : exPost.thumbnail,
+        updatedAt: new Date(),
       },
     });
   }
@@ -218,6 +222,64 @@ export class PostRepository {
     return await this.prismaService.post.update({
       where: { idx: postIdx },
       data: { viewCount: exPost.viewCount + 1 },
+    });
+  }
+
+  /** 2023/07/16 - 댓글 추가 - by 1-blue */
+  async createComment(
+    postIdx: number,
+    { content }: CreateCommentDto,
+    userIdx: number,
+  ) {
+    await this.findOne(postIdx);
+
+    return await this.prismaService.comment.create({
+      data: { userIdx, postIdx, content },
+    });
+  }
+
+  /** 2023/07/16 - 댓글들 조회 - by 1-blue */
+  async findManyComment(postIdx: number, { start, count }: FindManyCommentDto) {
+    // 페이지네이션 조건
+    const condition: Prisma.CommentFindManyArgs = {
+      ...(start !== -1 && { cursor: { idx: start } }),
+      skip: start === -1 ? 0 : 1,
+      take: count,
+      where: { postIdx },
+      include: {
+        user: {
+          select: {
+            idx: true,
+            avatar: true,
+            nickname: true,
+            summonerName: true,
+          },
+        },
+      },
+    };
+
+    return await this.prismaService.comment.findMany({
+      orderBy: [{ createdAt: "asc" }],
+      ...condition,
+    });
+  }
+
+  /** 2023/07/16 - 댓글 수정 - by 1-blue */
+  async updateComment(
+    postIdx: number,
+    commentIdx: number,
+    { content }: UpdateCommentDto,
+  ) {
+    return await this.prismaService.comment.update({
+      where: { idx: commentIdx },
+      data: { content, updatedAt: new Date() },
+    });
+  }
+
+  /** 2023/07/16 - 댓글 삭제 - by 1-blue */
+  async deleteComment(postIdx: number, commentIdx: number) {
+    return await this.prismaService.comment.delete({
+      where: { idx: commentIdx },
     });
   }
 }
