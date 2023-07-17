@@ -1,5 +1,6 @@
 import type { SimpleUser } from "@src/types";
 import type {
+  ApiFindManyCommentResponse,
   ApiFindManyPostResponse,
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
@@ -988,4 +989,20 @@ export const mocPostWithData: ApiFindManyPostResponse[0] = {
     { isLike: true, userIdx: 3 },
     { isLike: false, userIdx: 4 },
   ],
+};
+
+/** 특정 댓글 가짜 데이터 */
+export const mocComment: ApiFindManyCommentResponse[0] = {
+  idx: 1,
+  content: "테스트용 댓글\n😥🫥🐕🐶\n🏅📮🎥\n🍕👏",
+  createdAt: new Date("2023-07-16T08:51:38.923Z"),
+  updatedAt: new Date("2023-07-17T07:59:37.100Z"),
+  userIdx: 10,
+  postIdx: 1,
+  user: {
+    idx: 10,
+    avatar: "/images/emblem/challenger.png",
+    nickname: "Akaps",
+    summonerName: "나의 개발일지",
+  },
 };
