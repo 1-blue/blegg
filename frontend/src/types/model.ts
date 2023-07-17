@@ -31,6 +31,25 @@ export interface PostRating {
   isLike: boolean;
 }
 
+/** 2023/07/16 - 댓글 타입 - by 1-blue */
+export interface Comment {
+  idx: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userIdx: number;
+  postIdx: number;
+}
+
+/** 2023/07/16 - 답글 타입 - by 1-blue */
+export interface Reply {
+  idx: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  commentIdx: number;
+}
+
 /** 2023/07/11 - 간단한 유저 타입 - by 1-blue */
 export interface SimpleUser
   extends Pick<User, "idx" | "avatar" | "nickname" | "summonerName"> {}

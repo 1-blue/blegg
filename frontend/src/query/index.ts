@@ -9,6 +9,8 @@ const QUERY_KEYS = {
   ME: "ME",
   POST: "POST",
   POSTS: "POSTS",
+  COMMENT: "COMMENT",
+  COMMENTS: "COMMENTS",
 };
 export default QUERY_KEYS;
 

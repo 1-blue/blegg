@@ -7,9 +7,14 @@ import { useGetMe } from "@src/query/useGetMe";
 import { useFindOnePost } from "@src/query/useFindOnePost";
 import { useAddViewCountOfPost } from "@src/query/useAddViewCountOfPost";
 import { useDeletePost } from "@src/query/useDeletePost";
+import { useFindManyComment } from "@src/query/useFindManyComment";
+import { useDeleteComment } from "@src/query/useDeleteComment";
 
-import PostInfo from "@src/components/Community/PostInfo";
 import Skeleton from "@src/components/Common/Skeleton";
+import PostInfo from "@src/components/Community/PostInfo";
+import Comment from "@src/components/Community/Comment";
+import CommentForm from "@src/components/Community/CommentForm";
+import FormToolkit from "@src/components/FormToolkit";
 
 /** 2023/07/12 - 커뮤니티 상세 페이지 컴포넌트 - by 1-blue */
 const CommunityDetail: React.FC = () => {
@@ -17,6 +22,17 @@ const CommunityDetail: React.FC = () => {
 
   const { me } = useGetMe();
   const { post, isLoading } = useFindOnePost({ idx });
+  const {
+    comments,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading: isLoadingComment,
+  } = useFindManyComment({
+    postIdx: idx,
+    start: -1,
+    count: 20,
+  });
 
   const addViewCountMutate = useAddViewCountOfPost({ idx });
   const deletePostMutate = useDeletePost();
@@ -37,6 +53,25 @@ const CommunityDetail: React.FC = () => {
     if (!confirm("게시글을 제거하시겠습니까?")) return;
 
     deletePostMutate({ idx });
+  };
+
+  const deleteCommentMutate = useDeleteComment();
+
+  /** 2023/07/16 - 댓글 삭제 핸들러 ( 버블링 ) - by 1-blue  */
+  const onDeleteComment: React.MouseEventHandler<HTMLUListElement> = ({
+    target,
+  }) => {
+    if (!(target instanceof HTMLButtonElement)) return;
+
+    if (!target.dataset.type) return;
+    if (!target.dataset.commentIdx) return;
+
+    const { type, commentIdx } = target.dataset;
+
+    // 댓글 제거
+    if (type === "delete") {
+      deleteCommentMutate({ postIdx: idx, commentIdx: +commentIdx });
+    }
   };
 
   if (isLoading) return <Skeleton.CommunityDetail />;
@@ -91,8 +126,51 @@ const CommunityDetail: React.FC = () => {
         <PostInfo {...post} />
       </article>
 
-      {/* 댓글 */}
-      <article className="my-box mt-4"></article>
+      {idx && me && (
+        <article>
+          {/* 댓글폼 */}
+          <CommentForm postIdx={idx} />
+        </article>
+      )}
+
+      <article className="my-box mt-4">
+        {/* 댓글 */}
+        {comments && (
+          <ul className="flex flex-col space-y-4" onClick={onDeleteComment}>
+            {comments.pages.map((page) =>
+              page.map((comment) => <Comment key={comment.idx} {...comment} />)
+            )}
+          </ul>
+        )}
+
+        {/* 스켈레톤 */}
+        {(isFetching || isLoadingComment) && (
+          <ul className="mt-4 flex flex-col space-y-4">
+            {Array(5)
+              .fill(null)
+              .map((_, i) => (
+                <Skeleton.Comment key={i} />
+              ))}
+          </ul>
+        )}
+
+        {/* 댓글 더 불러오기 */}
+        {hasNextPage && !isFetching && (
+          <FormToolkit.Button
+            type="button"
+            label="댓글 더 불러오기"
+            onClick={() => fetchNextPage()}
+            className="mt-6 text-xs px-3 block ml-auto"
+          />
+        )}
+
+        {/* 댓글 없음 */}
+        {!hasNextPage && (
+          <span className="inline-block my-box mt-4 w-full py-10 text-center font-bold font-sub text-2xl">
+            불러올 댓글이 없습니다!
+          </span>
+        )}
+      </article>
     </>
   );
 };

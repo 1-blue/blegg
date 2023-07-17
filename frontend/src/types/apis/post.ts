@@ -1,9 +1,10 @@
-import type { Post, PostRating, SimpleUser, SortBy } from "..";
+import type { Post, PostRating, SimpleUser, SortBy, Comment } from "..";
+
+// ==================== 게시글 ====================
 
 type PostWithUser = Post & {
   user: SimpleUser;
 };
-
 type PostWithData = Post & {
   user: SimpleUser;
   ratingOfUsers: Pick<PostRating, "isLike" | "userIdx">[];
@@ -50,7 +51,7 @@ export interface ApiUpdatePostRequest
 export interface ApiUpdatePostResponse extends PostWithData {}
 /** 2023/07/11 - 게시글 수정 요청 핸들러 타입 - by 1-blue */
 export interface ApiUpdatePostHandler {
-  (body: ApiUpdatePostRequest, idx: number): Promise<ApiUpdatePostResponse>;
+  (postIdx: number, body: ApiUpdatePostRequest): Promise<ApiUpdatePostResponse>;
 }
 
 /** 2023/07/11 - 게시글 제거 요청 타입 - by 1-blue */
@@ -61,6 +62,8 @@ export interface ApiDeletePostResponse extends Post {}
 export interface ApiDeletePostHandler {
   (body: ApiDeletePostRequest): Promise<ApiDeletePostResponse>;
 }
+
+// ==================== 게시글 평가 ====================
 
 /** 2023/07/13 - 게시글 좋아요 추가 요청 타입 - by 1-blue */
 export interface ApiCreateRatingOfPostRequest extends Pick<Post, "idx"> {}
@@ -80,6 +83,8 @@ export interface ApiDeleteRatingOfPostHandler {
   (body: ApiDeleteRatingOfPostRequest): Promise<ApiDeleteRatingOfPostResponse>;
 }
 
+// ==================== 게시글 조회수 ====================
+
 /** 2023/07/13 - 게시글 조회수 증가 요청 타입 - by 1-blue */
 export interface ApiAddViewCountOfPostRequest extends Pick<Post, "idx"> {}
 /** 2023/07/13 - 게시글 조회수 증가 요청 응답 타입 - by 1-blue */
@@ -87,4 +92,60 @@ export interface ApiAddViewCountOfPostResponse {}
 /** 2023/07/13 - 게시글 조회수 증가 요청 핸들러 타입 - by 1-blue */
 export interface ApiAddViewCountOfPostHandler {
   (body: ApiAddViewCountOfPostRequest): Promise<ApiAddViewCountOfPostResponse>;
+}
+
+// ==================== 게시글의 댓글 ====================
+
+type CommentWithUser = Comment & {
+  user: SimpleUser;
+};
+
+/** 2023/07/16 - 댓글 생성 요청 타입 - by 1-blue */
+export interface ApiCreateCommentRequest extends Pick<Comment, "content"> {}
+/** 2023/07/16 - 댓글 생성 요청 응답 타입 - by 1-blue */
+export interface ApiCreateCommentResponse extends CommentWithUser {}
+/** 2023/07/16 - 댓글 생성 요청 핸들러 타입 - by 1-blue */
+export interface ApiCreateCommentHandler {
+  (
+    postIdx: number,
+    body: ApiCreateCommentRequest
+  ): Promise<ApiCreateCommentResponse>;
+}
+
+/** 2023/07/16 - 여러 댓글들 요청 타입 - by 1-blue */
+export interface ApiFindManyCommentRequest {
+  start?: number;
+  count?: number;
+}
+/** 2023/07/16 - 여러 댓글들 요청 응답 타입 - by 1-blue */
+export type ApiFindManyCommentResponse = CommentWithUser[];
+/** 2023/07/16 - 여러 댓글들 요청 핸들러 타입 - by 1-blue */
+export interface ApiFindManyCommentHandler {
+  (
+    postIdx: number,
+    body: ApiFindManyCommentRequest
+  ): Promise<ApiFindManyCommentResponse>;
+}
+
+/** 2023/07/16 - 댓글 수정 요청 타입 - by 1-blue */
+export interface ApiUpdateCommentRequest
+  extends Partial<Pick<Comment, "content">> {}
+/** 2023/07/16 - 댓글 수정 요청 응답 타입 - by 1-blue */
+export interface ApiUpdateCommentResponse extends CommentWithUser {}
+/** 2023/07/16 - 댓글 수정 요청 핸들러 타입 - by 1-blue */
+export interface ApiUpdateCommentHandler {
+  (
+    postIdx: number,
+    commentIdx: number,
+    body: ApiUpdateCommentRequest
+  ): Promise<ApiUpdateCommentResponse>;
+}
+
+/** 2023/07/16 - 댓글 제거 요청 타입 - by 1-blue */
+export interface ApiDeleteCommentRequest {}
+/** 2023/07/16 - 댓글 제거 요청 응답 타입 - by 1-blue */
+export interface ApiDeleteCommentResponse extends Comment {}
+/** 2023/07/16 - 댓글 제거 요청 핸들러 타입 - by 1-blue */
+export interface ApiDeleteCommentHandler {
+  (postIdx: number, commentIdx: number): Promise<ApiDeleteCommentResponse>;
 }
