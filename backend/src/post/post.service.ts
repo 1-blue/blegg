@@ -20,22 +20,18 @@ export class PostService {
   async create(body: CreatePostDto, userIdx: number) {
     return await this.postRepository.create(body, userIdx);
   }
-
   /** 2023/07/11 - 단일 게시글 찾기 - by 1-blue */
   async findOne(postIdx: number) {
     return await this.postRepository.findOne(postIdx);
   }
-
   /** 2023/07/11 - 게시글들 찾기 - by 1-blue */
   async findMany(body: FindManyPostDto) {
     return await this.postRepository.findMany(body);
   }
-
   /** 2023/07/11 - 게시글 수정 - by 1-blue */
   async update(postIdx: number, body: UpdatePostDto) {
     return await this.postRepository.update(postIdx, body);
   }
-
   /** 2023/07/11 - 게시글 삭제 - by 1-blue */
   async delete(postIdx: number) {
     return await this.postRepository.delete(postIdx);
@@ -45,7 +41,6 @@ export class PostService {
   async createRating(postIdx: number, userIdx: number) {
     return await this.postRepository.createRating(postIdx, userIdx);
   }
-
   /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
   async deleteRating(postIdx: number, userIdx: number) {
     return await this.postRepository.deleteRating(postIdx, userIdx);
@@ -64,12 +59,10 @@ export class PostService {
   ) {
     return await this.postRepository.createComment(postIdx, body, userIdx);
   }
-
   /** 2023/07/16 - 댓글들 조회 - by 1-blue */
   async findManyComment(postIdx: number, body: FindManyCommentDto) {
     return await this.postRepository.findManyComment(postIdx, body);
   }
-
   /** 2023/07/16 - 댓글 수정 - by 1-blue */
   async updateComment(
     postIdx: number,
@@ -78,9 +71,49 @@ export class PostService {
   ) {
     return await this.postRepository.updateComment(postIdx, commentIdx, body);
   }
-
   /** 2023/07/16 - 댓글 삭제 - by 1-blue */
   async deleteComment(postIdx: number, commentIdx: number) {
     return await this.postRepository.deleteComment(postIdx, commentIdx);
+  }
+
+  /** 2023/07/18 - 답글 추가 - by 1-blue */
+  async createReply(
+    postIdx: number,
+    commentIdx: number,
+    body: CreateCommentDto,
+    userIdx: number,
+  ) {
+    return await this.postRepository.createReply(
+      postIdx,
+      commentIdx,
+      body,
+      userIdx,
+    );
+  }
+  /** 2023/07/18 - 답글들 조회 - by 1-blue */
+  async findManyReply(
+    postIdx: number,
+    commentIdx: number,
+    body: FindManyCommentDto,
+  ) {
+    return await this.postRepository.findManyReply(postIdx, commentIdx, body);
+  }
+  /** 2023/07/18 - 답글 수정 - by 1-blue */
+  async updateReply(
+    postIdx: number,
+    commentIdx: number,
+    replyIdx: number,
+    body: UpdateCommentDto,
+  ) {
+    return await this.postRepository.updateReply(
+      postIdx,
+      commentIdx,
+      replyIdx,
+      body,
+    );
+  }
+  /** 2023/07/18 - 답글 삭제 - by 1-blue */
+  async deleteReply(postIdx: number, commentIdx: number, replyIdx: number) {
+    return await this.postRepository.deleteReply(postIdx, commentIdx, replyIdx);
   }
 }

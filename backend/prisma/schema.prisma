@@ -34,6 +34,9 @@ model User {
 
   // 1:N ( 유저/댓글 )
   comments Comment[]
+
+  // 1:N ( 유저/답글 )
+  replies Reply[]
 }
 
 model Post {
@@ -54,6 +57,9 @@ model Post {
 
   // 1:N ( 게시글/댓글 )
   comments Comment[]
+
+  // 1:N ( 게시글/답글 )
+  replies Reply[]
 }
 
 // 게시글 좋아요 / 싫어요
@@ -95,4 +101,12 @@ model Reply {
   // 1:N ( 댓글/답글 )
   comments Comment @relation(fields: [commentIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
   commentIdx Int
+
+  // 1:N ( 게시글/답글 )
+  posts Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  // 1:N ( 유저/답글 )
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
 }

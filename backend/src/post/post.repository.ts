@@ -33,7 +33,6 @@ export class PostRepository {
       },
     });
   }
-
   /** 2023/07/11 - 단일 게시글 찾기 - by 1-blue */
   async findOne(postIdx: number) {
     const exPost = await this.prismaService.post.findUnique({
@@ -60,7 +59,6 @@ export class PostRepository {
 
     return exPost;
   }
-
   /** 2023/07/11 - 게시글들 찾기 - by 1-blue */
   async findMany({ start, count, sortBy, search }: FindManyPostDto) {
     // 검색 조건 ( title || content에 포함되었다면 )
@@ -118,7 +116,6 @@ export class PostRepository {
       });
     }
   }
-
   /** 2023/07/11 - 게시글 수정 - by 1-blue */
   async update(postIdx: number, { thumbnail, ...body }: UpdatePostDto) {
     const exPost = await this.findOne(postIdx);
@@ -132,7 +129,6 @@ export class PostRepository {
       },
     });
   }
-
   /** 2023/07/11 - 게시글 삭제 - by 1-blue */
   async delete(postIdx: number) {
     await this.findOne(postIdx);
@@ -195,7 +191,6 @@ export class PostRepository {
       return await this.createLike(postIdx, userIdx);
     }
   }
-
   /** 2023/07/13 - 게시글 싫어요 - by 1-blue */
   async deleteRating(postIdx: number, userIdx: number) {
     await this.findOne(postIdx);
@@ -237,7 +232,16 @@ export class PostRepository {
       data: { userIdx, postIdx, content },
     });
   }
+  /** 2023/07/18 - 특정 댓글 조회 - by 1-blue */
+  async findOneComment(commentIdx: number) {
+    const exComment = await this.prismaService.comment.findUnique({
+      where: { idx: commentIdx },
+    });
 
+    if (!exComment) throw new NotFoundException("댓글이 존재하지 않습니다.");
+
+    return exComment;
+  }
   /** 2023/07/16 - 댓글들 조회 - by 1-blue */
   async findManyComment(postIdx: number, { start, count }: FindManyCommentDto) {
     // 페이지네이션 조건
@@ -263,23 +267,102 @@ export class PostRepository {
       ...condition,
     });
   }
-
   /** 2023/07/16 - 댓글 수정 - by 1-blue */
   async updateComment(
     postIdx: number,
     commentIdx: number,
     { content }: UpdateCommentDto,
   ) {
+    await this.findOneComment(commentIdx);
+
     return await this.prismaService.comment.update({
       where: { idx: commentIdx },
       data: { content, updatedAt: new Date() },
     });
   }
-
   /** 2023/07/16 - 댓글 삭제 - by 1-blue */
   async deleteComment(postIdx: number, commentIdx: number) {
+    await this.findOneComment(commentIdx);
+
     return await this.prismaService.comment.delete({
       where: { idx: commentIdx },
+    });
+  }
+
+  /** 2023/07/18 - 답글 추가 - by 1-blue */
+  async createReply(
+    postIdx: number,
+    commentIdx: number,
+    { content }: CreateCommentDto,
+    userIdx: number,
+  ) {
+    await this.findOneComment(commentIdx);
+
+    return await this.prismaService.reply.create({
+      data: { userIdx, postIdx, commentIdx, content },
+    });
+  }
+  /** 2023/07/18 - 답글 조회 - by 1-blue */
+  async findOneReply(replyIdx: number) {
+    const exReply = await this.prismaService.reply.findUnique({
+      where: { idx: replyIdx },
+    });
+
+    if (!exReply) throw new NotFoundException("답글이 존재하지 않습니다.");
+
+    return exReply;
+  }
+  /** 2023/07/18 - 답글들 조회 - by 1-blue */
+  async findManyReply(
+    postIdx: number,
+    commentIdx: number,
+    { start, count }: FindManyCommentDto,
+  ) {
+    await this.findOneComment(commentIdx);
+
+    // 페이지네이션 조건
+    const condition: Prisma.ReplyFindManyArgs = {
+      ...(start !== -1 && { cursor: { idx: start } }),
+      skip: start === -1 ? 0 : 1,
+      take: count,
+      where: { AND: { postIdx, commentIdx } },
+      include: {
+        user: {
+          select: {
+            idx: true,
+            avatar: true,
+            nickname: true,
+            summonerName: true,
+          },
+        },
+      },
+    };
+
+    return await this.prismaService.reply.findMany({
+      orderBy: [{ createdAt: "asc" }],
+      ...condition,
+    });
+  }
+  /** 2023/07/18 - 답글 수정 - by 1-blue */
+  async updateReply(
+    postIdx: number,
+    commentIdx: number,
+    replyIdx: number,
+    { content }: UpdateCommentDto,
+  ) {
+    await this.findOneReply(replyIdx);
+
+    return await this.prismaService.reply.update({
+      where: { idx: replyIdx },
+      data: { content, updatedAt: new Date() },
+    });
+  }
+  /** 2023/07/18 - 답글 삭제 - by 1-blue */
+  async deleteReply(postIdx: number, commentIdx: number, replyIdx: number) {
+    await this.findOneReply(replyIdx);
+
+    return await this.prismaService.reply.delete({
+      where: { idx: replyIdx },
     });
   }
 }
