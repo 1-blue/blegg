@@ -9,22 +9,30 @@ import type {
   ApiCreatePostResponse,
   ApiCreateRatingOfPostHandler,
   ApiCreateRatingOfPostResponse,
+  ApiCreateReplyHandler,
+  ApiCreateReplyResponse,
   ApiDeleteCommentHandler,
   ApiDeleteCommentResponse,
   ApiDeletePostHandler,
   ApiDeletePostResponse,
   ApiDeleteRatingOfPostHandler,
   ApiDeleteRatingOfPostResponse,
+  ApiDeleteReplyHandler,
+  ApiDeleteReplyResponse,
   ApiFindManyCommentHandler,
   ApiFindManyCommentResponse,
   ApiFindManyPostHandler,
   ApiFindManyPostResponse,
+  ApiFindManyReplyHandler,
+  ApiFindManyReplyResponse,
   ApiFindOnePostHandler,
   ApiFindOnePostResponse,
   ApiUpdateCommentHandler,
   ApiUpdateCommentResponse,
   ApiUpdatePostHandler,
   ApiUpdatePostResponse,
+  ApiUpdateReplyHandler,
+  ApiUpdateReplyResponse,
 } from "@src/types/apis";
 
 // ==================== 게시글 ====================
@@ -162,6 +170,64 @@ export const apiDeleteComment: ApiDeleteCommentHandler = async (
 ) => {
   const { data } = await axiosInstance.delete<ApiDeleteCommentResponse>(
     `/post/${postIdx}/comment/${commentIdx}`
+  );
+
+  return data;
+};
+
+// ==================== 게시글의 답글 ====================
+
+/** 2023/07/18 - 답글 생성 요청 - by 1-blue */
+export const apiCreateReply: ApiCreateReplyHandler = async (
+  postIdx,
+  commentIdx,
+  body
+) => {
+  const { data } = await axiosInstance.post<ApiCreateReplyResponse>(
+    `/post/${postIdx}/comment/${commentIdx}/reply`,
+    body
+  );
+
+  return data;
+};
+
+/** 2023/07/18 - 여러 답글들 요청 - by 1-blue */
+export const apiFindManyReply: ApiFindManyReplyHandler = async (
+  postIdx,
+  commentIdx,
+  body
+) => {
+  const { data } = await axiosInstance.get<ApiFindManyReplyResponse>(
+    `/post/${postIdx}/comment/${commentIdx}/reply`,
+    { params: body }
+  );
+
+  return data;
+};
+
+/** 2023/07/18 - 답글 수정 요청 타입 - by 1-blue */
+export const apiUpdateReply: ApiUpdateReplyHandler = async (
+  postIdx,
+  commentIdx,
+  replyIdx,
+  body
+) => {
+  const { data } = await axiosInstance.patch<ApiUpdateReplyResponse>(
+    `/post/${postIdx}/comment/${commentIdx}/reply/${replyIdx}`,
+    body
+  );
+
+  return data;
+};
+
+/** 2023/07/18 - 답글 제거 요청 - by 1-blue */
+export const apiDeleteReply: ApiDeleteReplyHandler = async (
+  postIdx,
+  commentIdx,
+  replyIdx
+) => {
+  const { data } = await axiosInstance.delete<ApiDeleteReplyResponse>(
+    `/post/${postIdx}/comment/${commentIdx}/reply/${replyIdx}`
   );
 
   return data;

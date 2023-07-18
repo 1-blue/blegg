@@ -10,6 +10,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     postIdx: { description: "게시글 식별자" },
+    commentIdx: { description: "댓글 식별자" },
   },
   decorators: [
     (Story) => (

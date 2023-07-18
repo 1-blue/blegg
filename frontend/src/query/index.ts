@@ -11,6 +11,8 @@ const QUERY_KEYS = {
   POSTS: "POSTS",
   COMMENT: "COMMENT",
   COMMENTS: "COMMENTS",
+  REPLY: "REPLY",
+  REPLYS: "REPLYS",
 };
 export default QUERY_KEYS;
 

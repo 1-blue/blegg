@@ -48,6 +48,8 @@ export interface Reply {
   createdAt: Date;
   updatedAt: Date;
   commentIdx: number;
+  postIdx: number;
+  userIdx: number;
 }
 
 /** 2023/07/11 - 간단한 유저 타입 - by 1-blue */

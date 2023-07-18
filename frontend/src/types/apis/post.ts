@@ -1,4 +1,4 @@
-import type { Post, PostRating, SimpleUser, SortBy, Comment } from "..";
+import type { Post, PostRating, SimpleUser, SortBy, Comment, Reply } from "..";
 
 // ==================== 게시글 ====================
 
@@ -148,4 +148,67 @@ export interface ApiDeleteCommentResponse extends Comment {}
 /** 2023/07/16 - 댓글 제거 요청 핸들러 타입 - by 1-blue */
 export interface ApiDeleteCommentHandler {
   (postIdx: number, commentIdx: number): Promise<ApiDeleteCommentResponse>;
+}
+
+// ==================== 게시글의 답글 ====================
+
+type ReplyWithUser = Reply & {
+  user: SimpleUser;
+};
+
+/** 2023/07/18 - 답글 생성 요청 타입 - by 1-blue */
+export interface ApiCreateReplyRequest extends Pick<Reply, "content"> {}
+/** 2023/07/18 - 답글 생성 요청 응답 타입 - by 1-blue */
+export interface ApiCreateReplyResponse extends ReplyWithUser {}
+/** 2023/07/18 - 답글 생성 요청 핸들러 타입 - by 1-blue */
+export interface ApiCreateReplyHandler {
+  (
+    postIdx: number,
+    commentIdx: number,
+    body: ApiCreateReplyRequest
+  ): Promise<ApiCreateReplyResponse>;
+}
+
+/** 2023/07/18 - 답글 댓글들 요청 타입 - by 1-blue */
+export interface ApiFindManyReplyRequest {
+  start?: number;
+  count?: number;
+}
+/** 2023/07/18 - 답글 댓글들 요청 응답 타입 - by 1-blue */
+export type ApiFindManyReplyResponse = ReplyWithUser[];
+/** 2023/07/18 - 답글 댓글들 요청 핸들러 타입 - by 1-blue */
+export interface ApiFindManyReplyHandler {
+  (
+    postIdx: number,
+    commentIdx: number,
+    body: ApiFindManyReplyRequest
+  ): Promise<ApiFindManyReplyResponse>;
+}
+
+/** 2023/07/18 - 답글 수정 요청 타입 - by 1-blue */
+export interface ApiUpdateReplyRequest
+  extends Partial<Pick<Reply, "content">> {}
+/** 2023/07/18 - 답글 수정 요청 응답 타입 - by 1-blue */
+export interface ApiUpdateReplyResponse extends ReplyWithUser {}
+/** 2023/07/18 - 답글 수정 요청 핸들러 타입 - by 1-blue */
+export interface ApiUpdateReplyHandler {
+  (
+    postIdx: number,
+    commentIdx: number,
+    replyIdx: number,
+    body: ApiUpdateReplyRequest
+  ): Promise<ApiUpdateReplyResponse>;
+}
+
+/** 2023/07/18 - 답글 제거 요청 타입 - by 1-blue */
+export interface ApiDeleteReplyRequest {}
+/** 2023/07/18 - 답글 제거 요청 응답 타입 - by 1-blue */
+export interface ApiDeleteReplyResponse extends Reply {}
+/** 2023/07/18 - 답글 제거 요청 핸들러 타입 - by 1-blue */
+export interface ApiDeleteReplyHandler {
+  (
+    postIdx: number,
+    commentIdx: number,
+    replyIdx: number
+  ): Promise<ApiDeleteReplyResponse>;
 }
