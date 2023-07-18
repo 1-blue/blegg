@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { useCreateComment } from "@src/query/useCreateComment";
-import { useCreateReply } from "@src/query/useCreateReply";
+import { useCreateComment, useCreateReply } from "@src/query";
 
 import FormToolkit from "@src/components/FormToolkit";
 

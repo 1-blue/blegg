@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { PencilSquareIcon as OPencilSquareIcon } from "@heroicons/react/24/outline";
 
-import { useFindManyPost } from "@src/query/useFindManyPost";
+import { useFindManyPost } from "@src/query";
 
 import Post from "@src/components/Community/Post";
 import Animate from "@src/components/Animate";
@@ -20,7 +20,7 @@ const Community: React.FC = () => {
   const { posts, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useFindManyPost({
       start: -1,
-      count: 6,
+      count: 20,
       sortBy,
       search,
     });
@@ -49,7 +49,7 @@ const Community: React.FC = () => {
       {isLoading ? (
         // loading
         <ul className="grid gap-6 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-          {Array(20)
+          {Array(6)
             .fill(null)
             .map((_v, i) => (
               <Skeleton.Post key={i} />
@@ -74,7 +74,7 @@ const Community: React.FC = () => {
       {/* fetch more */}
       {isFetching && (
         <ul className="mt-6 grid gap-6 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-          {Array(20)
+          {Array(6)
             .fill(null)
             .map((_v, i) => (
               <Skeleton.Post key={i} />

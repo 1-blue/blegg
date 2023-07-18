@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 
 import { routerElements } from "@src/router";
 
-import { useGetMe } from "@src/query/useGetMe";
+import { useGetMe } from "@src/query";
 
 import NavLink from "@src/layout/Nav/NavLink";
 
@@ -36,7 +36,9 @@ const Nav: React.FC = () => {
             path={path}
             icon={icon}
             label={label}
-            isActive={pathname === path}
+            isActive={
+              path === "/" ? pathname === path : pathname.includes(path)
+            }
           />
         ))}
     </nav>

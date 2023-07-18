@@ -13,6 +13,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   setImage: React.Dispatch<React.SetStateAction<FileList | null>>;
   /** 기본 이미지 */
   imageURL?: string;
+  /** 라벨 숨기기 */
+  labelHidden?: boolean;
 }
 
 /** 2023/07/14 - 단일 이미지 입력받는 컴포넌트 - by 1-blue */
@@ -21,6 +23,7 @@ const SingleImage: React.FC<Props> = ({
   required,
   setImage,
   imageURL,
+  labelHidden,
   ...props
 }) => {
   /** 2023/07/14 - 이미지 ref - by 1-blue */
@@ -67,7 +70,8 @@ const SingleImage: React.FC<Props> = ({
       <label
         htmlFor={id}
         className={twMerge(
-          "flex items-center space-x-1.5 cursor-pointer text-main-text font-bold"
+          "flex items-center space-x-1.5 cursor-pointer text-main-text font-bold",
+          labelHidden && "hidden"
         )}
       >
         <span className="text-sm">{id}</span>

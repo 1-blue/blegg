@@ -1,6 +1,6 @@
 import Square from "../Square";
 
-/** 2023/07/11 - "Avatar" - Skeleton UI - by 1-blue */
+/** 2023/07/11 - "Avatar" Skeleton UI - by 1-blue */
 const Avatar: React.FC = () => {
   return (
     <div className="flex items-center space-x-2">

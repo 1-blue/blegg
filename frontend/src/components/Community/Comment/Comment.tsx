@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 
 import { timeFormat } from "@src/libs";
 
-import { useGetMe } from "@src/query/useGetMe";
-import { useUpdateComment } from "@src/query/useUpdateComment";
-import { useFindManyReply } from "@src/query/useFindManyReply";
-import { useDeleteReply } from "@src/query/useDeleteReply";
+import {
+  useGetMe,
+  useUpdateComment,
+  useFindManyReply,
+  useDeleteReply,
+} from "@src/query";
 
 import Avatar from "@src/components/Common/Avatar";
 import FormToolkit from "@src/components/FormToolkit";
@@ -55,7 +57,7 @@ const Comment: React.FC<Props> = ({
       postIdx,
       commentIdx: idx,
       start: -1,
-      count: 2,
+      count: 20,
     });
 
   /** 2023/07/18 - 답글 입력중 여부 - by 1-blue */
@@ -179,7 +181,7 @@ const Comment: React.FC<Props> = ({
       )}
 
       {/* 스켈레톤 */}
-      {(isLoading || isFetching) && (
+      {isFetching && (
         <ul className="mt-4 flex flex-col space-y-4">
           {Array(5)
             .fill(null)

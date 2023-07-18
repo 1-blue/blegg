@@ -16,8 +16,8 @@ export const useDeleteComment = () => {
   const { mutate } = useMutation(
     ({ postIdx, commentIdx }: Props) => apiDeleteComment(postIdx, commentIdx),
     {
-      onSuccess() {
-        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS]);
+      onSuccess({ postIdx }) {
+        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS, postIdx]);
 
         alert("댓글이 제거되었습니다.");
       },

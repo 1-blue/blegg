@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import NavBarProvider from "@src/contexts/NavBar";
 
-import { routerElements } from "@src/router";
+import { type RouterElement, routerElements } from "@src/router";
 
 import NavLink from "./NavLink";
 
@@ -28,43 +28,66 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+type RequiredRouterElement = Required<RouterElement>;
+
+/** 네비게이션 바에서 보여주는 것만 필터링 */
+const routers = routerElements
+  .filter((v): v is RequiredRouterElement => !!v.icon)
+  .filter((v): v is RequiredRouterElement => !!v.label);
+
 export const Home: Story = {
   args: {
-    path: routerElements[0].path,
-    icon: routerElements[0].icon,
-    label: routerElements[0].label,
+    path: routers[0].path,
+    icon: routers[0].icon,
+    label: routers[0].label,
     isActive: false,
   },
 };
 export const Champion: Story = {
   args: {
-    path: routerElements[1].path,
-    icon: routerElements[1].icon,
-    label: routerElements[1].label,
+    path: routers[1].path,
+    icon: routers[1].icon,
+    label: routers[1].label,
     isActive: true,
   },
 };
 export const Player: Story = {
   args: {
-    path: routerElements[2].path,
-    icon: routerElements[2].icon,
-    label: routerElements[2].label,
+    path: routers[2].path,
+    icon: routers[2].icon,
+    label: routers[2].label,
     isActive: false,
   },
 };
 export const Community: Story = {
   args: {
-    path: routerElements[3].path,
-    icon: routerElements[3].icon,
-    label: routerElements[3].label,
+    path: routers[3].path,
+    icon: routers[3].icon,
+    label: routers[3].label,
     isActive: true,
   },
 };
-export const LogIn: Story = {
+export const SignIn: Story = {
   args: {
-    path: routerElements[4].path,
-    icon: routerElements[4].icon,
-    label: routerElements[4].label,
+    path: routers[4].path,
+    icon: routers[4].icon,
+    label: routers[4].label,
+    isActive: false,
+  },
+};
+export const SignUp: Story = {
+  args: {
+    path: routers[5].path,
+    icon: routers[5].icon,
+    label: routers[5].label,
+    isActive: false,
+  },
+};
+export const Info: Story = {
+  args: {
+    path: routers[6].path,
+    icon: routers[6].icon,
+    label: routers[6].label,
     isActive: false,
   },
 };

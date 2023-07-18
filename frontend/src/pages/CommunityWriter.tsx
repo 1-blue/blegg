@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { apiGetPresignedURL } from "@src/apis";
 
-import { useCreatePost } from "@src/query/useCreatePost";
+import { useCreatePost } from "@src/query";
 
 import FormToolkit from "@src/components/FormToolkit";
 
@@ -21,7 +21,7 @@ const CommunityWriter = () => {
     handleSubmit,
   } = useForm<PostWriterForm>();
 
-  const createPostMutation = useCreatePost();
+  const createPostMutate = useCreatePost();
 
   /** 2023/07/14 - 이미지 - by 1-blue */
   const [thumbnailFile, setThumbnailFile] = useState<null | FileList>(null);
@@ -52,7 +52,7 @@ const CommunityWriter = () => {
     }
 
     // 게시글 생성
-    createPostMutation({ ...body, thumbnail });
+    createPostMutate({ ...body, thumbnail });
   });
 
   return (

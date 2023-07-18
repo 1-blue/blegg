@@ -10,11 +10,16 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   warning?: string;
   /** 에러 메시지 */
   error?: string;
+  /** 라벨 숨기기 */
+  labelHidden?: boolean;
 }
 
 /** 2023/07/14 - "react-hook-form" 전용 textarea 컴포넌트 - by 1-blue */
 const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(
-  ({ id, info, warning, error, className, required, ...props }, ref) => {
+  (
+    { id, info, warning, error, className, required, labelHidden, ...props },
+    ref
+  ) => {
     const [isFocus, setIsFocus] = useState(false);
 
     /** 2023/07/14 - 입력된 내용에 맞게 textarea 높이 지정 - by 1-blue */
@@ -25,13 +30,14 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(
       }, []);
 
     return (
-      <fieldset className="relative flex flex-col space-y-0.5">
+      <fieldset className="relative flex flex-col space-y-0.5 flex-1">
         <label
           htmlFor={id}
           className={twMerge(
             "flex items-center space-x-1.5 cursor-pointer text-main-text font-bold",
             warning && "text-yellow-500",
-            error && "text-red-500"
+            error && "text-red-500",
+            labelHidden && "hidden"
           )}
         >
           <span className="text-sm">{id}</span>

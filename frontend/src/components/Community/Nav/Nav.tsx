@@ -66,6 +66,8 @@ const Nav: React.FC = () => {
     setSortBy(sortBy as SortBy);
   }, [params, navigate]);
 
+  const searchWord = params.get("q");
+
   return (
     <article className="sticky top-0 z-[3] min-w-[320px] flex justify-between mb-6 p-4 bg-main-box-bg border border-main-line rounded-md flex-col lg:flex-row space-y-4 lg:space-y-0 space-x-0 lg:space-x-8">
       {/* 게시글 정렬 */}
@@ -73,7 +75,11 @@ const Nav: React.FC = () => {
         {sortOptions.map(({ icons, label, type }) => (
           <Link
             key={type}
-            to={`/community?s=${type}`}
+            to={
+              searchWord
+                ? `/community?s=${type}&q=${searchWord}`
+                : `/community?s=${type}`
+            }
             className={twMerge(
               "flex space-x-1 text-main-text transition-colors hover:text-main-500",
               type === sortBy && "text-main-400"

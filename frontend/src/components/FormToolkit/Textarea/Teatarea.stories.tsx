@@ -10,6 +10,7 @@ const meta = {
     info: { description: "정보 메시지" },
     warning: { description: "경고 메시지" },
     error: { description: "에러 메시지" },
+    labelHidden: { description: "라벨 숨기기" },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof Teatarea>;

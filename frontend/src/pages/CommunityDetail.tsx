@@ -3,12 +3,14 @@ import { Link, Navigate, useParams } from "react-router-dom";
 
 import { dateOrTimeFormat } from "@src/libs";
 
-import { useGetMe } from "@src/query/useGetMe";
-import { useFindOnePost } from "@src/query/useFindOnePost";
-import { useAddViewCountOfPost } from "@src/query/useAddViewCountOfPost";
-import { useDeletePost } from "@src/query/useDeletePost";
-import { useFindManyComment } from "@src/query/useFindManyComment";
-import { useDeleteComment } from "@src/query/useDeleteComment";
+import {
+  useGetMe,
+  useFindOnePost,
+  useAddViewCountOfPost,
+  useDeletePost,
+  useFindManyComment,
+  useDeleteComment,
+} from "@src/query";
 
 import Skeleton from "@src/components/Common/Skeleton";
 import PostInfo from "@src/components/Community/PostInfo";

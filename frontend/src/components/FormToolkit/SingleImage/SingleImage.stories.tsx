@@ -9,6 +9,7 @@ const meta = {
     id: { description: "label의 이름" },
     setImage: { description: "이미지 값을 넣을 setter 함수 ( File )" },
     imageURL: { description: "기본 이미지" },
+    labelHidden: { description: "라벨 숨기기" },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof SingleImage>;

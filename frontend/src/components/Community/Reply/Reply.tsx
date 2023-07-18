@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { timeFormat } from "@src/libs";
 
-import { useGetMe } from "@src/query/useGetMe";
-import { useUpdateReply } from "@src/query/useUpdateReply";
+import { useGetMe, useUpdateReply } from "@src/query";
 
 import Avatar from "@src/components/Common/Avatar";
 import FormToolkit from "@src/components/FormToolkit";

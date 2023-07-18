@@ -9,9 +9,7 @@ import {
   HandThumbDownIcon as SHandThumbDownIcon,
 } from "@heroicons/react/24/solid";
 
-import { useGetMe } from "@src/query/useGetMe";
-import { useHateOfPost } from "@src/query/useHateOfPost";
-import { useLikeOfPost } from "@src/query/useLikeOfPost";
+import { useGetMe, useHateOfPost, useLikeOfPost } from "@src/query";
 
 import Avatar from "@src/components/Common/Avatar/Avatar";
 

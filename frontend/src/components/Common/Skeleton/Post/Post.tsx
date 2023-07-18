@@ -7,7 +7,7 @@ import {
 import Avatar from "../Avatar/Avatar";
 import Square from "../Square";
 
-/** 2023/07/11 - "Post" - Skeleton UI - by 1-blue */
+/** 2023/07/11 - "Post" Skeleton UI - by 1-blue */
 const Post: React.FC = () => {
   return (
     <li className="block bg-main-box-bg border-2 border-main-line rounded-md overflow-hidden duration-300 transition-all hover:scale-105">

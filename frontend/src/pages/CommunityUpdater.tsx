@@ -5,8 +5,7 @@ import axios from "axios";
 
 import { apiGetPresignedURL } from "@src/apis";
 
-import { useFindOnePost } from "@src/query/useFindOnePost";
-import { useUpdatePost } from "@src/query/useUpdatePost";
+import { useFindOnePost, useUpdatePost } from "@src/query";
 
 import FormToolkit from "@src/components/FormToolkit";
 import Skeleton from "@src/components/Common/Skeleton";

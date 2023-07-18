@@ -10,11 +10,16 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   warning?: string;
   /** 에러 메시지 */
   error?: string;
+  /** 라벨 숨기기 */
+  labelHidden?: boolean;
 }
 
 /** 2023/07/05 - "react-hook-form" 전용 input 컴포넌트 - by 1-blue */
 const Input = React.forwardRef<HTMLInputElement, Props>(
-  ({ id, info, warning, error, className, required, ...props }, ref) => {
+  (
+    { id, info, warning, error, className, required, labelHidden, ...props },
+    ref
+  ) => {
     const [isFocus, setIsFocus] = useState(false);
 
     return (
@@ -24,7 +29,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           className={twMerge(
             "flex items-center space-x-1.5 cursor-pointer text-main-text font-bold",
             warning && "text-yellow-500",
-            error && "text-red-500"
+            error && "text-red-500",
+            labelHidden && "hidden"
           )}
         >
           <span className="text-sm">{id}</span>

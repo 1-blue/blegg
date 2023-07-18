@@ -23,7 +23,10 @@ const Avatar: React.FC<Props> = ({
       />
       <div className="flex flex-col">
         <span className="text-sm">{nickname}</span>
-        <Link to={`/summoner?q=${summonerName}`} className="text-xs">
+        <Link
+          to={`/summoner?q=${summonerName}`}
+          className="text-xs hover:underline hover:underline-offset-4"
+        >
           {summonerName}
         </Link>
       </div>

@@ -11,13 +11,13 @@ interface Props {
   idx: number;
 }
 
-/** 2023/07/15 - 게시글 생성 훅 - by 1-blue */
+/** 2023/07/15 - 게시글 수정 훅 - by 1-blue */
 export const useUpdatePost = ({ idx }: Props) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
-    (body: ApiUpdatePostRequest) => apiUpdatePost(body, idx),
+    (body: ApiUpdatePostRequest) => apiUpdatePost(idx, body),
     {
       onSuccess(updatedPost) {
         queryClient.invalidateQueries([QUERY_KEYS.POSTS]);

@@ -20,7 +20,7 @@ export const useUpdateComment = ({ postIdx, commentIdx }: Props) => {
       apiUpdateComment(postIdx, commentIdx, body),
     {
       onSuccess() {
-        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS]);
+        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS, postIdx]);
 
         alert("댓글이 수정되었습니다.");
       },

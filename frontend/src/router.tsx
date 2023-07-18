@@ -36,7 +36,7 @@ import Error from "@src/pages/Error";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import OAuthFailure from "./pages/OAuthFailure";
 
-interface RouterElement {
+export interface RouterElement {
   /** 페이지 경로 */
   path: string;
   /** 사이드바에 표시할 페이지 이름 */

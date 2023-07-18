@@ -18,7 +18,7 @@ export const useCreateComment = ({ postIdx }: Props) => {
     (body: ApiCreateCommentRequest) => apiCreateComment(postIdx, body),
     {
       onSuccess() {
-        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS]);
+        queryClient.invalidateQueries([QUERY_KEYS.COMMENTS, postIdx]);
 
         alert("댓글이 생성되었습니다.");
       },

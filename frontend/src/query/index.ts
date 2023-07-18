@@ -22,3 +22,24 @@ export * from "./useGetSummoner";
 export * from "./useGetSpell";
 export * from "./useGetItem";
 export * from "./useGetMatches";
+
+export * from "./useGetMe";
+
+export * from "./useCreatePost";
+export * from "./useFindManyPost";
+export * from "./useFindOnePost";
+export * from "./useUpdatePost";
+export * from "./useDeletePost";
+export * from "./useLikeOfPost";
+export * from "./useHateOfPost";
+export * from "./useAddViewCountOfPost";
+
+export * from "./useCreateComment";
+export * from "./useFindManyComment";
+export * from "./useUpdateComment";
+export * from "./useDeleteComment";
+
+export * from "./useCreateReply";
+export * from "./useFindManyReply";
+export * from "./useUpdateReply";
+export * from "./useDeleteReply";
