@@ -11,6 +11,8 @@ import { HelloModule } from "./hello/hello.module";
 import { RiotModule } from "./riot/riot.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
+import { PostModule } from "./post/post.module";
+import { PresignedurlModule } from "./presignedurl/presignedurl.module";
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { UserModule } from "./user/user.module";
     RiotModule,
     AuthModule,
     UserModule,
+    PostModule,
+    PresignedurlModule,
   ],
 })
 export class AppModule implements NestModule {

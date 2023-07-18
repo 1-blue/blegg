@@ -11,7 +11,15 @@ declare namespace NodeJS {
 
     PORT: string;
 
+    NODE_ENV: "development" | "production";
+
     FRONT_CALLBACK_URL: string;
+
+    // AWS
+    AWS_S3_BUCKET: string;
+    AWS_S3_REGION: string;
+    AWS_S3_ACCESS_KEY: string;
+    AWS_S3_ACCESS_SECRET_KEY: string;
 
     // Google OAuth
     GOOGLE_CLIENT_ID: string;
