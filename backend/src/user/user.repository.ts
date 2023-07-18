@@ -61,8 +61,11 @@ export class UserRepository {
   async validateUser({ id, password }: ValidateUserDto) {
     const exUser = await this.prismaService.user.findUnique({ where: { id } });
 
+    if (!exUser) {
+      throw new ForbiddenException("존재하지 않는 유저입니다!");
+    }
     if (!(await compare(password, exUser.password))) {
-      throw new ForbiddenException("아이디나 비밀번호가 틀렸습니다!");
+      throw new ForbiddenException("비밀번호가 틀렸습니다!");
     }
 
     const { password: pwd, ...user } = exUser;
