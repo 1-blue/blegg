@@ -26,6 +26,9 @@ import Home from "@src/pages/Home";
 import Champions from "@src/pages/Champions";
 import Summoner from "@src/pages/Summoner";
 import Community from "@src/pages/Community";
+import CommunityDetail from "./pages/CommunityDetail";
+import CommunityWriter from "./pages/CommunityWriter";
+import CommunityUpdater from "./pages/CommunityUpdater";
 import SignIn from "@src/pages/SignIn";
 import SignUp from "@src/pages/SignUp";
 import Profile from "@src/pages/Profile";
@@ -33,7 +36,7 @@ import Error from "@src/pages/Error";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import OAuthFailure from "./pages/OAuthFailure";
 
-interface RouterElement {
+export interface RouterElement {
   /** 페이지 경로 */
   path: string;
   /** 사이드바에 표시할 페이지 이름 */
@@ -91,6 +94,21 @@ export const routerElements: RouterElement[] = [
       <OBookOpenIcon className="h-6 w-6" />,
       <SBookOpenIcon className="h-6 w-6" />,
     ],
+    isAuth: null,
+  },
+  {
+    path: "/community/:idx",
+    element: <CommunityDetail />,
+    isAuth: null,
+  },
+  {
+    path: "/community/create",
+    element: <CommunityWriter />,
+    isAuth: null,
+  },
+  {
+    path: "/community/:idx/update",
+    element: <CommunityUpdater />,
     isAuth: null,
   },
   {

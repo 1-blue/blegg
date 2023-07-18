@@ -16,12 +16,16 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   baseURL: string;
   /** 감싸는 엘리먼트의 className */
   wrapperClassName?: string;
+  /** 첨부할 query-string */
+  queryString?: string;
 }
 
 /** 2023/07/01 - 검색 input 컴포넌트 - by 1-blue */
 const SearchInput: React.FC<Props> = ({
   baseURL,
   wrapperClassName,
+  queryString,
+  className,
   ...props
 }) => {
   const navigate = useNavigate();
@@ -65,7 +69,13 @@ const SearchInput: React.FC<Props> = ({
       reset({ searchWord: "" });
 
       // 이동
-      navigate(`${baseURL}?q=${searchWord}`, { replace: true });
+      if (queryString) {
+        navigate(`${baseURL}?q=${searchWord}&${queryString}`, {
+          replace: true,
+        });
+      } else {
+        navigate(`${baseURL}?q=${searchWord}`, { replace: true });
+      }
     }
   );
 
@@ -101,7 +111,10 @@ const SearchInput: React.FC<Props> = ({
           })}
           type="search"
           placeholder="ex) Akaps"
-          className="flex-1 px-2 py-1 bg-transparent w-11/12 text-sm placeholder:text-main-text placeholder:text-sm focus:outline-none"
+          className={twMerge(
+            "flex-1 px-2 py-1 bg-transparent w-11/12 text-sm placeholder:text-main-text placeholder:text-sm focus:outline-none",
+            className
+          )}
           {...props}
         />
         <button type="submit" className="group focus:outline-none">
@@ -116,6 +129,7 @@ const SearchInput: React.FC<Props> = ({
         {/* 최근/추천 검색어 */}
         <AutoComplete
           baseURL={baseURL}
+          queryString={queryString}
           isShow={isFocus && !!recentSearches.length}
           // 작성하지 않았으면 최근 검색어 / 작성했으면 최근 검색어중에 포함하는 것만 렌더링
           items={

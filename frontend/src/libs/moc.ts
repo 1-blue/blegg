@@ -1,4 +1,8 @@
+import type { SimpleUser } from "@src/types";
 import type {
+  ApiFindManyCommentResponse,
+  ApiFindManyPostResponse,
+  ApiFindManyReplyResponse,
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
   ApiGetItemResponse,
@@ -959,3 +963,64 @@ export const mocSummonerRecords: ApiGetMatchesResponse = [
     ],
   },
 ];
+
+/** 특정 유저 가짜 데이터 */
+export const mocUser: SimpleUser = {
+  idx: 1,
+  avatar:
+    "http://ddragon.leagueoflegends.com/cdn/13.12.1/img/profileicon/3791.png",
+  nickname: "Akaps",
+  summonerName: "Akaps",
+};
+
+/** 특정 게시글 + 추가 데이터들 ( 유저/평가 ) */
+export const mocPostWithData: ApiFindManyPostResponse[0] = {
+  idx: 2,
+  title: "대충 제목1",
+  content: "🐶🐕🫥\n🍕👏\n대충 내용\n☔🎥\n📮🏅🕕1",
+  thumbnail: "/images/emblem/challenger.png",
+  viewCount: 11,
+  createdAt: new Date("2023-07-12T03:42:50.759Z"),
+  updatedAt: new Date("2023-07-12T03:43:50.763Z"),
+  userIdx: 5,
+  user: mocUser,
+  ratingOfUsers: [
+    { isLike: true, userIdx: 1 },
+    { isLike: true, userIdx: 2 },
+    { isLike: true, userIdx: 3 },
+    { isLike: false, userIdx: 4 },
+  ],
+};
+
+/** 특정 댓글 가짜 데이터 */
+export const mocComment: ApiFindManyCommentResponse[0] = {
+  idx: 1,
+  content: "테스트용 댓글\n😥🫥🐕🐶\n🏅📮🎥\n🍕👏",
+  createdAt: new Date("2023-07-16T08:51:38.923Z"),
+  updatedAt: new Date("2023-07-17T07:59:37.100Z"),
+  userIdx: 10,
+  postIdx: 1,
+  user: {
+    idx: 10,
+    avatar: "/images/emblem/challenger.png",
+    nickname: "Akaps",
+    summonerName: "나의 개발일지",
+  },
+};
+
+/** 특정 답글 가짜 데이터 */
+export const mocReply: ApiFindManyReplyResponse[0] = {
+  idx: 1,
+  content: "테스트용 답글\n😥🫥🐕🐶\n🏅📮🎥\n🍕👏",
+  createdAt: new Date("2023-07-16T08:51:38.923Z"),
+  updatedAt: new Date("2023-07-17T07:59:37.100Z"),
+  userIdx: 10,
+  postIdx: 1,
+  commentIdx: 3,
+  user: {
+    idx: 10,
+    avatar: "/images/emblem/challenger.png",
+    nickname: "Akaps",
+    summonerName: "나의 개발일지",
+  },
+};

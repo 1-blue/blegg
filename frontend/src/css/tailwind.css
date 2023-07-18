@@ -25,4 +25,24 @@
   .scroll::-webkit-scrollbar-track {
     @apply bg-main-100
   }
+
+  /** truncate */
+  .truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical
+  }
+  .truncate-1 {
+    -webkit-line-clamp: 1;
+  }
+  .truncate-2 {
+    -webkit-line-clamp: 2;
+  }
+  .truncate-3 {
+    -webkit-line-clamp: 3;
+  }
+
+  /** custom-box-style */
+  .my-box {
+    @apply p-4 bg-main-box-bg border-2 border-main-line text-main-text rounded-md
+  }
 }

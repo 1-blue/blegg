@@ -5,7 +5,7 @@ import { isAxiosError } from "axios";
 import { apiSignOut } from "@src/apis";
 
 import QUERY_KEYS from "@src/query";
-import { useGetMe } from "@src/query/useGetMe";
+import { useGetMe } from "@src/query";
 
 import FormToolkit from "@src/components/FormToolkit";
 

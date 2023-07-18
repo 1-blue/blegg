@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-import { useGetMe } from "@src/query/useGetMe";
+import { useGetMe } from "@src/query";
 
 interface Props {
   isAuth: boolean | null;

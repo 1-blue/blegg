@@ -21,6 +21,7 @@ const meta = {
     items: { description: "렌더링할 요소" },
     onClearOne: { description: "특정 최근 검색어 제거 이벤트" },
     onClearAll: { description: "모든 최근 검색어 제거 이벤트" },
+    queryString: { description: "첨부할 query-string" },
   },
 } satisfies Meta<typeof AutoComplete>;
 

@@ -19,11 +19,14 @@ interface Props {
   onClearOne?: (item: string) => void;
   /** 모든 최근 검색어 제거 이벤트 */
   onClearAll?: () => void;
+  /** 첨부할 query-string */
+  queryString?: string;
 }
 
 /** 2023/06/30 - 추천/최근 검색어 자동완성 - by 1-blue */
 const AutoComplete: React.FC<Props> = ({
   baseURL,
+  queryString,
   isShow,
   items,
   onClearOne,
@@ -42,7 +45,7 @@ const AutoComplete: React.FC<Props> = ({
           {items.map((item) => (
             <Link
               key={item}
-              to={`${baseURL}?q=${item}`}
+              to={`${baseURL}?q=${item}${queryString ? `&${queryString}` : ""}`}
               replace
               className="flex justify-between items-center cursor-pointer transition-colors hover:bg-main-search-hover border-b border-main-line"
               data-type="close"

@@ -8,6 +8,7 @@ const meta = {
   argTypes: {
     baseURL: { description: "이동할 기본 URL" },
     wrapperClassName: { description: "감싸는 엘리먼트의 className" },
+    queryString: { description: "첨부할 query-string" },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof SearchInput>;
