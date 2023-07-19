@@ -1,20 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Request,
-  UseGuards,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import type { Prisma } from "@prisma/client";
 
 import { UserService } from "./user.service";
 
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ValidateUserDto } from "./dto/validate-user.dto";
-import type { RequestWithUser } from "src/types/model";
 
 @Controller("user")
 export class UserController {
@@ -36,11 +26,5 @@ export class UserController {
   @Get()
   async findOne(@Param() body: Prisma.UserWhereUniqueInput) {
     return this.userService.findOne(body);
-  }
-
-  @UseGuards(AuthGuard("jwt"))
-  @Get("me")
-  async findMe(@Request() req: RequestWithUser) {
-    return req.user;
   }
 }
