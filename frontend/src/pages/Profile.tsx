@@ -79,13 +79,20 @@ const Profile: React.FC = () => {
         </section>
 
         {/* 로그아웃 버튼 */}
-        <section className="absolute top-4 right-4">
+        <section className="absolute right-4 h-full py-4 flex flex-col justify-between">
           <FormToolkit.Button
             type="button"
             label="로그아웃"
             className="text-xs px-3 py-2"
             onClick={onSignUpHandler}
           />
+          <Link
+            to="/profile/update"
+            replace
+            className="text-xs text-center transition-colors hover:underline hover:underline-offset-4 hover:text-main-text/90 hover:underline-main-text/90"
+          >
+            정보 수정
+          </Link>
         </section>
       </article>
 

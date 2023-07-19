@@ -63,3 +63,13 @@ export interface ApiFindManyHatedPostOfMeHandler {
     body: ApiFindManyHatedPostOfMeRequest
   ): Promise<ApiFindManyHatedPostOfMeResponse>;
 }
+
+/** 2023/07/19 - 유저 정보 수정 요청 타입 - by 1-blue */
+export interface ApiUpdateMeRequest
+  extends Partial<Pick<User, "nickname" | "summonerName" | "avatar">> {}
+/** 2023/07/19 - 유저 정보 수정 응답 타입 - by 1-blue */
+export interface ApiUpdateMeResponse extends User {}
+/** 2023/07/19 - 유저 정보 수정 핸들러 타입 - by 1-blue */
+export interface ApiUpdateMeHandler {
+  (body: ApiUpdateMeRequest): Promise<ApiUpdateMeResponse>;
+}

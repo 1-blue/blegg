@@ -9,6 +9,8 @@ import type {
   ApiFindManyPostOfMeResponse,
   ApiGetMeHandler,
   ApiGetMeResponse,
+  ApiUpdateMeHandler,
+  ApiUpdateMeResponse,
 } from "@src/types/apis";
 
 /** 2023/07/07 - 로그인한 유저 정보 요청 - by 1-blue */
@@ -46,6 +48,13 @@ export const apiFindManyHatedPostOfMe: ApiFindManyHatedPostOfMeHandler = async (
     "/me/post/hated",
     { params: body }
   );
+
+  return data;
+};
+
+/** 2023/07/19 - 유저 정보 수정 요청 핸들러 타입 - by 1-blue */
+export const apiUpdateMe: ApiUpdateMeHandler = async (body) => {
+  const { data } = await axiosInstance.patch<ApiUpdateMeResponse>("/me", body);
 
   return data;
 };
