@@ -1,18 +1,35 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { isAxiosError } from "axios";
 
 import { apiSignOut } from "@src/apis";
 
-import QUERY_KEYS from "@src/query";
-import { useGetMe } from "@src/query";
+import QUERY_KEYS, {
+  useGetMe,
+  useFindManyLikedPostOfMe,
+  useFindManyHatedPostOfMe,
+  useFindManyPostOfMe,
+} from "@src/query";
 
 import FormToolkit from "@src/components/FormToolkit";
+import Posts from "@src/components/Profile/Posts";
 
 /** 2023/07/07 - 프로필 페이지 - by 1-blue */
 const Profile: React.FC = () => {
   const queryClient = useQueryClient();
-  const { me } = useGetMe();
+  const { me, isLoading } = useGetMe();
+  const { posts, ...restWritten } = useFindManyPostOfMe({
+    start: -1,
+    count: 20,
+  });
+  const { likedPosts, ...restLiked } = useFindManyLikedPostOfMe({
+    start: -1,
+    count: 20,
+  });
+  const { hatedPosts, ...restHated } = useFindManyHatedPostOfMe({
+    start: -1,
+    count: 20,
+  });
 
   /** 2023/07/07 - 로그아웃 요청 - by 1-blue */
   const onSignUpHandler = async () => {
@@ -36,12 +53,12 @@ const Profile: React.FC = () => {
     }
   };
 
-  // TODO: Skeleton UI
+  if (isLoading && !me) return <Navigate to="/" replace />;
   if (!me) return <></>;
 
   return (
     <>
-      <article className="relative flex flex-col justify-center items-center -mx-4 p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
+      <article className="relative flex flex-col justify-center items-center -mx-4 my-box">
         {/* 내 정보 */}
         <figure>
           <img
@@ -62,51 +79,49 @@ const Profile: React.FC = () => {
         </section>
 
         {/* 로그아웃 버튼 */}
-        <section className="absolute top-0 right-4">
+        <section className="absolute right-4 h-full py-4 flex flex-col justify-between">
           <FormToolkit.Button
             type="button"
             label="로그아웃"
             className="text-xs px-3 py-2"
             onClick={onSignUpHandler}
           />
+          <Link
+            to="/profile/update"
+            replace
+            className="text-xs text-center transition-colors hover:underline hover:underline-offset-4 hover:text-main-text/90 hover:underline-main-text/90"
+          >
+            정보 수정
+          </Link>
         </section>
       </article>
 
-      {/* 내 게시글/댓글 */}
-      <article className="mt-8 -mx-4 grid gap-4 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-        {/* 내가 작성한 게시글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>내가 작성한 게시글들 게시글들</h5>
-        </section>
-        {/* 내가 작성한 댓글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>내가 작성한 댓글들 게시글들</h5>
-        </section>
-      </article>
+      {/* 내 게시글 */}
+      <Posts label="작성한 게시글" posts={posts} {...restWritten} />
 
-      {/* 좋아요/싫어요 게시글 */}
-      <article className="mt-8 -mx-4 grid gap-4 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-        {/* 좋아요 누른 게시글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>좋아요 누른 게시글들</h5>
-        </section>
-        {/* 싫어요 누른 게시글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>싫어요 누른 게시글들</h5>
-        </section>
-      </article>
+      {/* 내가 좋아요한 게시글들 */}
+      <Posts
+        label="좋아요한 게시글"
+        posts={
+          likedPosts && {
+            ...likedPosts,
+            pages: likedPosts.pages.map((page) => page.map(({ post }) => post)),
+          }
+        }
+        {...restLiked}
+      />
 
-      {/* 좋아요/싫어요 댓글 */}
-      <article className="mt-8 -mx-4 grid gap-4 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-        {/* 좋아요 누른 댓글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>좋아요 누른 댓글들</h5>
-        </section>
-        {/* 싫어요 누른 댓글들 */}
-        <section className="p-6 space-y-4 bg-main-box-bg border border-main-line rounded-md">
-          <h5>싫어요 누른 댓글들</h5>
-        </section>
-      </article>
+      {/* 내가 싫어요한 게시글 */}
+      <Posts
+        label="싫어요한 게시글"
+        posts={
+          hatedPosts && {
+            ...hatedPosts,
+            pages: hatedPosts.pages.map((page) => page.map(({ post }) => post)),
+          }
+        }
+        {...restHated}
+      />
     </>
   );
 };

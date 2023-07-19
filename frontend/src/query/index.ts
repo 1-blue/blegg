@@ -13,6 +13,8 @@ const QUERY_KEYS = {
   COMMENTS: "COMMENTS",
   REPLY: "REPLY",
   REPLYS: "REPLYS",
+  LIKED: "LIKED",
+  HATED: "HATED",
 };
 export default QUERY_KEYS;
 
@@ -43,3 +45,7 @@ export * from "./useCreateReply";
 export * from "./useFindManyReply";
 export * from "./useUpdateReply";
 export * from "./useDeleteReply";
+
+export * from "./useFindManyPostOfMe";
+export * from "./useFindManyLikedPostOfMe";
+export * from "./useFindManyHatedPostOfMe";

@@ -4,6 +4,6 @@ export * from "./spell";
 export * from "./item";
 export * from "./match";
 export * from "./auth";
-export * from "./user";
+export * from "./me";
 export * from "./post";
 export * from "./presignedurl";
