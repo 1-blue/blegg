@@ -1,9 +1,18 @@
-import { Controller, Get, Query, Request, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Patch,
+  Query,
+  Body,
+  Request,
+  UseGuards,
+} from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 
 import { MeService } from "./me.service";
 
 import { FindManyDto } from "./dto/find-many.dto";
+import { UpdateMeDto } from "./dto/update-me.dto";
 import type { RequestWithUser } from "src/types/model";
 
 @Controller("me")
@@ -46,5 +55,15 @@ export class MeController {
     @Query() query: FindManyDto,
   ) {
     return await this.meService.findManyHatedPost(user.idx, query);
+  }
+
+  /** 2023/07/19 - 내 정보 수정 - by 1-blue */
+  @UseGuards(AuthGuard("jwt"))
+  @Patch("")
+  async updateMe(
+    @Request() { user }: RequestWithUser,
+    @Body() body: UpdateMeDto,
+  ) {
+    return await this.meService.updateMe(user, body);
   }
 }

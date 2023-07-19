@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
 
 import { FindManyDto } from "./dto/find-many.dto";
+import { UpdateMeDto } from "./dto/update-me.dto";
 import { MeRepository } from "./me.repository";
+import type { RequestWithUser } from "src/types/model";
 
 @Injectable()
 export class MeService {
@@ -21,5 +23,10 @@ export class MeService {
   /** 2023/07/18 - 내가 싫어요한 게시글들 찾기 - by 1-blue */
   async findManyHatedPost(userIdx: number, body: FindManyDto) {
     return await this.meRepository.findManyHatedPost(userIdx, body);
+  }
+
+  /** 2023/07/19 - 내 정보 수정 - by 1-blue */
+  async updateMe(user: RequestWithUser["user"], body: UpdateMeDto) {
+    return await this.meRepository.updateMe(user, body);
   }
 }
