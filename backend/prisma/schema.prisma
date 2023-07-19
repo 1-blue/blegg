@@ -21,7 +21,7 @@ model User {
   password String? @db.VarChar(100)
   nickname String @db.VarChar(20) @unique
   summonerName String? @db.VarChar(20) @unique
-  avatar String @db.VarChar(100)
+  avatar String @db.VarChar(200)
 
   provider Provider @default(local)
   snsId String? @db.VarChar(100)

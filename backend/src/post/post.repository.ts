@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import type { Prisma } from "@prisma/client";
 
+import { S3_BASE_URL } from "src/libs";
+
 import { PrismaService } from "src/prisma/prisma.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
@@ -9,8 +11,6 @@ import { UpdatePostDto } from "./dto/update-post.dto";
 import { CreateCommentDto } from "./dto/create-comment.dto";
 import { UpdateCommentDto } from "./dto/update-comment.dto";
 import { FindManyCommentDto } from "./dto/find-many-comment.dto";
-
-const S3_BASE_URL = "https://blegg.s3.ap-northeast-2.amazonaws.com";
 
 @Injectable()
 export class PostRepository {
