@@ -1,13 +1,13 @@
 import type { SimpleUser } from "@src/types";
 import type {
   ApiFindManyCommentResponse,
-  ApiFindManyLikedPostOfMeResponse,
   ApiFindManyPostOfMeResponse,
   ApiFindManyPostResponse,
   ApiFindManyReplyResponse,
   ApiGetAllChampionResponse,
   ApiGetDetailChampionResponse,
   ApiGetItemResponse,
+  ApiGetLeagueResponse,
   ApiGetMatchesResponse,
   ApiGetSpellResponse,
 } from "@src/types/apis";
@@ -1027,6 +1027,7 @@ export const mocReply: ApiFindManyReplyResponse[0] = {
   },
 };
 
+/** 특정 게시글들 가짜 데이터 */
 export const mocPosts: ApiFindManyPostOfMeResponse = [
   {
     idx: 6,
@@ -1134,5 +1135,97 @@ export const mocPosts: ApiFindManyPostOfMeResponse = [
       summonerName: "iron",
     },
     ratingOfUsers: [],
+  },
+];
+
+/** 특정 리그 유저들 가짜 데이터 */
+export const mocLeague: ApiGetLeagueResponse = [
+  {
+    tier: "GRANDMASTER",
+    summonerName: "역시폭군",
+    rank: "I",
+    leaguePoints: 535,
+    wins: 65,
+    losses: 45,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "Agurin모모",
+    rank: "I",
+    leaguePoints: 535,
+    wins: 90,
+    losses: 51,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "갈과 배 음료",
+    rank: "I",
+    leaguePoints: 513,
+    wins: 70,
+    losses: 48,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "펭로스",
+    rank: "I",
+    leaguePoints: 502,
+    wins: 55,
+    losses: 31,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "연이 팬",
+    rank: "I",
+    leaguePoints: 501,
+    wins: 54,
+    losses: 30,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "SUN GOD NIKA",
+    rank: "I",
+    leaguePoints: 476,
+    wins: 85,
+    losses: 62,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "Moham KDF",
+    rank: "I",
+    leaguePoints: 468,
+    wins: 40,
+    losses: 12,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "뀨들뀨들",
+    rank: "I",
+    leaguePoints: 447,
+    wins: 64,
+    losses: 43,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "255  A  Ming",
+    rank: "I",
+    leaguePoints: 427,
+    wins: 64,
+    losses: 47,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "jkjkjkjkk",
+    rank: "I",
+    leaguePoints: 413,
+    wins: 72,
+    losses: 53,
+  },
+  {
+    tier: "GRANDMASTER",
+    summonerName: "칼과 창 방패",
+    rank: "I",
+    leaguePoints: 413,
+    wins: 80,
+    losses: 67,
   },
 ];
