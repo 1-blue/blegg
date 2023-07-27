@@ -16,7 +16,8 @@ const AuthenticationCheck: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   isAuth,
 }) => {
-  const { me } = useGetMe();
+  const exMe = sessionStorage.getItem("me");
+  const { me } = useGetMe({}, exMe && JSON.parse(exMe));
 
   // 로그인하지 않고 접근
   if (isAuth === true && !me) return <Navigate replace to="/signin" />;
