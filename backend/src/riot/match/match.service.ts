@@ -105,7 +105,7 @@ export class MatchService {
                   // KDA/킬/데스/어시/CS
                   scores: {
                     /** KDA */
-                    kda: +targetPlayer.challenges.kda.toFixed(2),
+                    kda: +(targetPlayer.challenges?.kda || 0).toFixed(2),
                     /** 킬수 */
                     kills: targetPlayer.kills,
                     /** 어시스트 */
