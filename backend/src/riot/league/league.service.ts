@@ -18,7 +18,7 @@ export class LeagueService {
     this.configService = configService;
   }
 
-  /** 2023/07/24 - 챌린저 || 그랜드마스터 || 마스터 티어 유저 정보 요청 - by 1-blue */
+  /** 2023/07/24 - 솔로랭크 챌린저 || 그랜드마스터 || 마스터 티어 유저들 정보 요청 - by 1-blue */
   async findLeagues(leagueType: RiotLeagueType) {
     const TOKEN = this.configService.get<string>("keys.riot");
 

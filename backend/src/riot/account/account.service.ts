@@ -33,24 +33,4 @@ export class AccountService {
       throw new NotFoundException("존재하지 않는 소환사입니다.");
     }
   }
-
-  /** 2023/07/24 - 소환사 아이디로 계정 정보 얻기 - by 1-blue */
-  async findBySummonerId(summonerId: string): Promise<RiotAccount> {
-    const TOKEN = this.configService.get<string>("keys.riot");
-
-    try {
-      const account = await firstValueFrom<RiotAccount>(
-        this.httpService
-          .get(
-            `https://kr.api.riotgames.com/lol/summoner/v4/summoners/${summonerId}`,
-            { headers: { "X-Riot-Token": TOKEN } },
-          )
-          .pipe(map((res) => res.data)),
-      );
-
-      return account;
-    } catch (error) {
-      throw new NotFoundException("존재하지 않는 소환사입니다.");
-    }
-  }
 }
