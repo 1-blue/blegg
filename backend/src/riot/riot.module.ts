@@ -6,6 +6,7 @@ import { MatchModule } from "./match/match.module";
 import { ChampionModule } from "./champion/champion.module";
 import { ItemModule } from "./item/item.module";
 import { SpellModule } from "./spell/spell.module";
+import { LeagueModule } from "./league/league.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { SpellModule } from "./spell/spell.module";
     ChampionModule,
     ItemModule,
     SpellModule,
+    LeagueModule,
   ],
 })
 export class RiotModule {}

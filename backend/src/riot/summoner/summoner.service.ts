@@ -25,7 +25,7 @@ export class SummonerService {
     this.accountService = accountService;
   }
 
-  /** 2023/06/29 - 특정 소환사 정보 및 솔로/자유랭크 정보 얻기 */
+  /** 2023/06/29 - 특정 소환사 정보 및 솔로/자유랭크 정보 얻기 - by 1-blue */
   async findByName(name: string): Promise<ApiResponseSummoner> {
     const TOKEN = this.configService.get<string>("keys.riot");
 

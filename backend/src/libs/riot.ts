@@ -1,4 +1,4 @@
-export const VERSION = "13.12.1";
+export const VERSION = "13.14.1";
 export const LANGUAGE = "ko_KR";
 
 /** 2023/06/20 - (챔피언) 정사각형 이미지 url로 변경 - by 1-blue */
@@ -37,4 +37,5 @@ export const queueIdCoords = {
   430: "일반게임",
   440: "자유랭크",
   450: "칼바람나락",
+  1700: "아레나",
 };

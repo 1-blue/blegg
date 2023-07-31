@@ -17,20 +17,7 @@ export class ItemService {
     this.httpService = httpService;
   }
 
-  /** 2023/06/29 - 특정 아이템 정보 - by 1-blue */
-  async findOne(id: string): Promise<ApiResponseItem> {
-    const items = await this.findAll();
-
-    const item = items.find((item) => item.id === id);
-
-    if (!item) {
-      throw new NotFoundException("존재하지 않는 아이템입니다.");
-    }
-
-    return item;
-  }
-
-  /** 2023/06/29 - 모든 아이템 정보 - by 1-blue */
+  /** 2023/06/29 - 모든 아이템 정보 요청 - by 1-blue */
   async findAll(): Promise<ApiResponseItems> {
     try {
       const item = await firstValueFrom<ApiResponseItems>(
@@ -64,5 +51,18 @@ export class ItemService {
     } catch (error) {
       console.error("/riot/item findAll >> ", error);
     }
+  }
+
+  /** 2023/06/29 - 특정 아이템 정보 요청 - by 1-blue */
+  async findOne(id: string): Promise<ApiResponseItem> {
+    const items = await this.findAll();
+
+    const item = items.find((item) => item.id === id);
+
+    if (!item) {
+      throw new NotFoundException("존재하지 않는 아이템입니다.");
+    }
+
+    return item;
   }
 }

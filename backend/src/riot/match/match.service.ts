@@ -26,7 +26,7 @@ export class MatchService {
     this.accountService = accountService;
   }
 
-  /** 2023/06/29 - 특정 소환사 최근 전적 얻기 */
+  /** 2023/06/29 - 특정 소환사 최근 전적 얻기 - by 1-blue */
   async findManyByName(
     name: string,
     { start, count }: FindManyByNameDto,
@@ -105,7 +105,7 @@ export class MatchService {
                   // KDA/킬/데스/어시/CS
                   scores: {
                     /** KDA */
-                    kda: +targetPlayer.challenges.kda.toFixed(2),
+                    kda: +(targetPlayer.challenges?.kda || 0).toFixed(2),
                     /** 킬수 */
                     kills: targetPlayer.kills,
                     /** 어시스트 */

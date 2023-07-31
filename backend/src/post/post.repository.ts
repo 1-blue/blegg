@@ -111,7 +111,11 @@ export class PostRepository {
     // 인기순
     if (sortBy === "popular") {
       return await this.prismaService.post.findMany({
-        orderBy: [{ ratingOfUsers: { _count: "desc" } }],
+        orderBy: [
+          { ratingOfUsers: { _count: "desc" } },
+          { viewCount: "desc" },
+          { createdAt: "asc" },
+        ],
         ...condition,
       });
     }
@@ -244,6 +248,8 @@ export class PostRepository {
   }
   /** 2023/07/16 - 댓글들 조회 - by 1-blue */
   async findManyComment(postIdx: number, { start, count }: FindManyCommentDto) {
+    await this.findOne(postIdx);
+
     // 페이지네이션 조건
     const condition: Prisma.CommentFindManyArgs = {
       ...(start !== -1 && { cursor: { idx: start } }),
@@ -273,7 +279,7 @@ export class PostRepository {
     commentIdx: number,
     { content }: UpdateCommentDto,
   ) {
-    await this.findOneComment(commentIdx);
+    await Promise.all([this.findOne(postIdx), this.findOneComment(commentIdx)]);
 
     return await this.prismaService.comment.update({
       where: { idx: commentIdx },
@@ -282,7 +288,7 @@ export class PostRepository {
   }
   /** 2023/07/16 - 댓글 삭제 - by 1-blue */
   async deleteComment(postIdx: number, commentIdx: number) {
-    await this.findOneComment(commentIdx);
+    await Promise.all([this.findOne(postIdx), this.findOneComment(commentIdx)]);
 
     return await this.prismaService.comment.delete({
       where: { idx: commentIdx },
@@ -296,7 +302,7 @@ export class PostRepository {
     { content }: CreateCommentDto,
     userIdx: number,
   ) {
-    await this.findOneComment(commentIdx);
+    await Promise.all([this.findOne(postIdx), this.findOneComment(commentIdx)]);
 
     return await this.prismaService.reply.create({
       data: { userIdx, postIdx, commentIdx, content },
@@ -318,7 +324,7 @@ export class PostRepository {
     commentIdx: number,
     { start, count }: FindManyCommentDto,
   ) {
-    await this.findOneComment(commentIdx);
+    await Promise.all([this.findOne(postIdx), this.findOneComment(commentIdx)]);
 
     // 페이지네이션 조건
     const condition: Prisma.ReplyFindManyArgs = {
@@ -350,7 +356,11 @@ export class PostRepository {
     replyIdx: number,
     { content }: UpdateCommentDto,
   ) {
-    await this.findOneReply(replyIdx);
+    await Promise.all([
+      this.findOne(postIdx),
+      this.findOneComment(commentIdx),
+      this.findOneReply(replyIdx),
+    ]);
 
     return await this.prismaService.reply.update({
       where: { idx: replyIdx },
@@ -359,7 +369,11 @@ export class PostRepository {
   }
   /** 2023/07/18 - 답글 삭제 - by 1-blue */
   async deleteReply(postIdx: number, commentIdx: number, replyIdx: number) {
-    await this.findOneReply(replyIdx);
+    await Promise.all([
+      this.findOne(postIdx),
+      this.findOneComment(commentIdx),
+      this.findOneReply(replyIdx),
+    ]);
 
     return await this.prismaService.reply.delete({
       where: { idx: replyIdx },
