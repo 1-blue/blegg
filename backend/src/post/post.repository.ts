@@ -111,7 +111,11 @@ export class PostRepository {
     // 인기순
     if (sortBy === "popular") {
       return await this.prismaService.post.findMany({
-        orderBy: [{ ratingOfUsers: { _count: "desc" } }],
+        orderBy: [
+          { ratingOfUsers: { _count: "desc" } },
+          { viewCount: "desc" },
+          { createdAt: "asc" },
+        ],
         ...condition,
       });
     }
