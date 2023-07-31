@@ -15,6 +15,7 @@ const QUERY_KEYS = {
   REPLYS: "REPLYS",
   LIKED: "LIKED",
   HATED: "HATED",
+  LEAGUE: "LEAGUE",
 };
 export default QUERY_KEYS;
 
@@ -24,6 +25,7 @@ export * from "./useGetSummoner";
 export * from "./useGetSpell";
 export * from "./useGetItem";
 export * from "./useGetMatches";
+export * from "./useGetLeague";
 
 export * from "./useGetMe";
 

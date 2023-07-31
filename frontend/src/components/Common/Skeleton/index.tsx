@@ -11,6 +11,7 @@ import Avatar from "./Avatar";
 import PostInfo from "./PostInfo";
 import CommunityDetail from "./CommunityDetail";
 import Comment from "./Comment";
+import Home from "./Home";
 
 const Skeleton = {
   /** 2023/06/23 - Skeleton UI Circle - by 1-blue */
@@ -38,6 +39,8 @@ const Skeleton = {
   CommunityDetail,
   /** 2023/07/16 - "Comment" Skeleton UI - by 1-blue */
   Comment,
+  /** 2023/07/24 - 메인 페이지 스켈레톤 UI - by 1-blue */
+  Home,
 };
 
 export default Skeleton;

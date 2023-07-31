@@ -25,10 +25,10 @@ const Post: React.FC<Props> = ({
   ratingOfUsers,
 }) => {
   return (
-    <motion.li variants={variants} layoutId={idx + ""}>
+    <motion.li variants={variants} layoutId={idx + ""} className="h-full">
       <Link
         to={`/community/${idx}`}
-        className="block bg-main-box-bg border-2 border-main-line rounded-md overflow-hidden duration-300 transition-all hover:scale-105"
+        className="h-full flex flex-col bg-main-box-bg border-2 border-main-line rounded-md overflow-hidden duration-300 transition-all hover:scale-105"
       >
         {/* 썸네일 */}
         <figure
@@ -38,21 +38,23 @@ const Post: React.FC<Props> = ({
           <img hidden src={thumbnail} alt="게시글 썸네일" />
         </figure>
 
-        <div className="m-4 space-y-2">
-          {/* 제목 && 작성시간 */}
-          <div className="flex">
-            {/* 제목 */}
-            <h6 className="flex-1 text-lg font-bold truncate truncate-1">
-              {title}
-            </h6>
+        <div className="flex-1 m-4 flex flex-col justify-between">
+          <div className="space-y-2">
+            {/* 제목 && 작성시간 */}
+            <div className="flex">
+              {/* 제목 */}
+              <h6 className="flex-1 text-lg font-bold truncate truncate-1">
+                {title}
+              </h6>
 
-            {/* 작성시간 */}
-            <time className="text-xxs">{timeFormat(createdAt)}</time>
+              {/* 작성시간 */}
+              <time className="text-xxs">{timeFormat(createdAt)}</time>
+            </div>
+            {/* 내용 */}
+            <p className="text-sm whitespace-pre-line truncate truncate-2">
+              {content}
+            </p>
           </div>
-          {/* 내용 */}
-          <p className="text-sm whitespace-pre-line truncate truncate-2">
-            {content}
-          </p>
           {/* 작성자 && 조회수/좋아요/싫어요 */}
           <PostInfo
             idx={idx}

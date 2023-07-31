@@ -40,6 +40,7 @@ const Profile: React.FC = () => {
 
       // 로그인한 유저 데이터 제거
       queryClient.setQueryData([QUERY_KEYS.ME], null);
+      sessionStorage.removeItem("me");
     } catch (error) {
       if (isAxiosError(error)) {
         if (!error.response) return;

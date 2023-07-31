@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import QUERY_KEYS from ".";
@@ -15,6 +16,14 @@ export const useGetMe = ({}: Props = {}, initialData?: ApiGetMeResponse) => {
     apiGetMe,
     { initialData }
   );
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (isError) return;
+    if (!data) return;
+
+    sessionStorage.setItem("me", JSON.stringify(data));
+  }, [isLoading, isError, data]);
 
   return { me: data, isLoading, isError };
 };
