@@ -4,6 +4,7 @@ import LeagueBedge from "@src/components/Riot/League/LeagueBedge";
 import Skeleton from "@src/components/Common/Skeleton";
 import Animate from "@src/components/Animate";
 import Post from "@src/components/Community/Post";
+import FormToolkit from "@src/components/FormToolkit";
 
 /** 2023/06/19 - 메인 페이지 컴포넌트 - by 1-blue */
 const Home: React.FC = () => {
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
   const { leagues: masterLeagues } = useGetLeague({
     league: "master",
   });
-  const { posts } = useFindManyPost({
+  const { posts, fetchNextPage, hasNextPage, isFetching } = useFindManyPost({
     start: -1,
     count: 10,
     sortBy: "popular",
@@ -30,10 +31,13 @@ const Home: React.FC = () => {
   return (
     <article className="space-y-8">
       {/* 챌린저 랭킹 */}
-      <details className="my-box -mx-4 space-y-4 cursor-pointer transition-colors hover:text-main-text/80">
+      <details
+        open
+        className="my-box -mx-4 space-y-4 cursor-pointer transition-colors hover:text-main-text/80"
+      >
         <summary className="text-xl font-bold mb-1">챌린저 순위</summary>
         <ul className="grid gap-8 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {challengerLeagues.map((league, index) => (
+          {challengerLeagues.slice(0, 50).map((league, index) => (
             <LeagueBedge
               key={league.summonerName}
               league={league}
@@ -47,7 +51,7 @@ const Home: React.FC = () => {
       <details className="my-box -mx-4 space-y-4 cursor-pointer transition-colors hover:text-main-text/80">
         <summary className="text-xl font-bold mb-1">그랜드 마스터 순위</summary>
         <ul className="grid gap-8 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {grandmasterLeagues.map((league, index) => (
+          {grandmasterLeagues.slice(0, 50).map((league, index) => (
             <LeagueBedge
               key={league.summonerName}
               league={league}
@@ -61,7 +65,7 @@ const Home: React.FC = () => {
       <details className="my-box -mx-4 space-y-4 cursor-pointer transition-colors hover:text-main-text/80">
         <summary className="text-xl font-bold mb-1">마스터 순위</summary>
         <ul className="grid gap-8 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {masterLeagues.map((league, index) => (
+          {masterLeagues.slice(0, 50).map((league, index) => (
             <LeagueBedge
               key={league.summonerName}
               league={league}
@@ -83,6 +87,33 @@ const Home: React.FC = () => {
             )}
           </ul>
         </Animate.Wrapper>
+
+        {/* fetch more */}
+        {isFetching && (
+          <ul className="mt-6 grid gap-6 grid-cols-1 xssm:grid-cols-2 md:grid-cols-1 mdlg:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+            {Array(6)
+              .fill(null)
+              .map((_v, i) => (
+                <Skeleton.Post key={i} />
+              ))}
+          </ul>
+        )}
+
+        {/* 게시글들을 모두 불러온 경우 */}
+        {hasNextPage ? (
+          <div>
+            <FormToolkit.Button
+              type="button"
+              onClick={() => fetchNextPage()}
+              label="게시글 더 불러오기"
+              className="w-full mt-8"
+            />
+          </div>
+        ) : (
+          <span className="my-12 block font-sub font-bold text-3xl border-2 border-main-line text-main-text p-4 rounded-md text-center">
+            더 이상 불러올 게시글이 없습니다... 🥲
+          </span>
+        )}
       </details>
     </article>
   );
