@@ -2,13 +2,12 @@ import { Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { firstValueFrom, map } from "rxjs";
 
-import { DDRANGON_BASE_URL, LANGUAGE, VERSION } from "src/config/riot";
-
 import {
   SkillTypeCoords,
   convertToChampionSquareImageURL,
   convertToPassiveSquareImageURL,
-  convertToRectangleImageURL,
+  convertToLoadingRectangleImageURL,
+  convertToSplashRectangleImageURL,
   convertToSkillSquareImageURL,
   effectRegExp,
   restEffectRegExp,
@@ -31,7 +30,7 @@ export class ChampionService {
     const data = await firstValueFrom<ApiResponseChampion[]>(
       this.httpService
         .get(
-          `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion.json`,
+          `https://ddragon.leagueoflegends.com/cdn/${process.env.RIOT_VERSION}/data/${process.env.RIOT_LANGUAGE}/champion.json`,
         )
         .pipe(
           map((res) => res.data.data),
@@ -57,7 +56,7 @@ export class ChampionService {
     const data = await firstValueFrom<ApiResponseDetailChampion>(
       this.httpService
         .get(
-          `${DDRANGON_BASE_URL}/cdn/${VERSION}/data/${LANGUAGE}/champion/${name}.json`,
+          `https://ddragon.leagueoflegends.com/cdn/${process.env.RIOT_VERSION}/data/${process.env.RIOT_LANGUAGE}/champion/${name}.json`,
         )
         .pipe(
           map((res) => res.data.data[name]),
@@ -93,8 +92,13 @@ export class ChampionService {
             info: champion.info,
             skins: champion.skins.map(({ id, name, num }) => ({
               id,
-              name,
-              src: convertToRectangleImageURL(champion.id + "_" + num),
+              name: name === "default" ? "기본 스킨" : name,
+              src: convertToLoadingRectangleImageURL(champion.id + "_" + num),
+            })),
+            splashs: champion.skins.map(({ id, name, num }) => ({
+              id,
+              name: name === "default" ? "기본 스킨" : name,
+              src: convertToSplashRectangleImageURL(champion.id + "_" + num),
             })),
             skills: [
               {

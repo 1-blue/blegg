@@ -1,17 +1,16 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
 
-import { LANGUAGE, VERSION } from "src/libs";
-
 import { ChampionService } from "./champion.service";
 import { ApiResponseChampion } from "./interface/champions.interface";
 import { ApiResponseDetailChampion } from "./interface/champion.interface";
+
+const { RIOT_VERSION, RIOT_LANGUAGE } = process.env;
 
 @Controller("riot/champion")
 @ApiTags("Riot API")
 export class ChampionController {
   private championService: ChampionService;
-
   constructor(championService: ChampionService) {
     this.championService = championService;
   }
@@ -20,7 +19,7 @@ export class ChampionController {
   @Get()
   @ApiOperation({
     summary: "모든 챔피언 정보 요청",
-    description: `모든 챔피언에 대한 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/champion.json) )`,
+    description: `모든 챔피언에 대한 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/champion.json) )`,
   })
   @ApiResponse({
     status: 200,
@@ -107,7 +106,7 @@ export class ChampionController {
   @Get(":name")
   @ApiOperation({
     summary: "특정 챔피언 상세 정보 요청",
-    description: `모든 챔피언에 대한 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/champion.json) )`,
+    description: `모든 챔피언에 대한 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/champion.json) )`,
   })
   @ApiParam({
     name: "name",

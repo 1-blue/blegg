@@ -2,7 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { firstValueFrom, map } from "rxjs";
 
-import { LANGUAGE, VERSION, convertToSpellImageURL } from "src/libs";
+import { convertToSpellImageURL } from "src/libs";
 
 import type { ApiResponseSpell } from "./interface/spell.interface";
 import type { RiotSpell } from "./model/spell.model";
@@ -19,7 +19,7 @@ export class SpellService {
     const spells = await firstValueFrom<ApiResponseSpell[]>(
       this.httpService
         .get(
-          `https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/summoner.json`,
+          `https://ddragon.leagueoflegends.com/cdn/${process.env.RIOT_VERSION}/data/${process.env.RIOT_LANGUAGE}/summoner.json`,
         )
         .pipe(map((res) => res.data))
         .pipe(

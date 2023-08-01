@@ -3,6 +3,8 @@ import { type Profile, Strategy } from "passport-kakao";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
+import { convertS3URL } from "src/libs";
+
 import type { Provider } from "@prisma/client";
 import type { OAuthUser } from "../interface/oauth.interface";
 
@@ -23,9 +25,8 @@ export class KakaoStrategy extends PassportStrategy(Strategy, "kakao") {
     const user: OAuthUser = {
       provider: provider as Provider,
       snsId: id + "",
-      // FIXME: 기본 값 정하기
-      email: profile._json.kakao_account.email || "id_" + Date.now(),
-      avatar: photos?.[0].value || "/images/emblem/challenger.png",
+      email: profile._json.kakao_account.email || "email_" + Date.now(),
+      avatar: photos?.[0].value || convertS3URL("/images/avatar.png"),
       accessToken,
       refreshToken,
     };

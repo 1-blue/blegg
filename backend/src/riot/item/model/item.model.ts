@@ -143,7 +143,6 @@ interface RiotItemItem {
     "21": boolean;
     "22": boolean;
   };
-  /** 효과 TODO: 번역 테이블 만들기.. */
   stats: {
     [name: string]: number;
   };

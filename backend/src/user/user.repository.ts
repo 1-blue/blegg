@@ -7,7 +7,7 @@ import {
 import { hash, compare } from "bcrypt";
 import type { Prisma } from "@prisma/client";
 
-import { convertToIconImageURL } from "src/libs";
+import { convertS3URL, convertToIconImageURL } from "src/libs";
 
 import { PrismaService } from "src/prisma/prisma.service";
 import { AccountService } from "src/riot/account/account.service";
@@ -40,7 +40,7 @@ export class UserRepository {
           password: hashedPassword,
           avatar: account
             ? convertToIconImageURL(account.profileIconId)
-            : "/images/emblem/challenger.png",
+            : convertS3URL("images/avatar.png"),
         },
       });
 

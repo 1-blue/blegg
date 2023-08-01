@@ -1,13 +1,13 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
 
-import { LANGUAGE, VERSION } from "src/libs";
-
 import { ItemService } from "./item.service";
 import type {
   ApiResponseItem,
   ApiResponseItems,
 } from "./interface/item.interface";
+
+const { RIOT_VERSION, RIOT_LANGUAGE } = process.env;
 
 @Controller("riot/item")
 @ApiTags("Riot API")
@@ -21,7 +21,7 @@ export class ItemController {
   @Get()
   @ApiOperation({
     summary: "모든 아이템의 정보 요청",
-    description: `모든 아이템의 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/item.json) )`,
+    description: `모든 아이템의 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/item.json) )`,
   })
   @ApiResponse({
     status: 200,
@@ -71,7 +71,7 @@ export class ItemController {
   @Get(":id")
   @ApiOperation({
     summary: "특정 아이템의 정보 요청",
-    description: `특정 아이템의 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/item.json) )`,
+    description: `특정 아이템의 정보를 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/item.json) )`,
   })
   @ApiParam({
     name: "id",

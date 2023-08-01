@@ -51,7 +51,7 @@ async function bootstrap() {
     .addOAuth2()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("api", app, document);
+  SwaggerModule.setup("swagger", app, document);
 
   await app.listen(process.env.PORT);
 }

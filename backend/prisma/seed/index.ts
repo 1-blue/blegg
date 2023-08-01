@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+import { convertS3URL } from "../../src/libs";
+
 const prisma = new PrismaClient();
 
 // type
@@ -24,7 +26,7 @@ const getMocUser = (): Prisma.UserCreateManyInput[] =>
     password: "$2b$10$BXfcX.GEU/nY5C0bqXB8ZuLQdcJXwBILNyZCwCFAj74b9zRhQb4sS", // 123456789a!
     nickname: emblem,
     summonerName: emblem,
-    avatar: `/images/emblem/${emblem}.png`,
+    avatar: convertS3URL(`/images/emblem/${emblem}.png`),
   }));
 
 /** 가짜 게시글 30개 반환하는 함수 */
@@ -34,9 +36,11 @@ const getMocPost = (): Prisma.PostCreateManyInput[] =>
     .map((v, i) => ({
       title: "대충 제목" + i,
       content: "🐶🐕🫥\n🍕👏\n대충 내용\n☔🎥\n📮🏅🕕" + i,
-      thumbnail: `/images/emblem/${
-        emblems[Math.floor(Math.random() * emblems.length)]
-      }.png`,
+      thumbnail: convertS3URL(
+        `/images/emblem/${
+          emblems[Math.floor(Math.random() * emblems.length)]
+        }.png`,
+      ),
       userIdx: Math.floor(Math.random() * emblems.length),
       viewCount: Math.floor(Math.random() * 100),
       createdAt: new Date(Date.now() - i * 1000 * 60),

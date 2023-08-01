@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 
-import { S3_BASE_URL } from "src/libs";
+import { convertS3URL } from "src/libs";
 
 import { PrismaService } from "src/prisma/prisma.service";
 import { AuthRepository } from "src/auth/auth.repository";
@@ -149,7 +149,9 @@ export class MeRepository {
       where: { idx: user.idx },
       data: {
         ...body,
-        ...(avatar !== user.avatar && { avatar: `${S3_BASE_URL}/${avatar}` }),
+        ...(avatar !== user.avatar && {
+          avatar: convertS3URL("/avatar"),
+        }),
       },
     });
   }

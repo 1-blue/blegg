@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import type { Prisma } from "@prisma/client";
 
-import { S3_BASE_URL } from "src/libs";
+import { convertS3URL } from "src/libs";
 
 import { PrismaService } from "src/prisma/prisma.service";
 
@@ -21,14 +21,13 @@ export class PostRepository {
 
   /** 2023/07/11 - 게시글 생성 - by 1-blue */
   async create({ title, content, thumbnail }: CreatePostDto, userIdx: number) {
-    // TODO: 기본 썸네일
     return await this.prismaService.post.create({
       data: {
         title,
         content,
-        thumbnail: thumbnail
-          ? `${S3_BASE_URL}/${thumbnail}`
-          : "/images/emblem/challenger.png",
+        thumbnail: convertS3URL(
+          thumbnail ? thumbnail : `/images/thumbnail.png`,
+        ),
         userIdx,
       },
     });
@@ -128,7 +127,7 @@ export class PostRepository {
       where: { idx: postIdx },
       data: {
         ...body,
-        thumbnail: thumbnail ? `${S3_BASE_URL}/${thumbnail}` : exPost.thumbnail,
+        thumbnail: thumbnail ? convertS3URL(thumbnail) : exPost.thumbnail,
         updatedAt: new Date(),
       },
     });

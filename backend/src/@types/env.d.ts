@@ -3,23 +3,28 @@ declare namespace NodeJS {
     env: ProcessEnv;
   }
   interface ProcessEnv {
-    DATABASE_URL: string;
-
-    RIOT_API_KEY: string;
-
-    JWT_SECRET: string;
-
     PORT: string;
-
     NODE_ENV: "development" | "production";
 
-    FRONT_CALLBACK_URL: string;
+    // db
+    DATABASE_URL: string;
+
+    // auth
+    JWT_SECRET: string;
+
+    // riot
+    RIOT_API_KEY: string;
+    RIOT_VERSION: string;
+    RIOT_LANGUAGE: string;
 
     // AWS
     AWS_S3_BUCKET: string;
     AWS_S3_REGION: string;
     AWS_S3_ACCESS_KEY: string;
     AWS_S3_ACCESS_SECRET_KEY: string;
+
+    // oauth
+    FRONT_CALLBACK_URL: string;
 
     // Google OAuth
     GOOGLE_CLIENT_ID: string;

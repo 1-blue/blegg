@@ -13,6 +13,11 @@ interface Skin {
   src: string;
   name: string;
 }
+interface Splash {
+  id: string;
+  src: string;
+  name: string;
+}
 /** 2023/06/23 - 응답할 챔피언 상세 데이터 타입 [참고](https://ddragon.leagueoflegends.com/cdn/13.12.1/data/ko_KR/champion/Poppy.json) - by 1-blue */
 export interface ApiResponseDetailChampion
   extends Pick<
@@ -21,4 +26,5 @@ export interface ApiResponseDetailChampion
   > {
   skills: Skill[];
   skins: Skin[];
+  splashs: Splash[];
 }

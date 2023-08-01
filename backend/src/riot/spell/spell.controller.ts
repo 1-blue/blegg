@@ -1,11 +1,11 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
 
-import { LANGUAGE, VERSION } from "src/libs";
-
 import { SpellService } from "./spell.service";
 
 import type { ApiResponseSpell } from "./interface/spell.interface";
+
+const { RIOT_VERSION, RIOT_LANGUAGE } = process.env;
 
 @Controller("riot/spell")
 @ApiTags("Riot API")
@@ -19,7 +19,7 @@ export class SpellController {
   @Get()
   @ApiOperation({
     summary: "모든 스펠 정보 얻기",
-    description: `모든 스펠 정보 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/summoner.json) )`,
+    description: `모든 스펠 정보 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/summoner.json) )`,
   })
   @ApiResponse({
     status: 200,
@@ -55,7 +55,7 @@ export class SpellController {
   @Get(":key")
   @ApiOperation({
     summary: "특정 스펠 정보 얻기",
-    description: `특정 스펠 정보 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/summoner.json) )`,
+    description: `특정 스펠 정보 얻는 API ( [참고 라이엇 API](https://ddragon.leagueoflegends.com/cdn/${RIOT_VERSION}/data/${RIOT_LANGUAGE}/summoner.json) )`,
   })
   @ApiParam({
     name: "key",

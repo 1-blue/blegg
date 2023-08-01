@@ -2,7 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { firstValueFrom, map } from "rxjs";
 
-import { LANGUAGE, VERSION, convertToItemImageURL } from "src/libs";
+import { convertToItemImageURL } from "src/libs";
 
 import type { RiotItems } from "./model/item.model";
 import type {
@@ -23,7 +23,7 @@ export class ItemService {
       const item = await firstValueFrom<ApiResponseItems>(
         this.httpService
           .get(
-            `http://ddragon.leagueoflegends.com/cdn/${VERSION}/data/${LANGUAGE}/item.json`,
+            `http://ddragon.leagueoflegends.com/cdn/${process.env.RIOT_VERSION}/data/${process.env.RIOT_LANGUAGE}/item.json`,
           )
           .pipe(
             map((res) => res.data),
