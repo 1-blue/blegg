@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// OAuth 로그인 제공자
+enum Provider {
+  local
+  google
+  kakao
+  naver
+}
+
+model User {
+  idx Int @default(autoincrement()) @id
+  id String @db.VarChar(40) @unique
+  password String? @db.VarChar(100)
+  nickname String @db.VarChar(20) @unique
+  summonerName String? @db.VarChar(20) @unique
+  avatar String @db.VarChar(200)
+
+  provider Provider @default(local)
+  snsId String? @db.VarChar(100)
+
+  // 1:N ( 유저/게시글 )
+  posts Post[]
+
+  // N:M ( 유저/게시글 -> 좋아요 )
+  ratingOfPosts PostRating[]
+
+  // 1:N ( 유저/댓글 )
+  comments Comment[]
+
+  // 1:N ( 유저/답글 )
+  replies Reply[]
+}
+
+model Post {
+  idx Int @default(autoincrement()) @id
+  title String @db.VarChar(20)
+  content String @db.Text
+  thumbnail String @db.VarChar(100)
+  viewCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N ( 유저/게시글 )
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+
+  // N:M ( 유저/게시글 -> 좋아요 )
+  ratingOfUsers PostRating[]
+
+  // 1:N ( 게시글/댓글 )
+  comments Comment[]
+
+  // 1:N ( 게시글/답글 )
+  replies Reply[]
+}
+
+// 게시글 좋아요 / 싫어요
+model PostRating {
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+  post Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  isLike Boolean
+
+  @@id([userIdx, postIdx])
+}
+
+model Comment {
+  idx Int @default(autoincrement()) @id
+  content String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N ( 유저/댓글 )
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+
+  // 1:N ( 게시글/댓글 )
+  post Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  // 1:N ( 댓글/답글 )
+  replies Reply[]
+}
+
+model Reply {
+  idx Int @default(autoincrement()) @id
+  content String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // 1:N ( 댓글/답글 )
+  comments Comment @relation(fields: [commentIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  commentIdx Int
+
+  // 1:N ( 게시글/답글 )
+  posts Post @relation(fields: [postIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  postIdx Int
+
+  // 1:N ( 유저/답글 )
+  user User @relation(fields: [userIdx], references: [idx], onUpdate: Cascade, onDelete: Cascade)
+  userIdx Int
+}
