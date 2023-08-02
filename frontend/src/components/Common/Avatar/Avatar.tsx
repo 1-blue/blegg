@@ -15,17 +15,17 @@ const Avatar: React.FC<Props> = ({
   className,
 }) => {
   return (
-    <figure className="flex items-center space-x-2">
+    <figure className="flex items-center space-x-2 flex-1">
       <img
         src={avatar}
         alt={nickname + "님의 아바타"}
         className={twMerge("w-10 h-10 bg-white rounded-lg", className)}
       />
-      <div className="flex flex-col">
-        <span className="text-sm">{nickname}</span>
+      <div className="flex flex-col flex-1">
+        <span className="text-sm w-2/3 block truncate">{nickname}</span>
         <Link
           to={`/summoner?q=${summonerName}`}
-          className="text-xs hover:underline hover:underline-offset-4"
+          className="text-xs w-2/3 truncate hover:underline hover:underline-offset-4"
         >
           {summonerName}
         </Link>

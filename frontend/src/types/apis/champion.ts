@@ -21,6 +21,7 @@ export interface ApiGetDetailChampionResponse {
   stats: RiotChampionStats;
   skills: Skill[];
   skins: Skin[];
+  splashs: Splash[];
 }
 /** 2023/06/22 - 특정 챔피언 상세 정보 핸들러 타입 - by 1-blue */
 export interface ApiGetDetailChampionHandler {
@@ -35,6 +36,11 @@ interface Skill {
   description: string;
 }
 interface Skin {
+  id: string;
+  src: string;
+  name: string;
+}
+interface Splash {
   id: string;
   src: string;
   name: string;

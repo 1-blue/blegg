@@ -15,7 +15,7 @@ const ASide: React.FC = () => {
   const overMedium = width <= 768;
 
   return (
-    <aside className="sticky top-0 flex-shrink-0 md:w-[300px] h-auto md:h-screen bg-main-bg border-r border-main-line overflow-y-auto z-[1] lg:z-0">
+    <aside className="sticky top-0 flex-shrink-0 md:w-[300px] h-auto md:h-screen bg-main-bg border-r border-main-line overflow-y-auto z-10 lg:z-0">
       {/* 로고 */}
       <ASideLogo />
 

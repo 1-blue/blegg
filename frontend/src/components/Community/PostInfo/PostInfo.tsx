@@ -47,7 +47,7 @@ const PostInfo: React.FC<Props> = ({ idx, viewCount, user, ratingOfUsers }) => {
   );
 
   return (
-    <section className="flex justify-between space-x-8">
+    <section className="flex justify-between">
       <Avatar {...user} />
 
       <div
@@ -68,7 +68,7 @@ const PostInfo: React.FC<Props> = ({ idx, viewCount, user, ratingOfUsers }) => {
           }
         >
           <OLinkIcon className="w-4 h-4" />
-          <span className="text-xs">공유</span>
+          <span className="text-xs whitespace-nowrap">공유</span>
         </button>
         <button
           type="button"

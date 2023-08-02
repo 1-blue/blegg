@@ -69,7 +69,7 @@ const Nav: React.FC = () => {
   const searchWord = params.get("q");
 
   return (
-    <article className="sticky top-0 z-[3] min-w-[320px] flex justify-between mb-6 p-4 bg-main-box-bg border border-main-line rounded-md flex-col lg:flex-row space-y-4 lg:space-y-0 space-x-0 lg:space-x-8">
+    <article className="sticky top-28 z-[3] min-w-[320px] flex justify-between mb-6 p-4 bg-main-box-bg border border-main-line rounded-md flex-col shadow-xl shadow-main-bg lg:flex-row space-y-4 lg:space-y-0 space-x-0 lg:space-x-8 md:top-2">
       {/* 게시글 정렬 */}
       <section className="flex items-center space-x-4">
         {sortOptions.map(({ icons, label, type }) => (

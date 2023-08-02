@@ -84,6 +84,7 @@ export const riotChampionNames: RiotChampionName[] = [
   "MonkeyKing",
   "Mordekaiser",
   "Morgana",
+  "Naafiri",
   "Nami",
   "Nasus",
   "Nautilus",

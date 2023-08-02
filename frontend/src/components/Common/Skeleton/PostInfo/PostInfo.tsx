@@ -10,7 +10,7 @@ import Avatar from "../Avatar";
 /** 2023/07/14 - "PostInfo" Skeleton UI - by 1-blue */
 const PostInfo = () => {
   return (
-    <section className="flex justify-between space-x-8">
+    <section className="flex justify-between">
       <Avatar />
 
       <div className="grid gap-1 grid-cols-2 place-items-center">
@@ -23,7 +23,7 @@ const PostInfo = () => {
           className="flex items-center space-x-1 transition-colors hover:text-main-text/80"
         >
           <OLinkIcon className="w-4 h-4" />
-          <span className="text-xs">공유</span>
+          <span className="text-xs whitespace-nowrap">공유</span>
         </button>
         <button
           type="button"

@@ -110,7 +110,7 @@ const Champions: React.FC = () => {
       <Overlay.Fixed
         show={!!selectName}
         onCloseOverlay={onCloseOverlay}
-        className="flex justify-center items-center bg-black/80 z-[2]"
+        className="flex justify-center items-center bg-black/80 z-20"
       >
         <Carousel.Single
           uniqueKey={selectName}

@@ -216,6 +216,7 @@ export type RiotChampionName =
   | "MonkeyKing"
   | "Mordekaiser"
   | "Morgana"
+  | "Naafiri"
   | "Nami"
   | "Nasus"
   | "Nautilus"

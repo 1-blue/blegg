@@ -69,8 +69,6 @@ const SignUp: React.FC = () => {
           id="아이디"
           placeholder="ex) blegg98"
           required
-          // FIXME: 개발용
-          defaultValue="1blue"
           error={errors.id?.message}
           {...register("id", {
             required: { value: true, message: "아이디를 입력해주세요!" },
@@ -89,8 +87,6 @@ const SignUp: React.FC = () => {
             id="비밀번호"
             placeholder="ex) 123456789a!"
             required
-            // FIXME: 개발용
-            defaultValue="123456789a!"
             error={errors.password?.message}
             {...register("password", {
               required: { value: true, message: "비밀번호를 입력해주세요!" },
@@ -123,8 +119,6 @@ const SignUp: React.FC = () => {
           id="닉네임"
           placeholder="ex) Akaps ( blegg에서 사용할 별칭 )"
           required
-          // FIXME: 개발용
-          defaultValue="Akaps"
           error={errors.nickname?.message}
           {...register("nickname", {
             required: { value: true, message: "닉네임을 입력해주세요!" },

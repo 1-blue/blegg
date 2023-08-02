@@ -67,9 +67,8 @@ const SignIn: React.FC = () => {
         <FormToolkit.Input
           type="text"
           id="아이디"
-          placeholder="ex) blegg98"
-          // FIXME: 개발용
-          defaultValue="1blue"
+          placeholder="ex) challenger1"
+          required
           error={errors.id?.message}
           {...register("id", {
             required: { value: true, message: "아이디를 입력해주세요!" },
@@ -88,8 +87,6 @@ const SignIn: React.FC = () => {
             id="비밀번호"
             placeholder="ex) 123456789a!"
             required
-            // FIXME: 개발용
-            defaultValue="123456789a!"
             error={errors.password?.message}
             {...register("password", {
               required: { value: true, message: "비밀번호를 입력해주세요!" },

@@ -6,6 +6,7 @@ import { useGetDetailChampion } from "@src/query";
 
 import Animate from "@src/components/Animate";
 import Skeleton from "@src/components/Common/Skeleton";
+import Overlay from "@src/components/Common/Overlay";
 import ChampionSkill from "@src/components/Riot/Champion/ChampionSkill";
 
 import type { RiotChampionName } from "@src/types";
@@ -30,23 +31,45 @@ const ChampionCard: React.FC<Props> = ({ name, initialData }) => {
 
   const { stats, info } = champion;
 
+  const randomSkinIndex = Math.floor(Math.random() * champion.skins.length);
+
   return (
     <article
       className="relative flex flex-col lg:flex-row mx-16 bg-main-bg rounded-lg max-h-[545px] overflow-x-hidden overflow-y-auto scroll"
       onClick={(e) => e.stopPropagation()}
     >
-      {/* 좌측 이미지 */}
-      <figure className="hidden xs:inline-block xs:absolute lg:sticky right-6 top-6 lg:top-0 w-44 xssm:w-32 lg:w-auto lg:inline-block shrink-0">
+      {/* 챔피언 이미지 ( 584px 이상인 경우 ) */}
+      <figure className="hidden xssm:inline-block xs:absolute lg:sticky right-6 top-6 lg:top-0 w-44 xssm:w-32 lg:w-auto shrink-0">
         <img
-          src={champion.skins[0].src}
+          src={champion.skins[randomSkinIndex].src}
           alt={`${champion.name} 이미지`}
           className="lg:w-full lg:h-full"
           onDragStart={(e) => e.preventDefault()}
         />
+        <Overlay.Absolute className="bg-gradient-to-b from-black/0 to-black/80">
+          <span className="absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap font-bold text-main-text text-xs lg:text-lg">
+            {champion.splashs[randomSkinIndex].name}
+          </span>
+        </Overlay.Absolute>
       </figure>
 
       {/* 우측 설명 */}
-      <section className="max-w-[500px] space-y-4 p-6">
+      <section className="w-auto space-y-4 p-6 xssm:w-[500px]">
+        {/* 챔피언 이미지 ( 584px 미만인 경우 ) */}
+        <figure className="inline-block xssm:hidden -mt-5 -mx-5 rounded-md overflow-hidden relative">
+          <img
+            src={champion.splashs[randomSkinIndex].src}
+            alt={`${champion.name} 이미지`}
+            className="w-full h-full"
+            onDragStart={(e) => e.preventDefault()}
+          />
+          <Overlay.Absolute className="bg-gradient-to-b from-black/0 to-black/80">
+            <span className="absolute bottom-2 left-1/2 -translate-x-1/2 font-bold text-main-text">
+              {champion.splashs[randomSkinIndex].name}
+            </span>
+          </Overlay.Absolute>
+        </figure>
+
         {/* 이름 */}
         <h2 className="text-main-text text-xl font-black">
           {champion.name} ( {champion.title} )
@@ -151,6 +174,9 @@ const ChampionCard: React.FC<Props> = ({ name, initialData }) => {
               {tip}
             </p>
           ))}
+          {champion.allytips.length === 0 && (
+            <p className="text-sm">아직 사용팁이 없습니다.</p>
+          )}
         </section>
 
         {/* 상대팁 */}
@@ -163,6 +189,9 @@ const ChampionCard: React.FC<Props> = ({ name, initialData }) => {
               {tip}
             </p>
           ))}
+          {champion.enemytips.length === 0 && (
+            <p className="text-sm">아직 상대팁이 없습니다.</p>
+          )}
         </section>
       </section>
     </article>

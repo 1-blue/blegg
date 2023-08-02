@@ -24,7 +24,7 @@ export const useFindManyHatedPostOfMe = (
       {
         getNextPageParam(lastPage) {
           return lastPage.length === count
-            ? lastPage[lastPage.length - 1].idx
+            ? lastPage[lastPage.length - 1].postIdx
             : null;
         },
         initialData: initialDatas && {

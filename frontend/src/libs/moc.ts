@@ -116,6 +116,68 @@ export const mocDetailChampion: ApiGetDetailChampionResponse = {
       src: "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Poppy_24.jpg",
     },
   ],
+  splashs: [
+    {
+      id: "78000",
+      name: "default",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_0.jpg",
+    },
+    {
+      id: "78001",
+      name: "녹서스 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_1.jpg",
+    },
+    {
+      id: "78002",
+      name: "롤리뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_2.jpg",
+    },
+    {
+      id: "78003",
+      name: "대장장이 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_3.jpg",
+    },
+    {
+      id: "78004",
+      name: "봉제인형 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_4.jpg",
+    },
+    {
+      id: "78005",
+      name: "전투 예복 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_5.jpg",
+    },
+    {
+      id: "78006",
+      name: "붉은 망치 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_6.jpg",
+    },
+    {
+      id: "78007",
+      name: "별 수호자 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_7.jpg",
+    },
+    {
+      id: "78014",
+      name: "눈꽃사슴 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_14.jpg",
+    },
+    {
+      id: "78015",
+      name: "마법공학 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_15.jpg",
+    },
+    {
+      id: "78016",
+      name: "우주비행사 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_16.jpg",
+    },
+    {
+      id: "78024",
+      name: "마녀 뽀삐",
+      src: "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Poppy_24.jpg",
+    },
+  ],
   skills: [
     {
       type: "P",

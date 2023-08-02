@@ -6,7 +6,7 @@ const SummonerRecord = () => {
     <ul className="mt-6 -mx-4 space-y-4">
       {Array(10)
         .fill(null)
-        .map((v, i) => (
+        .map((_v, i) => (
           <Square key={i} className="w-full h-32" />
         ))}
     </ul>

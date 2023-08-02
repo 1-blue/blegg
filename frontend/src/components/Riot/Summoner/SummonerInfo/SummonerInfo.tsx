@@ -4,6 +4,7 @@ import Skeleton from "@src/components/Common/Skeleton";
 
 import type { ApiGetSummonerResponse } from "@src/types/apis";
 import NotFound from "@src/components/Common/NotFound/NotFound";
+import { convertS3ImageURL } from "@src/libs";
 
 interface Props {
   /** 최근 전적을 검색할 소환사 이름 */
@@ -83,7 +84,9 @@ const SummonerInfo: React.FC<Props> = ({ name, initialData }) => {
         <section className="min-w-[320px] flex space-x-6 p-6 bg-main-box-bg border border-main-line rounded-md">
           {/* 티어 이미지 */}
           <img
-            src={`/images/emblem/${soloRank.tier.toLowerCase()}.png`}
+            src={convertS3ImageURL(
+              `/images/emblem/${soloRank.tier.toLowerCase()}.png`
+            )}
             alt={soloRank.tier.toLowerCase()}
             className="flex-shrink-0 w-28 h-28 bg-main-bg rounded-md"
           />
@@ -122,7 +125,7 @@ const SummonerInfo: React.FC<Props> = ({ name, initialData }) => {
         <section className="min-w-[320px] flex space-x-6 p-6 bg-main-box-bg border border-main-line rounded-md">
           {/* 티어 이미지 */}
           <img
-            src="/images/emblem/provisional.png"
+            src={convertS3ImageURL("/images/emblem/provisional.png")}
             alt="unranked"
             className="flex-shrink-0 w-28 h-28 bg-main-bg rounded-md"
           />
@@ -142,7 +145,9 @@ const SummonerInfo: React.FC<Props> = ({ name, initialData }) => {
         <section className="min-w-[320px] flex space-x-6 p-6 bg-main-box-bg border border-main-line rounded-md">
           {/* 티어 이미지 */}
           <img
-            src={`/images/emblem/${freeRank.tier.toLowerCase()}.png`}
+            src={convertS3ImageURL(
+              `/images/emblem/${freeRank.tier.toLowerCase()}.png`
+            )}
             alt={`${freeRank.tier.toLowerCase()}`}
             className="flex-shrink-0 w-28 h-28 bg-main-bg rounded-md"
           />
@@ -181,7 +186,7 @@ const SummonerInfo: React.FC<Props> = ({ name, initialData }) => {
         <section className="min-w-[320px] flex space-x-6 p-6 bg-main-box-bg border border-main-line rounded-md">
           {/* 티어 이미지 */}
           <img
-            src="/images/emblem/provisional.png"
+            src={convertS3ImageURL("/images/emblem/provisional.png")}
             alt="unranked"
             className="flex-shrink-0 w-28 h-28 bg-main-bg rounded-md"
           />

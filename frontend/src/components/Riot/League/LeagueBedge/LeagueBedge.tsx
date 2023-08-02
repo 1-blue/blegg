@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { convertS3ImageURL } from "@src/libs";
+
 import Animate from "@src/components/Animate";
 
 import type { ApiGetLeagueResponse } from "@src/types/apis";
@@ -20,7 +22,9 @@ const LeagueBedge: React.FC<Props> = ({ league, ranking }) => {
     >
       <span className="absolute top-2 left-3 text-sm">{ranking + 1}등</span>
       <img
-        src={`/images/emblem/${league.tier.toLowerCase()}.png`}
+        src={convertS3ImageURL(
+          `/images/emblem/${league.tier.toLowerCase()}.png`
+        )}
         className="w-20 h-20 rounded-full border-4 border-main-600 pointer-events-none"
       />
       <span>{league.summonerName}</span>

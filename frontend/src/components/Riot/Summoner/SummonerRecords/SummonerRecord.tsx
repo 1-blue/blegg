@@ -21,7 +21,7 @@ const SummonerRecord: React.FC<Props> = ({ match }) => {
   return (
     <li
       className={twMerge(
-        "min-w-[340px] xs:min-w-[512px] flex space-x-6 px-6 py-3 bg-main-box-bg border border-main-line rounded-md border-x-8",
+        "min-w-[320px] xs:min-w-[400px] flex space-x-6 px-6 py-3 bg-main-box-bg border border-main-line rounded-md border-x-8",
         match.info.win ? "border-x-blue-600" : "border-x-red-600"
       )}
     >
