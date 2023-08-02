@@ -1,0 +1,41 @@
+/**
+ * ( 메인 ) 샌드박스네트워크 어그로체
+ * https://noonnu.cc/font_page/738
+ * https://sandbox.co.kr/font
+ */
+@font-face {
+  font-family: "SBAggro";
+  src: url("/fonts/SBAggroB.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+}
+@font-face {
+  font-family: "SBAggro";
+  src: url("/fonts/SBAggroM.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: "SBAggro";
+  src: url("/fonts/SBAggroL.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+}
+
+/**
+ * ( 특수 ) 평창평화체
+ * https://noonnu.cc/font_page/950
+ * https://www.pc.go.kr/portal/intro/intro-summary/pcFont
+ */
+ @font-face {
+  font-family: "PyeongChangPeace";
+  src: url("/fonts/PyeongChangPeace-Bold.ttf") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PyeongChangPeace";
+  src: url("/fonts/PyeongChangPeace-Light.ttf") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+}
